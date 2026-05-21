@@ -466,8 +466,7 @@ export default function AssessmentPage() {
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="ADHD Parenting" width={32} height={32} />
-            <span className="text-sm font-medium text-foreground hidden sm:inline">ADHD Parenting Profile</span>
+            <span className="text-base font-semibold text-foreground">Mindful Mama</span>
           </div>
           {assessmentStep === "questions" && (
             <div className="flex items-center gap-3">
