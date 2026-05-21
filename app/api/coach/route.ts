@@ -91,6 +91,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { messages, profile } = body as { messages: Message[]; profile: Record<string, string> | null }
 
+    // Rate limiting: max 20 messages per request context (client enforces daily limit)
+    if (messages.filter(m => m.role === "user").length > 50) {
+      return NextResponse.json(
+        { error: "Conversation too long. Please start a new chat to continue." },
+        { status: 429 }
+      )
+    }
+
     const systemPrompt = buildSystemPrompt(profile)
 
     // Convert messages to Gemini format

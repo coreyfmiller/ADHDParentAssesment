@@ -486,7 +486,7 @@ export default function AssessmentPage() {
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo2.png" alt="Mindful Mama" className="h-8 w-auto" />
+            <Image src="/logo2.png" alt="Mindful Mama" width={120} height={32} className="h-8 w-auto" priority />
           </div>
           {assessmentStep === "questions" && (
             <div className="flex items-center gap-3">

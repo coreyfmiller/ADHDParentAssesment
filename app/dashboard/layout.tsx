@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Menu, X, Sparkles, Gift } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -31,7 +32,7 @@ export default function DashboardLayout({
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <img src="/logo2.png" alt="Mindful Mama" className="h-8 w-auto" />
+            <Image src="/logo2.png" alt="Mindful Mama" width={120} height={32} className="h-8 w-auto" />
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -94,6 +95,22 @@ export default function DashboardLayout({
       <main className="max-w-4xl mx-auto px-4 py-8 md:py-12">
         {children}
       </main>
+
+      {/* Disclaimer footer */}
+      <footer className="border-t border-border/50 mt-auto">
+        <div className="max-w-4xl mx-auto px-4 py-6 text-center">
+          <p className="text-xs text-muted-foreground/70 leading-relaxed">
+            This product is for educational and self-reflection purposes only. It is not a medical device, diagnostic tool, or substitute for professional mental health care. If you are in crisis, contact <a href="tel:988" className="underline">988</a> (Suicide &amp; Crisis Lifeline) or your local emergency services.
+          </p>
+          <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground/60 mt-2">
+            <a href="/terms" className="hover:text-foreground transition-colors">Terms</a>
+            <span>·</span>
+            <a href="/privacy" className="hover:text-foreground transition-colors">Privacy</a>
+            <span>·</span>
+            <a href="mailto:hello@mindfulmama.co" className="hover:text-foreground transition-colors">Contact</a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

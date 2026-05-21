@@ -67,16 +67,14 @@ export default function GuidesPage() {
         {guides.map((guide, idx) => (
           <div
             key={idx}
-            className="bg-card rounded-2xl p-6 border border-border hover:border-primary/30 transition-all cursor-pointer"
+            className="bg-card rounded-2xl p-6 border border-border"
           >
             <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center mb-3", guide.color)}>
               {guide.icon}
             </div>
             <h2 className="text-lg font-medium text-foreground mb-1">{guide.title}</h2>
             <p className="text-sm text-muted-foreground">{guide.description}</p>
-            {guide.available && (
-              <span className="inline-block mt-3 text-xs font-medium text-primary">Read guide →</span>
-            )}
+            <span className="inline-block mt-3 text-xs font-medium text-muted-foreground bg-secondary px-2 py-0.5 rounded">Coming soon</span>
           </div>
         ))}
       </div>

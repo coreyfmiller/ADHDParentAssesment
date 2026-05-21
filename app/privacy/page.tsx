@@ -132,7 +132,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-medium text-foreground mb-3">11. Contact</h2>
             <p>
               For privacy-related questions or to exercise your data rights, please
-              contact us at the email address provided on our website.
+              contact us at{" "}
+              <a href="mailto:hello@mindfulmama.co" className="underline">hello@mindfulmama.co</a>.
             </p>
           </section>
         </div>

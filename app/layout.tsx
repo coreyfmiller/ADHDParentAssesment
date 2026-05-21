@@ -8,7 +8,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'ADHD Parenting Profile — Discover How Your Brain Parents',
-  description: 'A clinically-informed assessment for neurodivergent mothers. Understand your parenting style, sensory triggers, and get concrete strategies that work with your brain.',
+  description: 'A research-informed assessment for neurodivergent mothers. Understand your parenting style, sensory triggers, and get concrete strategies that work with your brain.',
   icons: {
     icon: '/logo.png',
     apple: '/logo.png',
@@ -35,6 +35,8 @@ export default function RootLayout({
               <a href="/terms" className="hover:text-foreground transition-colors">Terms of Service</a>
               <span>·</span>
               <a href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</a>
+              <span>·</span>
+              <a href="mailto:hello@mindfulmama.co" className="hover:text-foreground transition-colors">Contact</a>
               <span>·</span>
               <span>© {new Date().getFullYear()} Mindful Mama</span>
             </div>

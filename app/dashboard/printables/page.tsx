@@ -1,7 +1,6 @@
 "use client"
 
-import { FileText, Download, Printer } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { FileText, Printer } from "lucide-react"
 
 const printables = [
   {
@@ -99,8 +98,26 @@ export default function PrintablesPage() {
                     <p className="text-sm text-muted-foreground">{printable.description}</p>
                   </div>
                   <button
+                    onClick={() => {
+                      const printWindow = window.open("", "_blank")
+                      if (printWindow) {
+                        printWindow.document.write(`
+                          <html><head><title>${printable.title}</title>
+                          <style>body{font-family:system-ui,sans-serif;padding:2rem;max-width:600px;margin:0 auto}h1{font-size:1.5rem;margin-bottom:0.5rem}p{color:#666;font-size:0.9rem}</style>
+                          </head><body>
+                          <h1>${printable.title}</h1>
+                          <p>${printable.description}</p>
+                          <hr style="margin:1.5rem 0"/>
+                          <p style="color:#999;font-size:0.75rem">Mindful Mama — mindfulmama.co</p>
+                          </body></html>
+                        `)
+                        printWindow.document.close()
+                        printWindow.print()
+                      }
+                    }}
                     className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
-                    title="Print"
+                    title={`Print ${printable.title}`}
+                    aria-label={`Print ${printable.title}`}
                   >
                     <Printer className="w-4 h-4" />
                   </button>

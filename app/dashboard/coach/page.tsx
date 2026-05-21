@@ -60,6 +60,16 @@ export default function CoachPage() {
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return
 
+    // Client-side daily limit (20 messages per day)
+    const today = new Date().toDateString()
+    const limitKey = `mindful-mama-coach-limit-${today}`
+    const currentCount = parseInt(localStorage.getItem(limitKey) || "0", 10)
+    if (currentCount >= 20) {
+      setError("You've reached your daily message limit (20). Come back tomorrow — your coach will be here.")
+      return
+    }
+    localStorage.setItem(limitKey, String(currentCount + 1))
+
     setError(null)
     const userMessage: Message = { role: "user", content: content.trim() }
     const updatedMessages = [...messages, userMessage]
@@ -106,7 +116,7 @@ export default function CoachPage() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-10rem)]">
+    <div className="flex flex-col h-[calc(100dvh-10rem)]">
       {/* Header */}
       <div className="mb-4">
         <div className="flex items-center gap-3 mb-1">
@@ -121,7 +131,7 @@ export default function CoachPage() {
       </div>
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto space-y-4 pb-4">
+      <div className="flex-1 overflow-y-auto space-y-4 pb-4" aria-live="polite" aria-label="Chat messages">
         {messages.length === 0 && (
           <div className="space-y-4">
             <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
