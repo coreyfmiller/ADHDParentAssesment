@@ -7,6 +7,7 @@ import { Paywall } from "@/components/assessment/paywall"
 import { ResultsReport } from "@/components/assessment/results-report"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
 
 type AssessmentStep = "intro" | "questions" | "paywall" | "results"
 
@@ -218,6 +219,14 @@ export default function AssessmentPage() {
         {assessmentStep === "intro" && (
           <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border text-center">
             <div className="mb-6">
+              <Image
+                src="/logo.png"
+                alt="ADHD Parenting Profile"
+                width={120}
+                height={120}
+                className="mx-auto mb-4"
+                priority
+              />
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
                 5 minutes · 10 questions · zero judgment
               </span>
@@ -267,6 +276,13 @@ export default function AssessmentPage() {
           <>
             {/* Section Label */}
             <header className="text-center mb-6">
+              <Image
+                src="/logo2.png"
+                alt="ADHD Parenting"
+                width={40}
+                height={40}
+                className="mx-auto mb-3"
+              />
               <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide uppercase">
                 {currentQuestion.section}
               </span>
