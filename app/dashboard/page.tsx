@@ -1,9 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText } from "lucide-react"
+import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles } from "lucide-react"
 
 const sections = [
+  {
+    href: "/dashboard/coach",
+    icon: Sparkles,
+    title: "AI Parenting Coach",
+    description: "Talk through what's happening right now. Personalized support for the hard moments.",
+    color: "bg-primary/10 text-primary",
+  },
   {
     href: "/dashboard/toolkit",
     icon: Zap,
