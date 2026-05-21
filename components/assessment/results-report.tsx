@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Brain, Clock, Volume2, Heart, Layout, Lightbulb, Users, Calendar, MessageCircle, BookOpen, Zap, Shield, Star, FileText, Coffee } from "lucide-react"
 
 interface QuestionOption {
@@ -511,6 +512,24 @@ export function ResultsReport({ answers, questions }: ResultsReportProps) {
           </p>
         </div>
       </div>
+
+      {/* Dashboard Access */}
+      <Link
+        href="/dashboard"
+        className="block bg-card rounded-3xl p-6 md:p-8 shadow-sm border border-primary/20 hover:border-primary/40 transition-all group"
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+              Your Full Toolkit Is Ready
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Emergency cards, scripts, daily templates, meal system, printables, and more — all in one place.
+            </p>
+          </div>
+          <span className="text-primary text-2xl flex-shrink-0 ml-4">→</span>
+        </div>
+      </Link>
 
       {/* Section-by-Section Results */}
       {Object.entries(sectionContent).map(([sectionName, section]) => {
