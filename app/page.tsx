@@ -506,6 +506,14 @@ export default function AssessmentPage() {
               </span>
             </div>
           )}
+          {assessmentStep === "results" && (
+            <a
+              href="/dashboard"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+            >
+              My Toolkit
+            </a>
+          )}
         </div>
       </header>
 
