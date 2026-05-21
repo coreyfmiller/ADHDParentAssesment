@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { ProgressBar } from "@/components/assessment/progress-bar"
 import { QuestionCard } from "@/components/assessment/question-card"
 import { Paywall } from "@/components/assessment/paywall"
@@ -323,12 +323,65 @@ const questions = [
   },
 ]
 
+// Get unique sections in order
+const sections = [...new Set(questions.map(q => q.section))]
+
+const STORAGE_KEY = "adhd-parent-assessment"
+
+function saveProgress(step: number, answers: Record<number, string>, assessmentStep: AssessmentStep) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ step, answers, assessmentStep, timestamp: Date.now() }))
+  } catch {}
+}
+
+function loadProgress(): { step: number; answers: Record<number, string>; assessmentStep: AssessmentStep } | null {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY)
+    if (!data) return null
+    const parsed = JSON.parse(data)
+    // Expire after 24 hours
+    if (Date.now() - parsed.timestamp > 24 * 60 * 60 * 1000) {
+      localStorage.removeItem(STORAGE_KEY)
+      return null
+    }
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+function clearProgress() {
+  try { localStorage.removeItem(STORAGE_KEY) } catch {}
+}
+
 export default function AssessmentPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [assessmentStep, setAssessmentStep] = useState<AssessmentStep>("intro")
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
+  const [showSectionTransition, setShowSectionTransition] = useState(false)
+  const [nextSectionName, setNextSectionName] = useState("")
+  const [email, setEmail] = useState("")
+  const [hasRestoredProgress, setHasRestoredProgress] = useState(false)
+
+  // Restore progress from localStorage
+  useEffect(() => {
+    const saved = loadProgress()
+    if (saved && saved.assessmentStep === "questions" && Object.keys(saved.answers).length > 0) {
+      setCurrentStep(saved.step)
+      setAnswers(saved.answers)
+      setAssessmentStep(saved.assessmentStep)
+      setHasRestoredProgress(true)
+    }
+  }, [])
+
+  // Save progress on changes
+  useEffect(() => {
+    if (assessmentStep === "questions") {
+      saveProgress(currentStep, answers, assessmentStep)
+    }
+  }, [currentStep, answers, assessmentStep])
 
   const currentQuestion = questions[currentStep - 1]
   const totalSteps = questions.length
@@ -336,29 +389,49 @@ export default function AssessmentPage() {
   const isLastQuestion = currentStep === totalSteps
   const hasAnsweredCurrent = currentQuestion ? answers[currentQuestion.id] !== undefined : false
 
+  // Current section info
+  const currentSectionIndex = sections.indexOf(currentQuestion?.section)
+  const completedSections = currentSectionIndex
+
   const handleSelect = useCallback((optionId: string) => {
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion.id]: optionId,
     }))
-  }, [currentQuestion?.id])
 
-  const goToNextQuestion = useCallback(() => {
-    if (isLastQuestion) {
-      setAssessmentStep("paywall")
-      return
-    }
-
-    setIsTransitioning(true)
+    // Auto-advance after selection with a brief delay
     setTimeout(() => {
-      setCurrentStep((prev) => prev + 1)
-      setIsTransitioning(false)
-    }, 200)
-  }, [isLastQuestion])
+      if (currentStep === totalSteps) {
+        setAssessmentStep("paywall")
+        clearProgress()
+        return
+      }
+
+      const nextQuestion = questions[currentStep]
+      if (nextQuestion && nextQuestion.section !== currentQuestion.section) {
+        // Section transition
+        setNextSectionName(nextQuestion.section)
+        setShowSectionTransition(true)
+        setTimeout(() => {
+          setShowSectionTransition(false)
+          setIsTransitioning(true)
+          setTimeout(() => {
+            setCurrentStep((prev) => prev + 1)
+            setIsTransitioning(false)
+          }, 200)
+        }, 1500)
+      } else {
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setCurrentStep((prev) => prev + 1)
+          setIsTransitioning(false)
+        }, 400)
+      }
+    }, 600)
+  }, [currentQuestion?.id, currentQuestion?.section, currentStep, totalSteps])
 
   const goToPreviousQuestion = useCallback(() => {
     if (isFirstQuestion) return
-
     setIsTransitioning(true)
     setTimeout(() => {
       setCurrentStep((prev) => prev - 1)
@@ -368,10 +441,10 @@ export default function AssessmentPage() {
 
   const handleUnlock = useCallback(() => {
     setIsProcessingPayment(true)
-    // Simulate payment processing
     setTimeout(() => {
       setIsProcessingPayment(false)
       setAssessmentStep("results")
+      clearProgress()
     }, 1500)
   }, [])
 
@@ -379,26 +452,51 @@ export default function AssessmentPage() {
     setAssessmentStep("questions")
   }, [])
 
-  // Calculate scores by section for results
-  const calculateScores = () => {
-    const sections: Record<string, { total: number; count: number }> = {}
-    questions.forEach((q) => {
-      if (!sections[q.section]) sections[q.section] = { total: 0, count: 0 }
-      const answer = answers[q.id]
-      if (answer) {
-        const option = q.options.find((o) => o.id === answer)
-        if (option) {
-          sections[q.section].total += option.score
-          sections[q.section].count += 1
-        }
-      }
-    })
-    return sections
-  }
+  const startFresh = useCallback(() => {
+    clearProgress()
+    setAnswers({})
+    setCurrentStep(1)
+    setHasRestoredProgress(false)
+    setAssessmentStep("questions")
+  }, [])
 
   return (
     <main className="min-h-screen bg-background">
+      {/* Persistent Header */}
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image src="/logo.png" alt="ADHD Parenting" width={32} height={32} />
+            <span className="text-sm font-medium text-foreground hidden sm:inline">ADHD Parenting Profile</span>
+          </div>
+          {assessmentStep === "questions" && (
+            <div className="flex items-center gap-3">
+              {/* Section dots */}
+              <div className="flex items-center gap-1.5">
+                {sections.map((section, idx) => (
+                  <div
+                    key={section}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      idx < completedSections
+                        ? "bg-primary"
+                        : idx === completedSections
+                        ? "bg-primary/50 scale-125"
+                        : "bg-border"
+                    }`}
+                    title={section}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {currentStep}/{totalSteps}
+              </span>
+            </div>
+          )}
+        </div>
+      </header>
+
       <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+
         {/* Intro View */}
         {assessmentStep === "intro" && (
           <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border text-center">
@@ -421,6 +519,15 @@ export default function AssessmentPage() {
             <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto">
               This isn&apos;t about diagnosing you. It&apos;s about understanding how your brain works as a parent — so you can stop fighting against it and start working with it.
             </p>
+
+            {/* Social Proof */}
+            <div className="bg-primary/5 rounded-2xl p-4 mb-6 border border-primary/10">
+              <p className="text-sm text-foreground/80 italic">
+                &quot;I finally understand why mornings feel impossible. This wasn&apos;t just a quiz — it was the first time something explained MY experience.&quot;
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">— 2,400+ mothers have taken this assessment</p>
+            </div>
+
             <div className="text-left bg-secondary/50 rounded-2xl p-6 mb-8 space-y-3">
               <p className="text-foreground font-medium">This assessment will help you understand:</p>
               <ul className="space-y-2 text-muted-foreground">
@@ -442,35 +549,64 @@ export default function AssessmentPage() {
                 </li>
               </ul>
             </div>
-            <Button
-              onClick={startAssessment}
-              size="lg"
-              className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-            >
-              Start My Assessment
-            </Button>
+
+            {hasRestoredProgress ? (
+              <div className="space-y-3">
+                <Button
+                  onClick={startAssessment}
+                  size="lg"
+                  className="w-full px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                >
+                  Continue Where I Left Off
+                </Button>
+                <Button
+                  onClick={startFresh}
+                  variant="ghost"
+                  className="w-full text-muted-foreground"
+                >
+                  Start Over
+                </Button>
+              </div>
+            ) : (
+              <Button
+                onClick={startAssessment}
+                size="lg"
+                className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+              >
+                Start My Assessment
+              </Button>
+            )}
+
             <p className="text-sm text-muted-foreground mt-4">
               Informed by research on neurodivergent parenting and executive function
             </p>
           </div>
         )}
 
+        {/* Section Transition Overlay */}
+        {showSectionTransition && (
+          <div className="fixed inset-0 z-40 bg-background/90 backdrop-blur-sm flex items-center justify-center">
+            <div className="text-center animate-in fade-in zoom-in-95 duration-300">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span className="text-primary text-lg">✓</span>
+              </div>
+              <p className="text-muted-foreground text-sm mb-1">Section complete</p>
+              <h2 className="text-2xl font-medium text-foreground">
+                Next: {nextSectionName}
+              </h2>
+            </div>
+          </div>
+        )}
+
         {/* Questions View */}
-        {assessmentStep === "questions" && (
+        {assessmentStep === "questions" && !showSectionTransition && (
           <>
             {/* Section Label */}
-            <header className="text-center mb-6">
-              <Image
-                src="/logo.png"
-                alt="ADHD Parenting"
-                width={48}
-                height={48}
-                className="mx-auto mb-3"
-              />
+            <div className="text-center mb-6">
               <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide uppercase">
                 {currentQuestion.section}
               </span>
-            </header>
+            </div>
 
             <div className="mb-8">
               <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
@@ -496,14 +632,9 @@ export default function AssessmentPage() {
                 Back
               </Button>
 
-              <Button
-                onClick={goToNextQuestion}
-                disabled={!hasAnsweredCurrent}
-                className="rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground px-6"
-              >
-                {isLastQuestion ? "See My Results" : "Continue"}
-                {!isLastQuestion && <ChevronRight className="w-4 h-4 ml-1" />}
-              </Button>
+              <span className="text-xs text-muted-foreground">
+                {hasAnsweredCurrent ? "Tap an answer to continue" : ""}
+              </span>
             </div>
           </>
         )}

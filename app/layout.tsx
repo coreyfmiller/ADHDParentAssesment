@@ -10,21 +10,8 @@ export const metadata: Metadata = {
   title: 'ADHD Parenting Profile — Discover How Your Brain Parents',
   description: 'A clinically-informed assessment for neurodivergent mothers. Understand your parenting style, sensory triggers, and get concrete strategies that work with your brain.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
 }
 
