@@ -266,7 +266,7 @@ export default function AssessmentPage() {
               Start My Assessment
             </Button>
             <p className="text-sm text-muted-foreground mt-4">
-              Designed by psychologists who specialize in neurodivergent parenting
+              Informed by research on neurodivergent parenting and executive function
             </p>
           </div>
         )}
