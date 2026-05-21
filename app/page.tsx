@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback, useEffect } from "react"
+import { track } from "@vercel/analytics"
 import { ProgressBar } from "@/components/assessment/progress-bar"
 import { QuestionCard } from "@/components/assessment/question-card"
 import { Paywall } from "@/components/assessment/paywall"
@@ -399,9 +400,18 @@ export default function AssessmentPage() {
       [currentQuestion.id]: optionId,
     }))
 
+    // Track the answer
+    track("question_answered", {
+      question_id: currentQuestion.id,
+      question_number: currentStep,
+      section: currentQuestion.section,
+    })
+
     // Auto-advance after selection with a brief delay
     setTimeout(() => {
       if (currentStep === totalSteps) {
+        track("assessment_completed")
+        track("paywall_viewed")
         setAssessmentStep("paywall")
         clearProgress()
         return
@@ -410,6 +420,7 @@ export default function AssessmentPage() {
       const nextQuestion = questions[currentStep]
       if (nextQuestion && nextQuestion.section !== currentQuestion.section) {
         // Section transition
+        track("section_completed", { section: currentQuestion.section })
         setNextSectionName(nextQuestion.section)
         setShowSectionTransition(true)
         setTimeout(() => {
@@ -440,19 +451,23 @@ export default function AssessmentPage() {
   }, [isFirstQuestion])
 
   const handleUnlock = useCallback(() => {
+    track("payment_initiated")
     setIsProcessingPayment(true)
     setTimeout(() => {
       setIsProcessingPayment(false)
+      track("results_unlocked")
       setAssessmentStep("results")
       clearProgress()
     }, 1500)
   }, [])
 
   const startAssessment = useCallback(() => {
+    track("assessment_started")
     setAssessmentStep("questions")
   }, [])
 
   const startFresh = useCallback(() => {
+    track("assessment_restarted")
     clearProgress()
     setAnswers({})
     setCurrentStep(1)

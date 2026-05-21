@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { track } from "@vercel/analytics"
 import { Check, Shield, Heart, Brain, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -27,6 +28,7 @@ export function Paywall({ onUnlock, isLoading = false }: PaywallProps) {
   const handleEmailSubmit = () => {
     if (email.includes("@")) {
       setEmailSubmitted(true)
+      track("email_captured")
       // In production: send to email service (ConvertKit, Mailchimp, etc.)
     }
   }
