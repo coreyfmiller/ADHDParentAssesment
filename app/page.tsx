@@ -222,8 +222,8 @@ export default function AssessmentPage() {
               <Image
                 src="/logo.png"
                 alt="ADHD Parenting Profile"
-                width={120}
-                height={120}
+                width={360}
+                height={360}
                 className="mx-auto mb-4"
                 priority
               />
