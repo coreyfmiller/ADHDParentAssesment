@@ -458,8 +458,13 @@ export default function AssessmentPage() {
       track("results_unlocked")
       setAssessmentStep("results")
       clearProgress()
+
+      // Save answers to localStorage so the AI coach can access the profile
+      try {
+        localStorage.setItem("mindful-mama-answers", JSON.stringify(answers))
+      } catch {}
     }, 1500)
-  }, [])
+  }, [answers])
 
   const startAssessment = useCallback(() => {
     track("assessment_started")

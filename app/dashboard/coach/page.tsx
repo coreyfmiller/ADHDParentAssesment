@@ -23,8 +23,26 @@ export default function CoachPage() {
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [profile, setProfile] = useState<Record<string, string> | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+
+  // Load profile from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("mindful-mama-answers")
+      if (saved) {
+        const answers = JSON.parse(saved) as Record<number, string>
+        // Build a readable profile summary from answers
+        const profileData: Record<string, string> = {}
+        // Map answer IDs to readable descriptions
+        Object.entries(answers).forEach(([qId, answerId]) => {
+          profileData[`q${qId}`] = answerId
+        })
+        setProfile(profileData)
+      }
+    } catch {}
+  }, [])
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -55,7 +73,7 @@ export default function CoachPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: updatedMessages,
-          profile: null, // TODO: load from localStorage after assessment
+          profile: profile,
         }),
       })
 

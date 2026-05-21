@@ -33,12 +33,45 @@ Your approach:
 3. Offer 1-2 concrete, low-friction strategies
 4. End with encouragement that doesn't feel hollow`
 
-  if (profile) {
-    prompt += `\n\nThis mother's assessment profile:\n`
-    Object.entries(profile).forEach(([section, subtype]) => {
-      prompt += `- ${section}: ${subtype}\n`
+  if (profile && Object.keys(profile).length > 0) {
+    prompt += `\n\nThis mother completed an assessment. Here are her answers (question number: answer chosen):\n`
+
+    const answerMeanings: Record<string, Record<string, string>> = {
+      q1: { smooth: "mornings are mostly smooth", "minor-chaos": "mornings have minor chaos", "daily-battle": "mornings are a daily battle", survival: "mornings are pure survival mode" },
+      q2: { transitions: "hardest part is transitions", remembering: "hardest part is remembering everything", "my-readiness": "hardest part is getting herself ready too", emotional: "hardest part is emotional meltdowns" },
+      q3: { accurate: "time estimation is accurate", "slightly-off": "underestimates time by 5-10 min", "way-off": "severe time blindness", "no-sense": "almost no internal sense of time" },
+      q4: { adapt: "adapts to disruptions well", rattled: "gets rattled but pushes through", cascade: "one disruption cascades into total collapse", freeze: "freezes when disrupted" },
+      q5: { rarely: "rarely the reason for lateness", sometimes: "sometimes loses track of time", often: "often can't manage self + kids simultaneously", "almost-always": "almost always the bottleneck" },
+      q6: { rarely: "rarely lies awake about forgotten tasks", weekly: "a few times a week", "most-nights": "most nights brain won't stop", constant: "constantly feels like dropping balls" },
+      q7: { remember: "usually remembers non-visible tasks", "sometimes-forget": "sometimes forgets", "often-gone": "out of sight = doesn't exist", "completely-gone": "repeatedly misses important things" },
+      q8: { "on-top": "stays on top of admin", batches: "handles admin in panicked batches", avoidance: "avoids until consequences", drowning: "drowning in admin pile" },
+      q9: { "yes-shared": "mental load shared equally", tries: "partner tries but she carries most", "no-idea": "partner has no idea", solo: "doing it completely alone" },
+      q10: { "very-rarely": "very rarely forgets for child", occasionally: "occasionally forgets", regularly: "regularly forgets multiple times a month", constantly: "constantly forgets with crushing shame" },
+      q11: { manage: "manages sensory input well", tense: "gets tense but holds together", snap: "snaps then feels terrible", shutdown: "shuts down or leaves the room" },
+      q12: { welcome: "welcomes physical touch", neutral: "neutral about touch", uncomfortable: "uncomfortable but pushes through", "cant-bear": "physically cannot bear being touched" },
+      q13: { fine: "handles background noise fine", distracting: "noise is distracting", agitating: "noise builds to agitation", unbearable: "noise becomes physically unbearable" },
+      q14: { recharge: "has time to recharge evenings", "tired-ok": "tired but manages bedtime", depleted: "completely depleted by evening", "guilt-spiral": "exhausted AND guilt spiraling" },
+      q15: { enjoy: "enjoys outings with kids", tolerate: "tolerates but needs recovery", dread: "dreads sensory-heavy environments", avoid: "avoids them whenever possible" },
+      q16: { rarely: "rarely feels like failing", sometimes: "sometimes feels like failing", often: "often compares and falls short", daily: "daily shame companion" },
+      q17: { "repair-quickly": "repairs quickly after rupture", "repair-delayed": "delayed repair", "guilt-spiral": "spirals into guilt and overcompensates", avoid: "shuts down and avoids repair" },
+      q18: { compassionate: "gentle self-talk", mixed: "mixed self-talk", harsh: "harsh inner critic", devastating: "devastating spirals for hours/days" },
+      q19: { open: "open about struggles", selective: "shares with few trusted people", "hide-most": "hides most struggles", "total-mask": "masks completely" },
+      q20: { neutral: "neutral about other moms", "mild-envy": "mild envy but redirects", inadequate: "deep inadequacy from comparison", broken: "feels fundamentally broken" },
+      q21: { works: "has working organization system", "start-strong": "starts strong then abandons systems", "nt-systems": "neurotypical systems don't work", "no-system": "given up on systems entirely" },
+      q22: { manageable: "household management is manageable", overwhelming: "overwhelmed by decisions", paralyzed: "paralyzed — can't start", invisible: "doesn't notice until crisis" },
+      q23: { "just-do": "just does boring tasks", "need-tricks": "needs stimulation tricks to start", "avoid-until-crisis": "avoids until crisis then panic-cleans", "cant-start": "physically cannot initiate boring tasks" },
+      q24: { tidy: "home is reasonably tidy", "lived-in": "lived-in with some clutter", piles: "piles everywhere but functional", overwhelming: "clutter is overwhelming" },
+      q25: { comfortable: "comfortable asking for help", "working-on-it": "working on asking for help", guilty: "feels guilty asking for help", impossible: "asking for help feels impossible" },
+    }
+
+    Object.entries(profile).forEach(([qKey, answerId]) => {
+      const meanings = answerMeanings[qKey]
+      if (meanings && meanings[answerId]) {
+        prompt += `- ${meanings[answerId]}\n`
+      }
     })
-    prompt += `\nUse this profile to personalize your responses. Reference their specific patterns when relevant. Don't repeat the profile back to them — just let it inform your advice.`
+
+    prompt += `\nUse this profile to personalize your responses. Reference her specific patterns when relevant — for example, if she mentions mornings, you know she's in survival mode. If she mentions noise, you know it builds to physical unbearability. Don't repeat the profile back to her — just let it inform your advice naturally.`
   }
 
   return prompt
