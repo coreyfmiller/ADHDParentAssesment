@@ -70,18 +70,11 @@ export function Paywall({ onUnlock, isLoading = false }: PaywallProps) {
         </div>
 
         {/* Social proof */}
-        <div className="bg-primary/5 rounded-2xl p-5 mb-6 border border-primary/10">
-          <p className="text-foreground/80 italic text-center text-sm">
-            &quot;I cried reading my results — not from shame, but because someone finally understood what mornings feel like in my house. I sent it to my husband and he finally gets it.&quot;
-          </p>
-          <p className="text-xs text-muted-foreground text-center mt-2">— Sarah, mom of 3, diagnosed at 34</p>
-        </div>
-
         <div className="bg-primary/5 rounded-2xl p-5 mb-8 border border-primary/10">
           <p className="text-foreground/80 italic text-center text-sm">
-            &quot;The repair scripts alone were worth it. I used one that night with my 7-year-old and she said &apos;Thanks for saying sorry, Mama.&apos; I&apos;m keeping this forever.&quot;
+            &quot;I finally felt understood — not judged. The strategies actually make sense for how my brain works, not how I wish it worked.&quot;
           </p>
-          <p className="text-xs text-muted-foreground text-center mt-2">— Jessica, mom of 2, self-identified ADHD</p>
+          <p className="text-xs text-muted-foreground text-center mt-2">— Illustrative example of user experience</p>
         </div>
 
         {/* Email capture */}

@@ -534,12 +534,12 @@ export default function AssessmentPage() {
               This isn&apos;t about diagnosing you. It&apos;s about understanding how your brain works as a parent — so you can stop fighting against it and start working with it.
             </p>
 
-            {/* Social Proof */}
+            {/* What mothers are saying */}
             <div className="bg-primary/5 rounded-2xl p-4 mb-6 border border-primary/10">
               <p className="text-sm text-foreground/80 italic">
-                &quot;I finally understand why mornings feel impossible. This wasn&apos;t just a quiz — it was the first time something explained MY experience.&quot;
+                &quot;This assessment helped me see my parenting challenges through a completely different lens.&quot;
               </p>
-              <p className="text-xs text-muted-foreground mt-1">— 2,400+ mothers have taken this assessment</p>
+              <p className="text-xs text-muted-foreground mt-1">— Illustrative example of user experience</p>
             </div>
 
             <div className="text-left bg-secondary/50 rounded-2xl p-6 mb-8 space-y-3">
