@@ -28,8 +28,8 @@ export default function DashboardLayout({
       {/* Top nav bar */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/dashboard" className="text-base font-semibold text-foreground">
-            Mindful Mama
+          <Link href="/dashboard" className="flex items-center gap-2">
+            <img src="/logo2.png" alt="Mindful Mama" className="h-8 w-auto" />
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
