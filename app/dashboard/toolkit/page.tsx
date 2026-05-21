@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Zap, ArrowLeft, Wind, Heart, Play, Brain, Hand } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -110,6 +110,19 @@ const toolkitCards: ToolkitCard[] = [
 
 export default function ToolkitPage() {
   const [activeCard, setActiveCard] = useState<string | null>(null)
+
+  // Listen for clicks on the nav link to this page to reset state
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const link = target.closest('a[href="/dashboard/toolkit"]')
+      if (link) {
+        setActiveCard(null)
+      }
+    }
+    document.addEventListener("click", handleClick)
+    return () => document.removeEventListener("click", handleClick)
+  }, [])
 
   const selectedCard = toolkitCards.find((c) => c.id === activeCard)
 
