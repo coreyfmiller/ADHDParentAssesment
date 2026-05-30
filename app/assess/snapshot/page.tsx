@@ -76,6 +76,18 @@ export default function SnapshotPage() {
 
   // Restore progress
   useEffect(() => {
+    // First check if we already have completed results
+    try {
+      const resultData = localStorage.getItem(RESULT_KEY)
+      if (resultData) {
+        const map = JSON.parse(resultData) as PatternMap
+        setPatternMap(map)
+        setAssessmentStep("results")
+        return
+      }
+    } catch {}
+
+    // Otherwise check for in-progress answers
     const saved = loadProgress()
     if (saved && Object.keys(saved.answers).length > 0) {
       setCurrentStep(saved.step)
@@ -431,6 +443,23 @@ export default function SnapshotPage() {
                 </Button>
               </Link>
             </div>
+
+            <Button
+              variant="ghost"
+              className="w-full text-muted-foreground text-sm"
+              onClick={() => {
+                try {
+                  localStorage.removeItem(RESULT_KEY)
+                  clearProgress()
+                } catch {}
+                setPatternMap(null)
+                setAnswers({})
+                setCurrentStep(1)
+                setAssessmentStep("intro")
+              }}
+            >
+              Retake Snapshot
+            </Button>
 
             {/* Note */}
             <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10 text-center">

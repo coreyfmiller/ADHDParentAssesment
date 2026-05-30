@@ -92,6 +92,16 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
   // Restore progress
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
+    // First check if we already have completed results
+    try {
+      const resultData = localStorage.getItem(RESULT_KEY)
+      if (resultData) {
+        setAssessmentStep("complete")
+        return
+      }
+    } catch {}
+
+    // Otherwise check for in-progress answers
     try {
       const data = localStorage.getItem(STORAGE_KEY)
       if (!data) return
@@ -107,7 +117,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
         setHasRestoredProgress(true)
       }
     } catch {}
-  }, [STORAGE_KEY])
+  }, [STORAGE_KEY, RESULT_KEY])
 
   // Save progress
   // eslint-disable-next-line react-hooks/rules-of-hooks
