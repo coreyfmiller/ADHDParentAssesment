@@ -11,6 +11,7 @@ import { QuestionCard } from "@/components/assessment/question-card"
 import { SNAPSHOT_SECTIONS, SNAPSHOT_META } from "@/lib/assessments/overwhelm-snapshot"
 import { calculatePatternMap } from "@/lib/assessments/routing"
 import type { PatternMap } from "@/lib/assessments/types"
+import { PATHWAYS } from "@/lib/assessments/types"
 
 type SnapshotStep = "intro" | "questions" | "results"
 
