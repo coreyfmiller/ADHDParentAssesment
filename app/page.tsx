@@ -62,6 +62,14 @@ export default function HomePage() {
       <div className="max-w-3xl mx-auto px-4 py-12 md:py-20">
         {/* Hero */}
         <section className="text-center mb-16">
+          <Image
+            src="/logo.png"
+            alt="Mindful Mama"
+            width={280}
+            height={280}
+            className="mx-auto mb-8"
+            priority
+          />
           <p className="text-sm font-medium text-primary mb-4 tracking-wide uppercase">
             For the mom Googling &quot;why is everything so hard&quot; at 11pm
           </p>
