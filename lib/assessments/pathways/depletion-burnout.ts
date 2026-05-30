@@ -214,6 +214,6 @@ export const DEPLETION_BURNOUT_META = {
   title: "Depletion & Burnout",
   subtitle: "Where your energy goes and why there's none left",
   description: "This reflection helps you understand whether you're tired, depleted, burned out, or something deeper. It's not about pushing through — it's about understanding what your body and mind actually need to recover.",
-  estimatedMinutes: 10,
+  estimatedMinutes: 7,
   questionCount: 15,
 }

@@ -192,6 +192,6 @@ export const SENSORY_OVERWHELM_META = {
   title: "Sensory & Overwhelm",
   subtitle: "Your nervous system's capacity and triggers",
   description: "This reflection maps how your nervous system processes sensory input — sound, touch, visual clutter, and compound overwhelm. Understanding your triggers is the first step to managing them instead of being ambushed by them.",
-  estimatedMinutes: 8,
+  estimatedMinutes: 6,
   questionCount: 13,
 }

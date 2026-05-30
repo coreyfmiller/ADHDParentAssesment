@@ -163,6 +163,6 @@ export const HORMONAL_PATTERNS_META = {
   title: "Hormonal Patterns",
   subtitle: "The cyclical nature of your capacity",
   description: "This reflection explores how hormonal fluctuations affect your executive function, mood, energy, and sensory sensitivity. Many women discover that what they thought was 'random bad days' is actually a predictable pattern they can plan around.",
-  estimatedMinutes: 8,
+  estimatedMinutes: 5,
   questionCount: 11,
 }

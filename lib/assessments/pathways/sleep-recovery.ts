@@ -163,6 +163,6 @@ export const SLEEP_RECOVERY_META = {
   title: "Sleep & Recovery",
   subtitle: "Why rest isn't reaching you",
   description: "This reflection explores the gap between how much sleep you get and how rested you feel. Sleep deprivation can mimic ADHD, worsen burnout, and destroy emotional regulation. Understanding your sleep patterns is often the highest-leverage intervention available.",
-  estimatedMinutes: 8,
+  estimatedMinutes: 5,
   questionCount: 11,
 }

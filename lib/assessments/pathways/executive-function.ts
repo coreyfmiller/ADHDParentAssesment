@@ -214,6 +214,6 @@ export const EXECUTIVE_FUNCTION_META = {
   title: "Executive Function & Daily Life",
   subtitle: "How your brain organizes, plans, and initiates",
   description: "This reflection explores your relationship with time, task initiation, working memory, organization, and attention. It's not about whether you're 'organized enough' — it's about understanding how your brain actually works so you can build systems that fit.",
-  estimatedMinutes: 10,
+  estimatedMinutes: 7,
   questionCount: 15,
 }

@@ -164,6 +164,6 @@ export const TRAUMA_NERVOUS_SYSTEM_META = {
   title: "Trauma & Nervous System",
   subtitle: "Survival strategies still running in the background",
   description: "This reflection gently explores whether patterns from your own childhood or past experiences are showing up in your parenting. It's not about blame or diagnosis — it's about understanding why certain moments trigger responses that feel bigger than the situation warrants, and recognizing that your survival strategies deserve compassion, not shame.",
-  estimatedMinutes: 10,
+  estimatedMinutes: 6,
   questionCount: 11,
 }

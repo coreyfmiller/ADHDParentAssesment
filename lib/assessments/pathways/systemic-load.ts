@@ -175,6 +175,6 @@ export const SYSTEMIC_LOAD_META = {
   title: "Systemic Load",
   subtitle: "The system is broken, not you",
   description: "This reflection maps the invisible labor you carry, the support gaps around you, and the structural barriers that make everything harder. Sometimes the problem isn't your brain — it's the system you're operating within.",
-  estimatedMinutes: 8,
+  estimatedMinutes: 5,
   questionCount: 12,
 }
