@@ -123,6 +123,12 @@ export default function AssessHub() {
               >
                 View Full Picture →
               </Link>
+              <Link
+                href="/assess/profile"
+                className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+              >
+                My Profile →
+              </Link>
             </div>
             <div className="space-y-3 mb-6">
               {patternMap.dimensions.map((dim) => (

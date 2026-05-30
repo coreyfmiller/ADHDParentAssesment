@@ -24,6 +24,8 @@ export default function CoachPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [profile, setProfile] = useState<Record<string, string> | null>(null)
+  const [patternMap, setPatternMap] = useState<Record<string, unknown> | null>(null)
+  const [pathwayResults, setPathwayResults] = useState<Record<string, unknown> | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -33,14 +35,25 @@ export default function CoachPage() {
       const saved = localStorage.getItem("mindful-mama-answers")
       if (saved) {
         const answers = JSON.parse(saved) as Record<number, string>
-        // Build a readable profile summary from answers
         const profileData: Record<string, string> = {}
-        // Map answer IDs to readable descriptions
         Object.entries(answers).forEach(([qId, answerId]) => {
           profileData[`q${qId}`] = answerId
         })
         setProfile(profileData)
       }
+
+      // Load pattern map
+      const mapData = localStorage.getItem("mindful-mama-pattern-map")
+      if (mapData) setPatternMap(JSON.parse(mapData))
+
+      // Load pathway results
+      const pathways = ["executive-function", "depletion-burnout", "sensory-overwhelm", "systemic-load", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system"]
+      const results: Record<string, unknown> = {}
+      for (const p of pathways) {
+        const data = localStorage.getItem(`mindful-mama-pathway-result-${p}`)
+        if (data) results[p] = JSON.parse(data)
+      }
+      if (Object.keys(results).length > 0) setPathwayResults(results)
     } catch {}
   }, [])
 
@@ -84,6 +97,8 @@ export default function CoachPage() {
         body: JSON.stringify({
           messages: updatedMessages,
           profile: profile,
+          patternMap: patternMap,
+          pathwayResults: pathwayResults,
         }),
       })
 
@@ -124,8 +139,8 @@ export default function CoachPage() {
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h1 className="text-xl font-medium text-foreground">Your ADHD Parenting Coach</h1>
-            <p className="text-xs text-muted-foreground">Personalized support for the hard moments</p>
+            <h1 className="text-xl font-medium text-foreground">Your Coach</h1>
+            <p className="text-xs text-muted-foreground">Personalized support based on your profile</p>
           </div>
         </div>
       </div>
