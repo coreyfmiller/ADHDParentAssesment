@@ -129,6 +129,33 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
     }
   }, [currentStep, answers, assessmentStep, STORAGE_KEY])
 
+  // Prevent browser back button from losing progress during quiz
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (assessmentStep !== "questions") return
+
+    const handlePopState = () => {
+      if (currentStep > 1) {
+        window.history.pushState(null, "", window.location.href)
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setCurrentStep((prev) => prev - 1)
+          setIsTransitioning(false)
+        }, 200)
+      } else {
+        window.history.pushState(null, "", window.location.href)
+        setAssessmentStep("intro")
+      }
+    }
+
+    window.history.pushState(null, "", window.location.href)
+    window.addEventListener("popstate", handlePopState)
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [assessmentStep, currentStep])
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const handleSelect = useCallback((optionId: string) => {
     setAnswers((prev) => ({

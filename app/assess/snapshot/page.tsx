@@ -104,6 +104,36 @@ export default function SnapshotPage() {
     }
   }, [currentStep, answers, assessmentStep])
 
+  // Prevent browser back button from losing progress during quiz
+  useEffect(() => {
+    if (assessmentStep !== "questions") return
+
+    const handlePopState = () => {
+      // If we're past question 1, go back a question instead of leaving
+      if (currentStep > 1) {
+        // Push state back so we stay on this page
+        window.history.pushState(null, "", window.location.href)
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setCurrentStep((prev) => prev - 1)
+          setIsTransitioning(false)
+        }, 200)
+      } else {
+        // On question 1, let them leave but progress is saved
+        window.history.pushState(null, "", window.location.href)
+        setAssessmentStep("intro")
+      }
+    }
+
+    // Push an extra history entry so back button triggers popstate instead of navigating away
+    window.history.pushState(null, "", window.location.href)
+    window.addEventListener("popstate", handlePopState)
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [assessmentStep, currentStep])
+
   const handleSelect = useCallback((optionId: string) => {
     setAnswers((prev) => ({
       ...prev,
