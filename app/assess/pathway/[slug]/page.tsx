@@ -8,6 +8,8 @@ import { ChevronLeft, ArrowRight, Brain, Battery, Volume2, Users, Moon, CloudMoo
 import { Button } from "@/components/ui/button"
 import { ProgressBar } from "@/components/assessment/progress-bar"
 import { QuestionCard } from "@/components/assessment/question-card"
+import { UpgradeGate } from "@/components/upgrade-gate"
+import { canAccessPathway } from "@/lib/access-control"
 import { EXECUTIVE_FUNCTION_SECTIONS, EXECUTIVE_FUNCTION_META } from "@/lib/assessments/pathways/executive-function"
 import { DEPLETION_BURNOUT_SECTIONS, DEPLETION_BURNOUT_META } from "@/lib/assessments/pathways/depletion-burnout"
 import { SENSORY_OVERWHELM_SECTIONS, SENSORY_OVERWHELM_META } from "@/lib/assessments/pathways/sensory-overwhelm"
@@ -17,7 +19,7 @@ import { SLEEP_RECOVERY_SECTIONS, SLEEP_RECOVERY_META } from "@/lib/assessments/
 import { TRAUMA_NERVOUS_SYSTEM_SECTIONS, TRAUMA_NERVOUS_SYSTEM_META } from "@/lib/assessments/pathways/trauma-nervous-system"
 import type { AssessmentSection } from "@/lib/assessments/types"
 
-type PathwayStep = "intro" | "questions" | "complete"
+type PathwayStep = "intro" | "questions" | "complete" | "locked"
 
 // Registry of available pathways
 const PATHWAY_REGISTRY: Record<string, { sections: AssessmentSection[]; meta: typeof EXECUTIVE_FUNCTION_META }> = {
@@ -101,6 +103,12 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
       }
     } catch {}
 
+    // Check access control
+    if (!canAccessPathway(slug)) {
+      setAssessmentStep("locked")
+      return
+    }
+
     // Otherwise check for in-progress answers
     try {
       const data = localStorage.getItem(STORAGE_KEY)
@@ -117,7 +125,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
         setHasRestoredProgress(true)
       }
     } catch {}
-  }, [STORAGE_KEY, RESULT_KEY])
+  }, [STORAGE_KEY, RESULT_KEY, slug])
 
   // Save progress
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -219,7 +227,13 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
     }, 200)
   }, [isFirstQuestion])
 
-  const startAssessment = () => setAssessmentStep("questions")
+  const startAssessment = () => {
+    if (!canAccessPathway(slug)) {
+      setAssessmentStep("locked")
+      return
+    }
+    setAssessmentStep("questions")
+  }
   const startFresh = () => {
     try { localStorage.removeItem(STORAGE_KEY) } catch {}
     setAnswers({})
@@ -432,6 +446,11 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
               </Button>
             </Link>
           </div>
+        )}
+
+        {/* Locked — Paywall */}
+        {assessmentStep === "locked" && (
+          <UpgradeGate context="pathway" />
         )}
       </div>
     </main>

@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react"
 import { Send, Sparkles, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { canAccessPremium } from "@/lib/access-control"
+import { UpgradeGate } from "@/components/upgrade-gate"
 
 interface Message {
   role: "user" | "assistant"
@@ -26,8 +28,14 @@ export default function CoachPage() {
   const [profile, setProfile] = useState<Record<string, string> | null>(null)
   const [patternMap, setPatternMap] = useState<Record<string, unknown> | null>(null)
   const [pathwayResults, setPathwayResults] = useState<Record<string, unknown> | null>(null)
+  const [hasAccess, setHasAccess] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+
+  // Check access on mount
+  useEffect(() => {
+    setHasAccess(canAccessPremium())
+  }, [])
 
   // Load profile from localStorage on mount
   useEffect(() => {
@@ -132,6 +140,10 @@ export default function CoachPage() {
 
   return (
     <div className="flex flex-col h-[calc(100dvh-10rem)]">
+      {!hasAccess ? (
+        <UpgradeGate context="coach" />
+      ) : (
+      <>
       {/* Header */}
       <div className="mb-4">
         <div className="flex items-center gap-3 mb-1">
@@ -231,6 +243,8 @@ export default function CoachPage() {
           <Send className="w-4 h-4" />
         </button>
       </form>
+      </>
+      )}
     </div>
   )
 }
