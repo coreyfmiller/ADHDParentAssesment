@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ADHD Parenting Profile — Discover How Your Brain Parents',
-  description: 'A research-informed assessment for neurodivergent mothers. Understand your parenting style, sensory triggers, and get concrete strategies that work with your brain.',
+  title: 'Mindful Mama — Understand Your Overwhelm. Get Strategies That Fit.',
+  description: 'Self-reflection tools for mothers navigating overwhelm, depletion, and neurodivergence. Understand your patterns, get practical strategies, and stop fighting against your brain.',
   icons: {
     icon: '/logo.png',
     apple: '/logo.png',

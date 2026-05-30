@@ -8,8 +8,12 @@ interface Message {
   content: string
 }
 
-function buildSystemPrompt(profile: Record<string, string> | null): string {
-  let prompt = `You are a warm, knowledgeable ADHD parenting coach called "Mindful Mama Coach." You support neurodivergent mothers who are navigating the challenges of parenting with executive function differences.
+function buildSystemPrompt(
+  profile: Record<string, string> | null,
+  patternMap?: { dimensions: { label: string; intensity: string; description: string }[] } | null,
+  pathwayResults?: Record<string, { pathwayId: string; completedAt: number }> | null
+): string {
+  let prompt = `You are a warm, knowledgeable parenting coach called "Mindful Mama Coach." You support mothers who are navigating overwhelm, depletion, neurodivergence, and the invisible weight of modern motherhood.
 
 Your tone is:
 - Warm and compassionate, never clinical or cold
@@ -21,7 +25,8 @@ Your rules:
 - You are NOT a therapist. Never diagnose, never provide medical advice, never recommend medication.
 - If someone is in crisis (self-harm, harm to children, severe depression), direct them to 988 Suicide & Crisis Lifeline or emergency services immediately.
 - You provide psychoeducation, practical strategies, communication scripts, and emotional support.
-- You acknowledge that ADHD is a neurological difference, not a character flaw.
+- You acknowledge that neurodivergence (ADHD, autism, etc.) involves neurological differences, not character flaws.
+- You understand that overwhelm can come from many sources: undiagnosed ADHD, postpartum depletion, autistic burnout, perimenopause, chronic sleep deprivation, trauma responses, or systemic overwhelm from doing too much with too little support.
 - You never say "just try harder" or suggest willpower-based solutions.
 - Keep responses concise — 2-4 paragraphs max unless they ask for more detail.
 - When providing scripts, put them in quotes so they're easy to copy.
@@ -29,7 +34,7 @@ Your rules:
 
 Your approach:
 1. Acknowledge what they're feeling
-2. Normalize it (connect to ADHD neurology when relevant)
+2. Normalize it (connect to neurology, depletion, or systemic factors when relevant)
 3. Offer 1-2 concrete, low-friction strategies
 4. End with encouragement that doesn't feel hollow`
 
@@ -74,6 +79,29 @@ Your approach:
     prompt += `\nUse this profile to personalize your responses. Reference her specific patterns when relevant — for example, if she mentions mornings, you know she's in survival mode. If she mentions noise, you know it builds to physical unbearability. Don't repeat the profile back to her — just let it inform your advice naturally.`
   }
 
+  // Add pattern map context from the Overwhelm Snapshot
+  if (patternMap && patternMap.dimensions && patternMap.dimensions.length > 0) {
+    prompt += `\n\nThis mother completed the Overwhelm Snapshot. Here is her current pattern map:\n`
+    for (const dim of patternMap.dimensions) {
+      prompt += `- ${dim.label}: ${dim.intensity} — ${dim.description}\n`
+    }
+    prompt += `\nUse this pattern map to understand her overall state. If she's at "critical" in physical depletion, don't suggest high-energy strategies. If her emotional bandwidth is "high," validate before strategizing. Match your advice to her actual capacity, not an idealized version of it.`
+  }
+
+  // Add pathway completion context
+  if (pathwayResults && Object.keys(pathwayResults).length > 0) {
+    const pathwayNames: Record<string, string> = {
+      "executive-function": "Executive Function & Daily Life",
+      "depletion-burnout": "Depletion & Burnout",
+      "sensory-overwhelm": "Sensory & Overwhelm",
+      "systemic-load": "Systemic Load",
+      "hormonal-patterns": "Hormonal Patterns",
+      "sleep-recovery": "Sleep & Recovery",
+      "trauma-nervous-system": "Trauma & Nervous System",
+    }
+    prompt += `\n\nShe has completed these deeper pathway reflections: ${Object.values(pathwayResults).map(r => pathwayNames[r.pathwayId] || r.pathwayId).join(", ")}. She's actively working on understanding these areas of her life. Reference these when relevant.`
+  }
+
   return prompt
 }
 
@@ -89,7 +117,12 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { messages, profile } = body as { messages: Message[]; profile: Record<string, string> | null }
+    const { messages, profile, patternMap, pathwayResults } = body as {
+      messages: Message[]
+      profile: Record<string, string> | null
+      patternMap?: { dimensions: { label: string; intensity: string; description: string }[] } | null
+      pathwayResults?: Record<string, { pathwayId: string; completedAt: number }> | null
+    }
 
     // Rate limiting: max 20 messages per request context (client enforces daily limit)
     if (messages.filter(m => m.role === "user").length > 50) {
@@ -99,7 +132,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const systemPrompt = buildSystemPrompt(profile)
+    const systemPrompt = buildSystemPrompt(profile, patternMap, pathwayResults)
 
     // Convert messages to Gemini format
     const geminiContents = messages.map((msg) => ({

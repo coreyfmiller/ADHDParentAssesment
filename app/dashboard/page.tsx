@@ -1,7 +1,10 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles } from "lucide-react"
+import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles, Compass } from "lucide-react"
+import type { PatternMap } from "@/lib/assessments/types"
+import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
 
 const sections = [
   {
@@ -49,6 +52,20 @@ const sections = [
 ]
 
 export default function DashboardPage() {
+  const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
+  const [contentRecs, setContentRecs] = useState<ContentRecommendation[]>([])
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("mindful-mama-pattern-map")
+      if (stored) {
+        const map = JSON.parse(stored) as PatternMap
+        setPatternMap(map)
+        setContentRecs(getContentRecommendations(map))
+      }
+    } catch {}
+  }, [])
+
   return (
     <div className="space-y-8">
       <div>
@@ -57,6 +74,86 @@ export default function DashboardPage() {
           Your parenting toolkit — built for how your brain actually works.
         </p>
       </div>
+
+      {/* Pattern Map Summary or CTA */}
+      {patternMap ? (
+        <Link
+          href="/assess"
+          className="block bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Compass className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                Your Pattern Map
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-5 gap-2">
+            {patternMap.dimensions.map((dim) => (
+              <div key={dim.dimension} className="space-y-1">
+                <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${
+                      dim.intensity === "critical" ? "bg-red-500" :
+                      dim.intensity === "high" ? "bg-amber-500" :
+                      dim.intensity === "moderate" ? "bg-yellow-500" :
+                      "bg-green-500"
+                    }`}
+                    style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                  />
+                </div>
+                <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+              </div>
+            ))}
+          </div>
+        </Link>
+      ) : (
+        <Link
+          href="/assess"
+          className="block bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Compass className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                Take the Overwhelm Snapshot
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                5 minutes to understand where your energy is going — and what to do about it.
+              </p>
+            </div>
+          </div>
+        </Link>
+      )}
+
+      {/* Personalized Recommendations */}
+      {contentRecs.length > 0 && (
+        <div>
+          <h2 className="text-sm font-medium text-primary uppercase tracking-wide mb-3">
+            Recommended for you right now
+          </h2>
+          <div className="space-y-2">
+            {contentRecs.filter(r => r.priority === "high").slice(0, 3).map((rec) => (
+              <Link
+                key={rec.href}
+                href={rec.href}
+                className="block bg-primary/5 rounded-xl p-4 border border-primary/10 hover:border-primary/30 transition-all"
+              >
+                <p className="text-sm font-medium text-foreground">{rec.title}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{rec.reason}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Quick access grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
