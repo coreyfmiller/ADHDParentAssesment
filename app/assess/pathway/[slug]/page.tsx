@@ -18,6 +18,7 @@ import { HORMONAL_PATTERNS_SECTIONS, HORMONAL_PATTERNS_META } from "@/lib/assess
 import { SLEEP_RECOVERY_SECTIONS, SLEEP_RECOVERY_META } from "@/lib/assessments/pathways/sleep-recovery"
 import { TRAUMA_NERVOUS_SYSTEM_SECTIONS, TRAUMA_NERVOUS_SYSTEM_META } from "@/lib/assessments/pathways/trauma-nervous-system"
 import type { AssessmentSection } from "@/lib/assessments/types"
+import { generatePathwayResults, type PathwayInsight } from "@/lib/assessments/pathway-results-generator"
 
 type PathwayStep = "intro" | "questions" | "complete" | "locked"
 
@@ -54,6 +55,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
   const [showSectionTransition, setShowSectionTransition] = useState(false)
   const [nextSectionName, setNextSectionName] = useState("")
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false)
+  const [insight, setInsight] = useState<PathwayInsight | null>(null)
 
   const STORAGE_KEY = `mindful-mama-pathway-${slug}`
   const RESULT_KEY = `mindful-mama-pathway-result-${slug}`
@@ -98,6 +100,9 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
     try {
       const resultData = localStorage.getItem(RESULT_KEY)
       if (resultData) {
+        const parsed = JSON.parse(resultData)
+        const generatedInsight = generatePathwayResults(meta.id, parsed.answers || {})
+        if (generatedInsight) setInsight(generatedInsight)
         setAssessmentStep("complete")
         return
       }
@@ -183,6 +188,9 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
           }))
           localStorage.removeItem(STORAGE_KEY)
         } catch {}
+        // Generate insight
+        const generatedInsight = generatePathwayResults(meta.id, finalAnswers)
+        if (generatedInsight) setInsight(generatedInsight)
         setAssessmentStep("complete")
         return
       }
@@ -391,58 +399,125 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
           </>
         )}
 
-        {/* Completion */}
+        {/* Completion — Rich Results */}
         {assessmentStep === "complete" && (
           <div className="space-y-6">
-            <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+            {/* Pattern Header */}
+            <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border">
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="text-primary text-2xl">✓</span>
               </div>
-              <h1 className="text-3xl font-medium text-foreground mb-3">
-                Reflection Complete
-              </h1>
-              <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto">
-                You&apos;ve completed the {meta.title} reflection. Your responses have been saved and will inform your personalized strategies and AI coach conversations.
-              </p>
-
-              {/* Dimension Summary */}
-              <div className="text-left bg-secondary/30 rounded-2xl p-6 mb-6">
-                <h3 className="text-sm font-medium text-foreground mb-3">What you explored:</h3>
-                <ul className="space-y-2">
-                  {sections.map((section) => (
-                    <li key={section.id} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span className="text-primary">✓</span>
-                      {section.title}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10 mb-6">
-                <p className="text-sm text-foreground/80">
-                  Your AI Coach now has context about your {meta.title.toLowerCase()} patterns. When you chat with the coach, it will tailor its support to what you&apos;ve shared here.
-                </p>
-              </div>
+              {insight ? (
+                <>
+                  <h1 className="text-2xl md:text-3xl font-medium text-foreground mb-3 text-center text-balance">
+                    {insight.patternTitle}
+                  </h1>
+                  <p className="text-muted-foreground leading-relaxed text-center max-w-lg mx-auto mb-6">
+                    {insight.patternDescription}
+                  </p>
+                  <div className="bg-secondary/30 rounded-2xl p-5">
+                    <p className="text-sm font-medium text-foreground mb-2">Your primary challenge:</p>
+                    <p className="text-sm text-foreground/80">{insight.primaryChallenge}</p>
+                    {insight.secondaryChallenges.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-border/50">
+                        <p className="text-xs text-muted-foreground mb-1.5">Also showing up:</p>
+                        <ul className="space-y-1">
+                          {insight.secondaryChallenges.map((c, i) => (
+                            <li key={i} className="text-xs text-muted-foreground flex items-center gap-1.5">
+                              <span className="text-primary">·</span> {c}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="text-center">
+                  <h1 className="text-2xl font-medium text-foreground mb-3">Reflection Complete</h1>
+                  <p className="text-muted-foreground">Your responses have been saved.</p>
+                </div>
+              )}
             </div>
 
-            {/* Next Steps */}
+            {/* Connection to Snapshot */}
+            {insight?.connectionToSnapshot && (
+              <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
+                <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">How this connects</p>
+                <p className="text-sm text-foreground/80 leading-relaxed">{insight.connectionToSnapshot}</p>
+              </div>
+            )}
+
+            {/* Strategies */}
+            {insight && insight.strategies.length > 0 && (
+              <div className="bg-card rounded-3xl p-8 shadow-sm border border-border">
+                <h2 className="text-lg font-medium text-foreground mb-1">What to do with this</h2>
+                <p className="text-sm text-muted-foreground mb-5">Matched to your specific pattern. Start with &quot;today&quot; — don&apos;t try all three at once.</p>
+                <div className="space-y-3">
+                  {insight.strategies.map((strategy, idx) => (
+                    <div key={idx} className="bg-secondary/20 rounded-2xl p-5">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-sm font-medium text-foreground">{strategy.title}</h3>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                          strategy.timeframe === "today" ? "bg-primary/10 text-primary" :
+                          strategy.timeframe === "this-week" ? "bg-amber-500/10 text-amber-600" :
+                          "bg-secondary text-muted-foreground"
+                        }`}>
+                          {strategy.timeframe}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{strategy.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Script */}
+            {insight?.script && (
+              <div className="bg-card rounded-3xl p-8 shadow-sm border border-border">
+                <h2 className="text-lg font-medium text-foreground mb-1">A script you can use today</h2>
+                <p className="text-xs text-muted-foreground mb-4 italic">{insight.script.context}</p>
+                <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
+                  <p className="text-foreground/90 leading-relaxed italic">&quot;{insight.script.words}&quot;</p>
+                </div>
+              </div>
+            )}
+
+            {/* Next Pathway Suggestion */}
+            {insight?.nextPathwaySuggestion && (
+              <div className="bg-secondary/30 rounded-2xl p-5 border border-border/50">
+                <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">Explore next</p>
+                <h3 className="text-base font-medium text-foreground mb-1">{insight.nextPathwaySuggestion.title}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{insight.nextPathwaySuggestion.reason}</p>
+                <Link
+                  href={`/assess/pathway/${insight.nextPathwaySuggestion.slug}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                >
+                  Begin this reflection
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            )}
+
+            {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/assess" className="flex-1">
+              <Link href="/assess/profile" className="flex-1">
                 <Button variant="outline" className="w-full rounded-xl">
-                  Explore More Pathways
+                  View My Profile
                 </Button>
               </Link>
               <Link href="/dashboard/coach" className="flex-1">
                 <Button className="w-full rounded-xl">
-                  Talk to AI Coach
+                  Talk to Coach
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </div>
 
-            <Link href="/dashboard" className="block">
+            <Link href="/assess" className="block">
               <Button variant="ghost" className="w-full rounded-xl text-muted-foreground">
-                Go to My Toolkit
+                Back to All Pathways
               </Button>
             </Link>
           </div>
