@@ -70,9 +70,6 @@ export default function HomePage() {
             className="mx-auto mb-8"
             priority
           />
-          <p className="text-sm font-medium text-primary mb-4 tracking-wide uppercase">
-            For the mom Googling &quot;why is everything so hard&quot; at 11pm
-          </p>
           <h1 className="text-4xl md:text-5xl font-medium text-foreground mb-6 text-balance leading-tight">
             It&apos;s not just you.<br />It&apos;s not just one thing.<br />Let&apos;s untangle it all.
           </h1>
