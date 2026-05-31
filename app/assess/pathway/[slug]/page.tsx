@@ -19,6 +19,7 @@ import { SLEEP_RECOVERY_SECTIONS, SLEEP_RECOVERY_META } from "@/lib/assessments/
 import { TRAUMA_NERVOUS_SYSTEM_SECTIONS, TRAUMA_NERVOUS_SYSTEM_META } from "@/lib/assessments/pathways/trauma-nervous-system"
 import type { AssessmentSection } from "@/lib/assessments/types"
 import { generatePathwayResults, type PathwayInsight } from "@/lib/assessments/pathway-results-generator"
+import { getTransitionCopy, getSectionOpener } from "@/lib/assessments/micro-validations"
 
 type PathwayStep = "intro" | "questions" | "complete" | "locked"
 
@@ -214,7 +215,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
             setCurrentStep((prev) => prev + 1)
             setIsTransitioning(false)
           }, 200)
-        }, 1200)
+        }, 2800)
       } else {
         setIsTransitioning(true)
         setTimeout(() => {
@@ -347,15 +348,23 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
 
         {/* Section Transition */}
         {showSectionTransition && (
-          <div className="fixed inset-0 z-40 bg-background/90 backdrop-blur-sm flex items-center justify-center">
-            <div className="text-center animate-in fade-in zoom-in-95 duration-300">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+          <div className="fixed inset-0 z-40 bg-background/90 backdrop-blur-sm flex items-center justify-center px-6">
+            <div className="text-center max-w-md animate-in fade-in zoom-in-95 duration-300">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
                 <span className="text-primary text-lg">✓</span>
               </div>
-              <p className="text-muted-foreground text-sm mb-1">Section complete</p>
-              <h2 className="text-2xl font-medium text-foreground">
-                Next: {nextSectionName}
-              </h2>
+              <p className="text-foreground/70 text-sm leading-relaxed mb-4">
+                {getTransitionCopy(
+                  sections[currentSectionIndex]?.id || "",
+                  sections[currentSectionIndex + 1]?.id || ""
+                ).acknowledgment}
+              </p>
+              <p className="text-foreground font-medium">
+                {getTransitionCopy(
+                  sections[currentSectionIndex]?.id || "",
+                  sections[currentSectionIndex + 1]?.id || ""
+                ).bridge}
+              </p>
             </div>
           </div>
         )}
@@ -364,9 +373,19 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
         {assessmentStep === "questions" && !showSectionTransition && (
           <>
             <div className="text-center mb-6">
-              <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide uppercase">
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide uppercase mb-2">
                 {sections[currentSectionIndex].title}
               </span>
+              {/* Section opener — only show on first question of each section */}
+              {(() => {
+                const sectionStart = sections.slice(0, currentSectionIndex).reduce((sum, s) => sum + s.questions.length, 0)
+                const isFirstInSection = currentStep - 1 === sectionStart
+                const opener = getSectionOpener(sections[currentSectionIndex].id)
+                if (isFirstInSection && opener) {
+                  return <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">{opener}</p>
+                }
+                return null
+              })()}
             </div>
 
             <div className="mb-8">
