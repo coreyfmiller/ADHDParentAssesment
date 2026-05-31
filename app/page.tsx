@@ -194,10 +194,6 @@ export default function HomePage() {
                   <span className="text-primary mt-0.5">✓</span>
                   Practical strategies that work with your brain, not against it
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-0.5">✓</span>
-                  Built specifically for mothers navigating overwhelm
-                </li>
               </ul>
             </div>
             <div className="bg-card rounded-2xl p-6 border border-border">
