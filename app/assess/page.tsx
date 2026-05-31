@@ -34,6 +34,7 @@ const STORAGE_KEY = "mindful-mama-pattern-map"
 
 export default function AssessHub() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
+  const [completedSlugs, setCompletedSlugs] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     try {
@@ -42,6 +43,17 @@ export default function AssessHub() {
         setPatternMap(JSON.parse(stored))
       }
     } catch {}
+
+    // Check which pathways are completed
+    const completed = new Set<string>()
+    for (const p of PATHWAYS) {
+      try {
+        if (localStorage.getItem(`mindful-mama-pathway-result-${p.slug}`)) {
+          completed.add(p.slug)
+        }
+      } catch {}
+    }
+    setCompletedSlugs(completed)
   }, [])
 
   const hasCompletedSnapshot = patternMap !== null
@@ -198,6 +210,7 @@ export default function AssessHub() {
               const isRecommended = patternMap?.recommendedPathways.some(
                 (r) => r.pathwayId === pathway.id
               )
+              const isCompleted = completedSlugs.has(pathway.slug)
 
               return (
                 <div
@@ -206,16 +219,21 @@ export default function AssessHub() {
                     pathway.available
                       ? "border-border hover:border-primary/30 hover:shadow-sm"
                       : "border-border/50 opacity-60"
-                  } ${isRecommended ? "ring-2 ring-primary/20" : ""}`}
+                  } ${isRecommended && !isCompleted ? "ring-2 ring-primary/20" : ""} ${isCompleted ? "border-green-500/20 bg-green-500/[0.02]" : ""}`}
                 >
                   <div className="flex items-start gap-3">
-                    <div className={`w-10 h-10 rounded-xl ${pathway.color} flex items-center justify-center flex-shrink-0`}>
-                      <Icon className="w-5 h-5" />
+                    <div className={`w-10 h-10 rounded-xl ${isCompleted ? "bg-green-500/10 text-green-600" : pathway.color} flex items-center justify-center flex-shrink-0`}>
+                      {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <h3 className="text-sm font-medium text-foreground truncate">{pathway.title}</h3>
-                        {isRecommended && (
+                        {isCompleted && (
+                          <span className="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 font-medium">
+                            Done
+                          </span>
+                        )}
+                        {isRecommended && !isCompleted && (
                           <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary" />
                         )}
                       </div>
@@ -226,7 +244,7 @@ export default function AssessHub() {
                             href={`/assess/pathway/${pathway.slug}`}
                             className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
                           >
-                            Begin reflection
+                            {isCompleted ? "View results" : "Begin reflection"}
                             <ArrowRight className="w-3 h-3" />
                           </Link>
                         ) : (
