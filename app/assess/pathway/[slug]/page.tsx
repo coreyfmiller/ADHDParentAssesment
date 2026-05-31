@@ -370,10 +370,13 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
                       setIsTransitioning(false)
                     }, 200)
                   }}
-                  className="rounded-xl animate-in fade-in duration-300"
+                  className="rounded-xl"
                 >
                   Continue
                 </Button>
+              )}
+              {!transitionReady && (
+                <div className="h-10" />
               )}
             </div>
           </div>

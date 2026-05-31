@@ -344,10 +344,13 @@ export default function SnapshotPage() {
               {transitionReady && (
                 <Button
                   onClick={dismissTransition}
-                  className="rounded-xl animate-in fade-in duration-300"
+                  className="rounded-xl"
                 >
                   Continue
                 </Button>
+              )}
+              {!transitionReady && (
+                <div className="h-10" />
               )}
             </div>
           </div>
