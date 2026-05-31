@@ -55,6 +55,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [showSectionTransition, setShowSectionTransition] = useState(false)
   const [nextSectionName, setNextSectionName] = useState("")
+  const [transitionReady, setTransitionReady] = useState(false)
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false)
   const [insight, setInsight] = useState<PathwayInsight | null>(null)
 
@@ -207,15 +208,9 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
 
       if (nextSectionIdx !== currentSectionIdx) {
         setNextSectionName(sections[nextSectionIdx].title)
+        setTransitionReady(false)
         setShowSectionTransition(true)
-        setTimeout(() => {
-          setShowSectionTransition(false)
-          setIsTransitioning(true)
-          setTimeout(() => {
-            setCurrentStep((prev) => prev + 1)
-            setIsTransitioning(false)
-          }, 200)
-        }, 2800)
+        setTimeout(() => setTransitionReady(true), 800)
       } else {
         setIsTransitioning(true)
         setTimeout(() => {
@@ -359,12 +354,27 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
                   sections[currentSectionIndex + 1]?.id || ""
                 ).acknowledgment}
               </p>
-              <p className="text-foreground font-medium">
+              <p className="text-foreground font-medium mb-6">
                 {getTransitionCopy(
                   sections[currentSectionIndex]?.id || "",
                   sections[currentSectionIndex + 1]?.id || ""
                 ).bridge}
               </p>
+              {transitionReady && (
+                <Button
+                  onClick={() => {
+                    setShowSectionTransition(false)
+                    setIsTransitioning(true)
+                    setTimeout(() => {
+                      setCurrentStep((prev) => prev + 1)
+                      setIsTransitioning(false)
+                    }, 200)
+                  }}
+                  className="rounded-xl animate-in fade-in duration-300"
+                >
+                  Continue
+                </Button>
+              )}
             </div>
           </div>
         )}

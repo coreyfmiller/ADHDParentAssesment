@@ -56,6 +56,7 @@ export default function SnapshotPage() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [showSectionTransition, setShowSectionTransition] = useState(false)
   const [nextSectionName, setNextSectionName] = useState("")
+  const [transitionReady, setTransitionReady] = useState(false)
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false)
 
   const totalSteps = allQuestions.length
@@ -169,15 +170,10 @@ export default function SnapshotPage() {
 
       if (nextSectionIdx !== currentSectionIdx) {
         setNextSectionName(SNAPSHOT_SECTIONS[nextSectionIdx].title)
+        setTransitionReady(false)
         setShowSectionTransition(true)
-        setTimeout(() => {
-          setShowSectionTransition(false)
-          setIsTransitioning(true)
-          setTimeout(() => {
-            setCurrentStep((prev) => prev + 1)
-            setIsTransitioning(false)
-          }, 200)
-        }, 2800)
+        // Show the continue button after a brief pause to let her read
+        setTimeout(() => setTransitionReady(true), 800)
       } else {
         setIsTransitioning(true)
         setTimeout(() => {
@@ -199,6 +195,15 @@ export default function SnapshotPage() {
 
   const startAssessment = useCallback(() => {
     setAssessmentStep("questions")
+  }, [])
+
+  const dismissTransition = useCallback(() => {
+    setShowSectionTransition(false)
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentStep((prev) => prev + 1)
+      setIsTransitioning(false)
+    }, 200)
   }, [])
 
   const startFresh = useCallback(() => {
@@ -330,12 +335,20 @@ export default function SnapshotPage() {
                   SNAPSHOT_SECTIONS[currentSectionIndex + 1]?.id || ""
                 ).acknowledgment}
               </p>
-              <p className="text-foreground font-medium">
+              <p className="text-foreground font-medium mb-6">
                 {getTransitionCopy(
                   SNAPSHOT_SECTIONS[currentSectionIndex]?.id || "",
                   SNAPSHOT_SECTIONS[currentSectionIndex + 1]?.id || ""
                 ).bridge}
               </p>
+              {transitionReady && (
+                <Button
+                  onClick={dismissTransition}
+                  className="rounded-xl animate-in fade-in duration-300"
+                >
+                  Continue
+                </Button>
+              )}
             </div>
           </div>
         )}
