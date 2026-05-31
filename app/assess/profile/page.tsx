@@ -211,7 +211,7 @@ export default function ProfilePage() {
                   <span className="text-green-600 mt-0.5 flex-shrink-0">✓</span>
                   <div>
                     <p className="text-sm font-medium text-foreground">{strength.area}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{strength.description}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{strength.description}</p>
                   </div>
                 </div>
               ))}
@@ -238,7 +238,7 @@ export default function ProfilePage() {
                   <div>
                     <p className="text-sm font-medium text-foreground">{item.area}</p>
                     <p className="text-sm text-foreground/80 mt-1">{item.action}</p>
-                    <p className="text-xs text-muted-foreground mt-1 italic">{item.reason}</p>
+                    <p className="text-sm text-muted-foreground mt-1 italic">{item.reason}</p>
                   </div>
                 </div>
               ))}
@@ -269,7 +269,7 @@ export default function ProfilePage() {
             </div>
             <div className="flex-1">
               <h3 className="text-base font-medium text-foreground">Your coach knows all of this</h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 When you chat with the AI Coach, it has your full profile context. Ask it about any of these patterns.
               </p>
             </div>

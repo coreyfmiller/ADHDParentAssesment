@@ -372,7 +372,7 @@ export default function SummaryPage() {
             </div>
             <div className="flex-1">
               <h3 className="text-base font-medium text-foreground">Talk it through with your AI Coach</h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Your coach knows your patterns. Ask about strategies, scripts, or just vent.
               </p>
             </div>

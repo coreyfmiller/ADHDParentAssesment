@@ -467,7 +467,7 @@ export default function SnapshotPage() {
                         style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
                       />
                     </div>
-                    <p className="text-xs text-muted-foreground">{dim.description}</p>
+                    <p className="text-sm text-muted-foreground">{dim.description}</p>
                   </div>
                 ))}
               </div>

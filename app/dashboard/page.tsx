@@ -148,7 +148,7 @@ export default function DashboardPage() {
                 className="block bg-primary/5 rounded-xl p-4 border border-primary/10 hover:border-primary/30 transition-all"
               >
                 <p className="text-sm font-medium text-foreground">{rec.title}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{rec.reason}</p>
+                <p className="text-sm text-muted-foreground mt-0.5">{rec.reason}</p>
               </Link>
             ))}
           </div>

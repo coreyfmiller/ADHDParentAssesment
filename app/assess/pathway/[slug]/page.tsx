@@ -452,10 +452,10 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
                     <p className="text-sm text-foreground/80">{insight.primaryChallenge}</p>
                     {insight.secondaryChallenges.length > 0 && (
                       <div className="mt-3 pt-3 border-t border-border/50">
-                        <p className="text-xs text-muted-foreground mb-1.5">Also showing up:</p>
-                        <ul className="space-y-1">
+                        <p className="text-sm text-muted-foreground mb-2">Also showing up:</p>
+                        <ul className="space-y-1.5">
                           {insight.secondaryChallenges.map((c, i) => (
-                            <li key={i} className="text-xs text-muted-foreground flex items-center gap-1.5">
+                            <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
                               <span className="text-primary">·</span> {c}
                             </li>
                           ))}
@@ -475,7 +475,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
             {/* Connection to Snapshot */}
             {insight?.connectionToSnapshot && (
               <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
-                <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">How this connects</p>
+                <p className="text-sm font-medium text-primary uppercase tracking-wide mb-2">How this connects</p>
                 <p className="text-sm text-foreground/80 leading-relaxed">{insight.connectionToSnapshot}</p>
               </div>
             )}
@@ -509,7 +509,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
             {insight?.script && (
               <div className="bg-card rounded-3xl p-8 shadow-sm border border-border">
                 <h2 className="text-lg font-medium text-foreground mb-1">A script you can use today</h2>
-                <p className="text-xs text-muted-foreground mb-4 italic">{insight.script.context}</p>
+                <p className="text-sm text-muted-foreground mb-4 italic">{insight.script.context}</p>
                 <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
                   <p className="text-foreground/90 leading-relaxed italic">&quot;{insight.script.words}&quot;</p>
                 </div>
@@ -524,7 +524,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
               } catch {}
               return (
                 <div className="bg-secondary/30 rounded-2xl p-5 border border-border/50">
-                  <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">Explore next</p>
+                  <p className="text-sm font-medium text-primary uppercase tracking-wide mb-2">Explore next</p>
                   <h3 className="text-base font-medium text-foreground mb-1">{insight.nextPathwaySuggestion!.title}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{insight.nextPathwaySuggestion!.reason}</p>
                   <Link

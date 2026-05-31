@@ -188,7 +188,7 @@ export default function AssessHub() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground">{rec.reason}</p>
+                      <p className="text-sm text-muted-foreground">{rec.reason}</p>
                     </div>
                   ))}
                 </div>
@@ -237,7 +237,7 @@ export default function AssessHub() {
                           <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary" />
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground mb-3">{pathway.subtitle}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{pathway.subtitle}</p>
                       <div className="flex items-center gap-2">
                         {pathway.available ? (
                           <Link
