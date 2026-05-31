@@ -516,21 +516,27 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
               </div>
             )}
 
-            {/* Next Pathway Suggestion */}
-            {insight?.nextPathwaySuggestion && (
-              <div className="bg-secondary/30 rounded-2xl p-5 border border-border/50">
-                <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">Explore next</p>
-                <h3 className="text-base font-medium text-foreground mb-1">{insight.nextPathwaySuggestion.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{insight.nextPathwaySuggestion.reason}</p>
-                <Link
-                  href={`/assess/pathway/${insight.nextPathwaySuggestion.slug}`}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                >
-                  Begin this reflection
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            )}
+            {/* Next Pathway Suggestion — only show if not already completed */}
+            {insight?.nextPathwaySuggestion && (() => {
+              try {
+                const alreadyDone = localStorage.getItem(`mindful-mama-pathway-result-${insight.nextPathwaySuggestion.slug}`)
+                if (alreadyDone) return null
+              } catch {}
+              return (
+                <div className="bg-secondary/30 rounded-2xl p-5 border border-border/50">
+                  <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">Explore next</p>
+                  <h3 className="text-base font-medium text-foreground mb-1">{insight.nextPathwaySuggestion!.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{insight.nextPathwaySuggestion!.reason}</p>
+                  <Link
+                    href={`/assess/pathway/${insight.nextPathwaySuggestion!.slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                  >
+                    Begin this reflection
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              )
+            })()}
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3">

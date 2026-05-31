@@ -15,6 +15,7 @@ interface QuestionCardProps {
   options: Option[]
   selectedOption?: string
   onSelect: (optionId: string) => void
+  onSkip?: () => void
   isTransitioning?: boolean
 }
 
@@ -24,6 +25,7 @@ export function QuestionCard({
   options,
   selectedOption,
   onSelect,
+  onSkip,
   isTransitioning = false,
 }: QuestionCardProps) {
   return (
@@ -50,6 +52,14 @@ export function QuestionCard({
           />
         ))}
       </div>
+      {onSkip && (
+        <button
+          onClick={onSkip}
+          className="w-full mt-4 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          This doesn&apos;t apply to me — skip
+        </button>
+      )}
     </div>
   )
 }

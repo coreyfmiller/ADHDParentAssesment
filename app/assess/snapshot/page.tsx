@@ -385,6 +385,29 @@ export default function SnapshotPage() {
               options={currentQuestion.options.map((o) => ({ id: o.id, label: o.label }))}
               selectedOption={answers[currentQuestion.id]}
               onSelect={handleSelect}
+              onSkip={() => {
+                // Skip this question — advance without recording an answer
+                if (currentStep === totalSteps) {
+                  const map = calculatePatternMap(answers)
+                  setPatternMap(map)
+                  try { localStorage.setItem(RESULT_KEY, JSON.stringify(map)) } catch {}
+                  clearProgress()
+                  setAssessmentStep("results")
+                  return
+                }
+                const nextQuestion = allQuestions[currentStep]
+                const nextSectionIdx = SNAPSHOT_SECTIONS.findIndex((s) => s.questions.some((q) => q.id === nextQuestion.id))
+                const currentSectionIdx2 = SNAPSHOT_SECTIONS.findIndex((s) => s.questions.some((q) => q.id === currentQuestion.id))
+                if (nextSectionIdx !== currentSectionIdx2) {
+                  setNextSectionName(SNAPSHOT_SECTIONS[nextSectionIdx].title)
+                  setTransitionReady(false)
+                  setShowSectionTransition(true)
+                  setTimeout(() => setTransitionReady(true), 800)
+                } else {
+                  setIsTransitioning(true)
+                  setTimeout(() => { setCurrentStep((prev) => prev + 1); setIsTransitioning(false) }, 300)
+                }
+              }}
               isTransitioning={isTransitioning}
             />
 
