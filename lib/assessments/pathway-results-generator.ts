@@ -530,6 +530,12 @@ import { SYSTEMIC_LOAD_SECTIONS } from "./pathways/systemic-load"
 import { HORMONAL_PATTERNS_SECTIONS } from "./pathways/hormonal-patterns"
 import { SLEEP_RECOVERY_SECTIONS } from "./pathways/sleep-recovery"
 import { TRAUMA_NERVOUS_SYSTEM_SECTIONS } from "./pathways/trauma-nervous-system"
+import {
+  generateSystemicLoadResults,
+  generateHormonalResults,
+  generateSleepResults,
+  generateTraumaResults,
+} from "./pathway-results-custom"
 
 const SECTIONS_MAP: Record<string, AssessmentSection[]> = {
   "executive-function": EXECUTIVE_FUNCTION_SECTIONS,
@@ -557,6 +563,14 @@ export function generatePathwayResults(
       return generateDepletionResults(dims, answers)
     case "sensory-overwhelm":
       return generateSensoryResults(dims, answers)
+    case "systemic-load":
+      return generateSystemicLoadResults(dims, answers)
+    case "hormonal-patterns":
+      return generateHormonalResults(dims, answers)
+    case "sleep-recovery":
+      return generateSleepResults(dims, answers)
+    case "trauma-nervous-system":
+      return generateTraumaResults(dims, answers)
     default:
       return generateGenericResults(pathwayId, dims)
   }
