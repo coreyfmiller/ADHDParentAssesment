@@ -306,7 +306,7 @@ export default function SnapshotPage() {
                 size="lg"
                 className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
               >
-                Begin My Snapshot
+                Begin My Check-In
               </Button>
             )}
 
@@ -488,7 +488,7 @@ export default function SnapshotPage() {
                 setAssessmentStep("intro")
               }}
             >
-              Retake Snapshot
+              Retake Check-In
             </Button>
 
             {/* Note */}

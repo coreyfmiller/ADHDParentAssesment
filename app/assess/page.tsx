@@ -76,7 +76,7 @@ export default function AssessHub() {
           </p>
         </div>
 
-        {/* Overwhelm Snapshot — Entry Point */}
+        {/* Check-In — Entry Point */}
         <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -84,7 +84,7 @@ export default function AssessHub() {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-xl font-medium text-foreground">The Overwhelm Snapshot</h2>
+                <h2 className="text-xl font-medium text-foreground">Check In With Yourself</h2>
                 {hasCompletedSnapshot && (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/10 text-green-600 text-xs font-medium">
                     <CheckCircle2 className="w-3 h-3" />
@@ -93,7 +93,7 @@ export default function AssessHub() {
                 )}
               </div>
               <p className="text-muted-foreground mb-4">
-                Start here. A 5-minute reflection that maps your current state across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity. This tells you which deeper pathways will be most useful for you.
+                Start here. A 5-minute check-in that maps your current state across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity. This tells you which deeper pathways will be most useful for you.
               </p>
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                 <span>5 minutes</span>
@@ -104,7 +104,7 @@ export default function AssessHub() {
               </div>
               <Link href="/assess/snapshot">
                 <Button className="rounded-xl">
-                  {hasCompletedSnapshot ? "Retake Snapshot" : "Start Here"}
+                  {hasCompletedSnapshot ? "Check In Again" : "Start My Check-In"}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -189,7 +189,7 @@ export default function AssessHub() {
         <div>
           <h2 className="text-xl font-medium text-foreground mb-2">Deeper Pathways</h2>
           <p className="text-muted-foreground text-sm mb-6">
-            Each pathway explores a specific dimension of your experience. Take the Overwhelm Snapshot first to see which ones are most relevant for you — or explore any that resonate.
+            Each pathway explores a specific dimension of your experience. Start with the check-in to see which ones are most relevant for you — or explore any that resonate.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

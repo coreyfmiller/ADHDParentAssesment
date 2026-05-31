@@ -74,7 +74,7 @@ export default function HomePage() {
             For the mom Googling &quot;why is everything so hard&quot; at 11pm
           </p>
           <h1 className="text-4xl md:text-5xl font-medium text-foreground mb-6 text-balance leading-tight">
-            It&apos;s not just you.<br />It&apos;s not just one thing.<br />Let&apos;s untangle it.
+            It&apos;s not just you.<br />It&apos;s not just one thing.<br />Let&apos;s untangle it all.
           </h1>
           <p className="text-xl text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
             A self-reflection tool that helps mothers understand why everything feels harder than it should — and gives you strategies that actually fit your brain, your body, and your life.
@@ -84,7 +84,7 @@ export default function HomePage() {
               size="lg"
               className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
             >
-              Take the Overwhelm Snapshot
+              Check In With Yourself
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
@@ -133,7 +133,7 @@ export default function HomePage() {
             {[
               {
                 step: "1",
-                title: "Take the Overwhelm Snapshot",
+                title: "Check in with yourself",
                 description: "5 minutes. 15 questions. Maps where your energy is leaking across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity.",
               },
               {
@@ -234,14 +234,14 @@ export default function HomePage() {
               You deserve to understand yourself — not just push through.
             </h2>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Start with the Overwhelm Snapshot. Five minutes to see what&apos;s actually going on — and what to do about it.
+              Start with a 5-minute check-in. See what&apos;s actually going on — and what to do about it.
             </p>
             <Link href="/assess/snapshot">
               <Button
                 size="lg"
                 className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
               >
-                Begin My Snapshot
+                Start My Check-In
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>

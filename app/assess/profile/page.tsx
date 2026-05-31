@@ -81,11 +81,11 @@ export default function ProfilePage() {
           <Target className="w-12 h-12 text-muted-foreground mx-auto" />
           <h1 className="text-2xl font-medium text-foreground">Your Profile</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Complete the Overwhelm Snapshot and at least one deeper pathway to generate your personalized profile. The more pathways you complete, the richer and more accurate your profile becomes.
+            Complete the check-in and at least one deeper pathway to generate your personalized profile. The more pathways you complete, the richer and more accurate your profile becomes.
           </p>
           <Link href="/assess/snapshot">
             <Button className="rounded-xl">
-              Take the Overwhelm Snapshot
+              Start My Check-In
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>

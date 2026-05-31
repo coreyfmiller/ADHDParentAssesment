@@ -87,9 +87,9 @@ Your approach:
     prompt += `\nUse this profile to personalize your responses. Reference her specific patterns when relevant — for example, if she mentions mornings, you know she's in survival mode. If she mentions noise, you know it builds to physical unbearability. Don't repeat the profile back to her — just let it inform your advice naturally.`
   }
 
-  // Add pattern map context from the Overwhelm Snapshot
+  // Add pattern map context from the check-in
   if (patternMap && patternMap.dimensions && patternMap.dimensions.length > 0) {
-    prompt += `\n\nThis mother completed the Overwhelm Snapshot. Here is her current pattern map:\n`
+    prompt += `\n\nThis mother completed a self-check-in. Here is her current pattern map:\n`
     for (const dim of patternMap.dimensions) {
       prompt += `- ${dim.label}: ${dim.intensity} — ${dim.description}\n`
     }

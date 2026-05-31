@@ -194,11 +194,11 @@ export default function SummaryPage() {
           <Layers className="w-12 h-12 text-muted-foreground mx-auto" />
           <h1 className="text-2xl font-medium text-foreground">Your Integrated Picture</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Complete the Overwhelm Snapshot first to see how your patterns interact and stack. The more pathways you complete, the richer this picture becomes.
+            Complete the check-in first to see how your patterns interact and stack. The more pathways you complete, the richer this picture becomes.
           </p>
           <Link href="/assess/snapshot">
             <Button className="rounded-xl">
-              Take the Overwhelm Snapshot
+              Start My Check-In
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>

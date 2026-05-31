@@ -211,7 +211,7 @@ export const SNAPSHOT_SECTIONS: AssessmentSection[] = [
 export const SNAPSHOT_META = {
   id: "overwhelm-snapshot",
   slug: "snapshot",
-  title: "The Overwhelm Snapshot",
+  title: "Check In With Yourself",
   subtitle: "Where is your energy actually going?",
   description: "A 5-minute reflection that maps your current state across five dimensions. Not a diagnosis — a starting point for understanding what's stacking up.",
   estimatedMinutes: 5,

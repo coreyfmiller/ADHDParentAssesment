@@ -124,7 +124,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                Take the Overwhelm Snapshot
+                Check In With Yourself
               </h2>
               <p className="text-sm text-muted-foreground">
                 5 minutes to understand where your energy is going — and what to do about it.

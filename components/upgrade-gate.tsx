@@ -28,7 +28,7 @@ const contextMessages: Record<string, { title: string; subtitle: string }> = {
   },
   coach: {
     title: "Your AI Coach is ready — it already knows your patterns.",
-    subtitle: "Unlock personalized coaching conversations informed by your Overwhelm Snapshot and pathway reflections. No generic advice — just support that fits.",
+    subtitle: "Unlock personalized coaching conversations informed by your check-in and pathway reflections. No generic advice — just support that fits.",
   },
   dashboard: {
     title: "Your toolkit is built around your specific patterns.",
