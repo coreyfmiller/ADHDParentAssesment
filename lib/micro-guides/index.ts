@@ -2,13 +2,16 @@
 // Micro-Guides — Selection & Tracking
 // ============================================================
 
+import { MICRO_GUIDES as BATCH1 } from "./guides"
+import { MICRO_GUIDES_BATCH2 } from "./guides-batch2"
+import type { MicroGuide } from "./types"
 import type { PatternMap } from "../assessments/types"
 import type { Archetype } from "../archetypes"
-import { MICRO_GUIDES } from "./guides"
-import type { MicroGuide } from "./types"
 
 export * from "./types"
-export { MICRO_GUIDES } from "./guides"
+
+// Combine all guide batches
+export const MICRO_GUIDES: MicroGuide[] = [...BATCH1, ...MICRO_GUIDES_BATCH2]
 
 const READ_KEY = "mindful-mama-guides-read"
 const DAILY_KEY = "mindful-mama-guide-today"
