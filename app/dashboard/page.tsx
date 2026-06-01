@@ -78,7 +78,7 @@ export default function DashboardPage() {
       {/* One Thing Today */}
       {dailyAction && (
         <div className="bg-card rounded-2xl overflow-hidden border border-primary/20 shadow-sm">
-          <div className="aspect-[4/1] relative bg-secondary/20">
+          <div className="aspect-[3/1] relative bg-secondary/20">
             <Image
               src="/images/glowingseed.png"
               alt="One thing today"
