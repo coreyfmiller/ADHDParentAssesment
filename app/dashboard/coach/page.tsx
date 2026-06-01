@@ -14,6 +14,7 @@ import {
   updateMemoryFromSummary,
   buildMemoryPrompt,
 } from "@/lib/coach-memory"
+import { buildWhatWorkedPrompt } from "@/lib/engagement/what-worked"
 import type { CoachConversation } from "@/lib/coach-memory"
 
 interface Message {
@@ -190,7 +191,7 @@ export default function CoachPage() {
           profile: profile,
           patternMap: patternMap,
           pathwayResults: pathwayResults,
-          memory: buildMemoryPrompt() || null,
+          memory: (buildMemoryPrompt() + buildWhatWorkedPrompt()) || null,
         }),
       })
 

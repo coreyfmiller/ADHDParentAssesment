@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Menu, X, Sparkles, Gift, Compass } from "lucide-react"
+import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Menu, X, Sparkles, Gift, Share2, Compass } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -16,7 +16,7 @@ const navItems = [
   { href: "/dashboard/scripts", label: "Script Library", icon: MessageCircle },
   { href: "/dashboard/guides", label: "Guides", icon: BookOpen },
   { href: "/dashboard/printables", label: "Printables", icon: FileText },
-  { href: "/dashboard/refer", label: "Refer a Friend", icon: Gift },
+  { href: "/dashboard/share", label: "Share & Gift", icon: Share2 },
 ]
 
 export default function DashboardLayout({

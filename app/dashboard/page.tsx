@@ -16,6 +16,10 @@ import { OneThingInteractive } from "@/components/engagement/one-thing-interacti
 import { MicroWinLogger } from "@/components/engagement/micro-win-logger"
 import { WhatsHeavy } from "@/components/engagement/whats-heavy"
 import { EvidenceJournalCard } from "@/components/engagement/evidence-journal-card"
+import { MorningRitual } from "@/components/engagement/morning-ritual"
+import { TimeCapsuleWidget } from "@/components/engagement/time-capsule"
+import { WhatWorkedTracker } from "@/components/engagement/what-worked-tracker"
+import { MilestoneToast } from "@/components/engagement/milestone-toast"
 
 const sections = [
   {
@@ -60,6 +64,7 @@ export default function DashboardPage() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [contentRecs, setContentRecs] = useState<ContentRecommendation[]>([])
   const [archetype, setArchetype] = useState<Archetype | null>(null)
+  const [showRitual, setShowRitual] = useState(false)
 
   useEffect(() => {
     try {
@@ -70,11 +75,30 @@ export default function DashboardPage() {
         setContentRecs(getContentRecommendations(map))
       }
       setArchetype(getCurrentArchetype())
+
+      // Show morning ritual if she hasn't seen it today
+      const today = new Date().toDateString()
+      const lastRitual = localStorage.getItem("mindful-mama-ritual-last")
+      if (lastRitual !== today) {
+        setShowRitual(true)
+      }
     } catch {}
   }, [])
 
+  const dismissRitual = () => {
+    setShowRitual(false)
+    try {
+      localStorage.setItem("mindful-mama-ritual-last", new Date().toDateString())
+    } catch {}
+  }
+
   return (
     <div className="space-y-6">
+      {/* Morning Ritual Overlay — shows once per day */}
+      {showRitual && (
+        <MorningRitual patternMap={patternMap} onDismiss={dismissRitual} />
+      )}
+
       {/* Welcome */}
       <div>
         <h1 className="text-3xl font-medium text-foreground mb-2">Welcome back</h1>
@@ -102,6 +126,12 @@ export default function DashboardPage() {
 
       {/* What's Heavy — emotional release valve */}
       <WhatsHeavy patternMap={patternMap} />
+
+      {/* Time Capsule — letter to future self */}
+      <TimeCapsuleWidget />
+
+      {/* What Worked — personal strategy playbook */}
+      <WhatWorkedTracker />
 
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (
@@ -218,6 +248,9 @@ export default function DashboardPage() {
           Remember: pick <strong>one thing</strong> at a time. Not the whole toolkit. Just the one thing that will help you most today.
         </p>
       </div>
+
+      {/* Milestone celebrations — fixed toast */}
+      <MilestoneToast />
     </div>
   )
 }
