@@ -145,7 +145,7 @@ export function MicroWinLogger({ patternMap }: MicroWinLoggerProps) {
       {wins.length >= 3 && (
         <div className="border-t border-border/50 px-5 py-3 bg-secondary/20">
           <p className="text-xs text-muted-foreground text-center">
-            {wins.length} things done today. That&apos;s {wins.length} pieces of evidence you&apos;re not doing nothing.
+            {wins.length} things done today. That&apos;s{" "}{wins.length}{" "}pieces of evidence you&apos;re not doing nothing.
           </p>
         </div>
       )}
