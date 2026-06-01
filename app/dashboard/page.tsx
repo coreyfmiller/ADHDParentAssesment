@@ -143,42 +143,52 @@ export default function DashboardPage() {
 
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (
-        <Link
-          href="/assess"
-          className="block bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Compass className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                Your Pattern Map
-              </h2>
-              <p className="text-xs text-muted-foreground">
-                {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-5 gap-2">
-            {patternMap.dimensions.map((dim) => (
-              <div key={dim.dimension} className="space-y-1">
-                <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full ${
-                      dim.intensity === "critical" ? "bg-red-500" :
-                      dim.intensity === "high" ? "bg-amber-500" :
-                      dim.intensity === "moderate" ? "bg-yellow-500" :
-                      "bg-green-500"
-                    }`}
-                    style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                  />
-                </div>
-                <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+        <div className="space-y-3">
+          <Link
+            href="/assess"
+            className="block bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Compass className="w-5 h-5 text-primary" />
               </div>
-            ))}
-          </div>
-        </Link>
+              <div>
+                <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                  Your Pattern Map
+                </h2>
+                <p className="text-xs text-muted-foreground">
+                  {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-5 gap-2">
+              {patternMap.dimensions.map((dim) => (
+                <div key={dim.dimension} className="space-y-1">
+                  <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${
+                        dim.intensity === "critical" ? "bg-red-500" :
+                        dim.intensity === "high" ? "bg-amber-500" :
+                        dim.intensity === "moderate" ? "bg-yellow-500" :
+                        "bg-green-500"
+                      }`}
+                      style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                    />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+                </div>
+              ))}
+            </div>
+          </Link>
+          <Link
+            href="/assess/snapshot"
+            className="block bg-secondary/20 rounded-xl p-4 border border-border/50 hover:border-primary/20 transition-all text-center"
+          >
+            <p className="text-sm text-muted-foreground">
+              Patterns shift with seasons and life changes. <span className="text-primary font-medium">Check in again →</span>
+            </p>
+          </Link>
+        </div>
       ) : (
         <Link
           href="/assess"
