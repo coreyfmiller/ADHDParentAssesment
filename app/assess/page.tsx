@@ -267,13 +267,15 @@ export default function AssessHub() {
                     <p className="text-sm text-muted-foreground mb-3">{pathway.subtitle}</p>
                     <div className="flex items-center gap-2">
                       {pathway.available ? (
-                        <Link
-                          href={`/assess/pathway/${pathway.slug}`}
-                          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                        >
-                          {isCompleted ? "View results" : "Begin reflection"}
-                          <ArrowRight className="w-3 h-3" />
-                        </Link>
+                        <div className="flex items-center gap-3">
+                          <Link
+                            href={`/assess/pathway/${pathway.slug}`}
+                            className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                          >
+                            {isCompleted ? "Retake" : "Begin reflection"}
+                            <ArrowRight className="w-3 h-3" />
+                          </Link>
+                        </div>
                       ) : (
                         <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                           <Lock className="w-3 h-3" />
