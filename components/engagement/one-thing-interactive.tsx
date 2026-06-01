@@ -19,7 +19,7 @@ interface OneThingInteractiveProps {
   patternMap: PatternMap | null
 }
 
-const dayLabels = ["M", "T", "W", "T", "F", "S", "S"]
+const dayLabels = ["S", "M", "T", "W", "T", "F", "S"]
 
 export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
   const [entry, setEntry] = useState<OneThingEntry | null>(null)
@@ -153,7 +153,7 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
                   )}
                 </div>
                 <span className="text-[9px] text-muted-foreground/60">
-                  {dayLabels[new Date(day.date).getDay() === 0 ? 6 : new Date(day.date).getDay() - 1]}
+                  {dayLabels[new Date(day.date).getDay()]}
                 </span>
               </div>
             ))}
