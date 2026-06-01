@@ -19,12 +19,21 @@ export interface DailyAction {
  */
 export function getOneThingToday(patternMap: PatternMap | null): DailyAction {
   if (!patternMap) {
-    return {
-      action: "Take the check-in to discover what your brain and body need most right now.",
-      why: "You can't address what you can't see. Five minutes of honesty is the starting point.",
-      timeNeeded: "5 min",
-      category: "start",
-    }
+    // No assessment data yet — give real, universal micro-actions
+    const generalPool: DailyAction[] = [
+      { action: "Drink a full glass of water right now. Not coffee. Water.", why: "Dehydration impairs cognitive function by 15-20%. It's the lowest-effort intervention with measurable impact.", timeNeeded: "1 min", category: "physical" },
+      { action: "Write down the 3 things that MUST happen today. Only 3. Let your brain release the rest.", why: "Your working memory is overloaded. Externalizing the list frees cognitive resources for actually doing things.", timeNeeded: "2 min", category: "cognitive" },
+      { action: "Name your current emotional state out loud. Just name it. 'I feel overwhelmed.' 'I feel tired.' 'I feel fine.'", why: "Research shows that naming an emotion reduces its intensity. It moves the experience from the amygdala to the prefrontal cortex.", timeNeeded: "30 sec", category: "emotional" },
+      { action: "Step outside for 60 seconds. Feel the air. Look at something far away. Then come back in.", why: "Sixty seconds of natural light and distance vision resets your circadian rhythm and reduces cortisol. Minimum effective dose.", timeNeeded: "1 min", category: "physical" },
+      { action: "Put your hand on your chest for 10 seconds and take one slow breath. That's it.", why: "Self-touch activates the vagus nerve and signals safety to your nervous system. It's the fastest regulation tool you have.", timeNeeded: "10 sec", category: "emotional" },
+      { action: "Set one phone reminder for something you keep forgetting. Just one.", why: "Every task you offload to a reminder is one less thing your brain has to hold. That's not cheating — it's working with your brain.", timeNeeded: "1 min", category: "cognitive" },
+      { action: "Eat something with protein in the next hour. Anything. A handful of nuts. A cheese stick. An egg.", why: "Your brain runs on glucose and amino acids. If you've been running on coffee and adrenaline, your cognitive function is impaired by fuel deficit.", timeNeeded: "2 min", category: "physical" },
+      { action: "Say no to one thing today. The smallest, easiest no you can find.", why: "Every yes you don't mean costs emotional energy. One honest no today protects bandwidth for the things that actually matter.", timeNeeded: "1 min", category: "emotional" },
+      { action: "Lower one standard today. Intentionally. Cereal for dinner. Unwashed hair. Unfolded laundry. Pick one.", why: "Perfectionism in one area steals resources from every other area. Deliberately lowering one standard frees energy for things that actually matter.", timeNeeded: "0 min", category: "systems" },
+      { action: "Do one thing in the next hour that has nothing to do with being a mother. Read a page. Listen to a song. Look at something beautiful.", why: "Identity rebuilds through action, not reflection. Even 60 seconds of being a person — not a function — keeps the thread alive.", timeNeeded: "1 min", category: "identity" },
+    ]
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
+    return generalPool[dayOfYear % generalPool.length]
   }
 
   // Build a pool of actions based on elevated dimensions
