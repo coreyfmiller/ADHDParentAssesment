@@ -126,11 +126,12 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { messages, profile, patternMap, pathwayResults } = body as {
+    const { messages, profile, patternMap, pathwayResults, memory } = body as {
       messages: Message[]
       profile: Record<string, string> | null
       patternMap?: { dimensions: { label: string; intensity: string; description: string }[] } | null
       pathwayResults?: Record<string, { pathwayId: string; completedAt: number }> | null
+      memory?: string | null
     }
 
     // Rate limiting: max 20 messages per request context (client enforces daily limit)
@@ -141,7 +142,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const systemPrompt = buildSystemPrompt(profile, patternMap, pathwayResults)
+    let systemPrompt = buildSystemPrompt(profile, patternMap, pathwayResults)
+
+    // Append long-term memory if available
+    if (memory) {
+      systemPrompt += memory
+    }
 
     // Convert messages to Gemini format
     const geminiContents = messages.map((msg) => ({

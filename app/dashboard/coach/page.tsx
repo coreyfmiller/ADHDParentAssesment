@@ -1,10 +1,20 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Send, Sparkles, Loader2 } from "lucide-react"
+import { Send, Sparkles, Loader2, RotateCcw, Brain } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { canAccessPremium } from "@/lib/access-control"
 import { UpgradeGate } from "@/components/upgrade-gate"
+import {
+  getCurrentConversation,
+  saveCurrentConversation,
+  clearCurrentConversation,
+  saveToPastConversations,
+  getCoachMemory,
+  updateMemoryFromSummary,
+  buildMemoryPrompt,
+} from "@/lib/coach-memory"
+import type { CoachConversation } from "@/lib/coach-memory"
 
 interface Message {
   role: "user" | "assistant"
@@ -30,6 +40,8 @@ export default function CoachPage() {
   const [pathwayResults, setPathwayResults] = useState<Record<string, unknown> | null>(null)
   const [hasAccess, setHasAccess] = useState(true)
   const [coachGreeting, setCoachGreeting] = useState("Tell me what's happening — or tap a starter below.")
+  const [hasMemory, setHasMemory] = useState(false)
+  const [isExtractingMemory, setIsExtractingMemory] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -38,9 +50,20 @@ export default function CoachPage() {
     setHasAccess(canAccessPremium())
   }, [])
 
-  // Load profile from localStorage on mount
+  // Load conversation + profile from localStorage on mount
   useEffect(() => {
     try {
+      // Restore previous conversation
+      const savedConversation = getCurrentConversation()
+      if (savedConversation && savedConversation.messages.length > 0) {
+        setMessages(savedConversation.messages)
+      }
+
+      // Check if we have memory
+      const memory = getCoachMemory()
+      setHasMemory(memory.facts.length > 0 || memory.patterns.length > 0 || memory.strategies.length > 0)
+
+      // Load assessment profile
       const saved = localStorage.getItem("mindful-mama-answers")
       if (saved) {
         const answers = JSON.parse(saved) as Record<number, string>
@@ -95,6 +118,49 @@ export default function CoachPage() {
     }
   }, [input])
 
+  // Save conversation to localStorage whenever messages change
+  useEffect(() => {
+    if (messages.length > 0) {
+      saveCurrentConversation(messages)
+    }
+  }, [messages])
+
+  const extractMemoryAndReset = async (oldMessages: Message[]) => {
+    // Save the old conversation to history
+    const oldConversation = getCurrentConversation()
+    if (oldConversation) {
+      saveToPastConversations(oldConversation)
+    }
+
+    // Extract memory from the old conversation (background, non-blocking)
+    if (oldMessages.length >= 3) {
+      setIsExtractingMemory(true)
+      try {
+        const response = await fetch("/api/coach/memory", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: oldMessages }),
+        })
+        const data = await response.json()
+        if (data.memory) {
+          updateMemoryFromSummary(data.memory)
+          setHasMemory(true)
+        }
+      } catch {}
+      setIsExtractingMemory(false)
+    }
+
+    // Clear and start fresh
+    clearCurrentConversation()
+    setMessages([])
+  }
+
+  const handleNewChat = () => {
+    if (messages.length > 0) {
+      extractMemoryAndReset(messages)
+    }
+  }
+
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return
 
@@ -124,6 +190,7 @@ export default function CoachPage() {
           profile: profile,
           patternMap: patternMap,
           pathwayResults: pathwayResults,
+          memory: buildMemoryPrompt() || null,
         }),
       })
 
@@ -135,7 +202,8 @@ export default function CoachPage() {
         return
       }
 
-      setMessages([...updatedMessages, { role: "assistant", content: data.message }])
+      const newMessages = [...updatedMessages, { role: "assistant" as const, content: data.message }]
+      setMessages(newMessages)
     } catch (err) {
       setError("Failed to connect. Please check your internet and try again.")
     } finally {
@@ -163,14 +231,34 @@ export default function CoachPage() {
       <>
       {/* Header */}
       <div className="mb-4">
-        <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-primary" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3 mb-1">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-xl font-medium text-foreground">Your Coach</h1>
+              <p className="text-xs text-muted-foreground">
+                Personalized support based on your profile
+                {hasMemory && (
+                  <span className="inline-flex items-center gap-1 ml-2 text-primary">
+                    <Brain className="w-3 h-3" />
+                    remembers you
+                  </span>
+                )}
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-medium text-foreground">Your Coach</h1>
-            <p className="text-xs text-muted-foreground">Personalized support based on your profile</p>
-          </div>
+          {messages.length > 0 && (
+            <button
+              onClick={handleNewChat}
+              disabled={isExtractingMemory}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors disabled:opacity-50"
+            >
+              <RotateCcw className="w-3 h-3" />
+              {isExtractingMemory ? "Saving memory..." : "New chat"}
+            </button>
+          )}
         </div>
       </div>
 
@@ -182,6 +270,11 @@ export default function CoachPage() {
               <p className="text-sm text-foreground/80 leading-relaxed">
                 {coachGreeting}
               </p>
+              {hasMemory && (
+                <p className="text-xs text-primary/70 mt-2">
+                  I remember our previous conversations. Pick up where we left off, or start something new.
+                </p>
+              )}
             </div>
 
             {/* Suggested starters */}
