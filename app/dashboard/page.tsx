@@ -96,11 +96,11 @@ export default function DashboardPage() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Welcome */}
       <div>
-        <h1 className="text-3xl font-medium text-foreground mb-2">Welcome back</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-medium text-foreground mb-1">Welcome back</h1>
+        <p className="text-sm text-muted-foreground">
           Your parenting toolkit — built for how your brain actually works.
         </p>
       </div>
@@ -111,7 +111,7 @@ export default function DashboardPage() {
           href="/dashboard/me"
           className="block bg-card rounded-2xl overflow-hidden border border-primary/15 hover:border-primary/30 transition-all group"
         >
-          <div className="aspect-[3.5/1] relative bg-secondary/20">
+          <div className="aspect-[4/1] relative bg-secondary/20">
             <Image
               src="/images/glowingseed.png"
               alt="Your type"
@@ -119,18 +119,18 @@ export default function DashboardPage() {
               className="object-cover"
             />
           </div>
-          <div className="p-5">
+          <div className="p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <span className="text-lg">✦</span>
+              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                <span className="text-base">✦</span>
               </div>
               <div className="flex-1">
-                <p className="text-sm text-muted-foreground">Your type</p>
-                <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                <p className="text-xs text-muted-foreground">Your type</p>
+                <p className="text-base font-medium text-foreground group-hover:text-primary transition-colors">
                   {archetype.name}
                 </p>
               </div>
-              <span className="text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                 View →
               </span>
             </div>
@@ -150,27 +150,22 @@ export default function DashboardPage() {
           href="/dashboard/micro-guides"
           className="block bg-card rounded-2xl border border-border hover:border-primary/20 transition-all overflow-hidden group"
         >
-          <div className="p-5">
-            <div className="flex items-center gap-2 mb-2">
-              <BookOpen className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium text-primary uppercase tracking-wide">Today&apos;s learn</span>
+          <div className="p-4">
+            <div className="flex items-center gap-2 mb-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-primary" />
+              <span className="text-[10px] font-medium text-primary uppercase tracking-wide">Today&apos;s learn</span>
               <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
                 {CATEGORY_LABELS[dailyGuide.category]}
               </span>
-              <span className="text-xs text-muted-foreground ml-auto flex items-center gap-1">
-                <Clock className="w-3 h-3" />
+              <span className="text-[10px] text-muted-foreground ml-auto flex items-center gap-0.5">
+                <Clock className="w-2.5 h-2.5" />
                 {dailyGuide.readTime}
               </span>
             </div>
-            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">
+            <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
               {dailyGuide.title}
             </h3>
-            <p className="text-sm text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
-            {guideRead && (
-              <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
-                <Check className="w-3 h-3" /> Read
-              </p>
-            )}
+            <p className="text-xs text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
           </div>
         </Link>
       )}
@@ -287,14 +282,14 @@ export default function DashboardPage() {
       )}
 
       {/* Quick access grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {sections.map((section) => (
           <Link
             key={section.href}
             href={section.href}
             className="bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
           >
-            <div className="aspect-[2.2/1] relative bg-secondary/20">
+            <div className="aspect-[2.5/1] relative bg-secondary/20">
               <Image
                 src={section.image}
                 alt={section.title}
@@ -302,20 +297,20 @@ export default function DashboardPage() {
                 className="object-cover"
               />
             </div>
-            <div className="p-5">
-              <h2 className="text-lg font-medium text-foreground mb-1 group-hover:text-primary transition-colors">
+            <div className="p-4">
+              <h2 className="text-base font-medium text-foreground mb-0.5 group-hover:text-primary transition-colors">
                 {section.title}
               </h2>
-              <p className="text-sm text-muted-foreground">{section.description}</p>
+              <p className="text-xs text-muted-foreground">{section.description}</p>
             </div>
           </Link>
         ))}
       </div>
 
       {/* Quick reminder */}
-      <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10 text-center">
-        <p className="text-foreground/80 text-sm">
-          Remember: pick <strong>one thing</strong> at a time. Not the whole toolkit. Just the one thing that will help you most today.
+      <div className="bg-primary/5 rounded-2xl p-4 border border-primary/10 text-center">
+        <p className="text-foreground/80 text-xs">
+          Pick <strong>one thing</strong> at a time. Not the whole toolkit. Just the one thing that will help you most today.
         </p>
       </div>
 

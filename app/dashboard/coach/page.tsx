@@ -225,29 +225,24 @@ export default function CoachPage() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-10rem)]">
+    <div className="flex flex-col h-[calc(100dvh-8rem)]">
       {!hasAccess ? (
         <UpgradeGate context="coach" />
       ) : (
       <>
       {/* Header */}
-      <div className="mb-4">
+      <div className="mb-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 mb-1">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-primary" />
-            </div>
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-primary" />
             <div>
-              <h1 className="text-xl font-medium text-foreground">Your Coach</h1>
-              <p className="text-xs text-muted-foreground">
-                Personalized support based on your profile
-                {hasMemory && (
-                  <span className="inline-flex items-center gap-1 ml-2 text-primary">
-                    <Brain className="w-3 h-3" />
-                    remembers you
-                  </span>
-                )}
-              </p>
+              <h1 className="text-lg font-medium text-foreground">Your Coach</h1>
+              {hasMemory && (
+                <span className="inline-flex items-center gap-1 text-xs text-primary">
+                  <Brain className="w-3 h-3" />
+                  remembers you
+                </span>
+              )}
             </div>
           </div>
           {messages.length > 0 && (
@@ -257,7 +252,7 @@ export default function CoachPage() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors disabled:opacity-50"
             >
               <RotateCcw className="w-3 h-3" />
-              {isExtractingMemory ? "Saving memory..." : "New chat"}
+              {isExtractingMemory ? "Saving..." : "New chat"}
             </button>
           )}
         </div>

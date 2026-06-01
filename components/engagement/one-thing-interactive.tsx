@@ -57,33 +57,30 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
 
   return (
     <div className="bg-card rounded-2xl border border-primary/20 overflow-hidden shadow-sm">
-      {/* Header with streak */}
-      <div className="p-5 pb-0">
-        <div className="flex items-center justify-between mb-1">
-          <h2 className="text-sm font-medium text-primary uppercase tracking-wide">
+      {/* Header + action combined */}
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-xs font-medium text-primary uppercase tracking-wide">
             One thing today
           </h2>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {streak.currentStreak > 1 && (
               <span className="flex items-center gap-1 text-xs text-amber-600 font-medium">
                 <Flame className="w-3 h-3" />
-                {streak.currentStreak} days
+                {streak.currentStreak}
               </span>
             )}
-            <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
               <Clock className="w-3 h-3" />
               {entry.timeNeeded}
             </span>
           </div>
         </div>
-      </div>
 
-      {/* The action */}
-      <div className="p-5">
-        <p className={`text-foreground font-medium leading-relaxed mb-2 ${entry.completed ? "line-through opacity-60" : ""}`}>
+        <p className={`text-sm text-foreground font-medium leading-relaxed ${entry.completed ? "line-through opacity-60" : ""}`}>
           {entry.action}
         </p>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+        <p className="text-xs text-muted-foreground leading-relaxed mt-1 mb-3">
           {entry.why}
         </p>
 
@@ -92,20 +89,21 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
           <Button
             onClick={handleComplete}
             className="w-full rounded-xl"
+            size="sm"
             variant="default"
           >
-            <Check className="w-4 h-4 mr-2" />
+            <Check className="w-3 h-3 mr-1.5" />
             I did it
           </Button>
         ) : (
-          <div className="space-y-2">
-            <div className="flex items-center justify-center gap-2 py-2 rounded-xl bg-green-500/10 text-green-600 text-sm font-medium">
-              <Check className="w-4 h-4" />
-              Done. You showed up for yourself today.
-            </div>
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-1.5 text-green-600 text-xs font-medium">
+              <Check className="w-3 h-3" />
+              Done. You showed up today.
+            </span>
             <button
               onClick={handleUndo}
-              className="flex items-center justify-center gap-1 w-full text-xs text-muted-foreground hover:text-foreground transition-colors py-1"
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
               Undo
@@ -116,32 +114,32 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
         {/* Just completed celebration */}
         {justCompleted && (
           <p className="text-xs text-primary text-center mt-2 animate-in fade-in duration-300">
-            ✓ Logged. Another piece of evidence that you&apos;re choosing yourself.
+            ✓ Another piece of evidence that you&apos;re choosing yourself.
           </p>
         )}
       </div>
 
       {/* 7-day view */}
-      <div className="border-t border-border/50 px-5 py-3 bg-secondary/10">
+      <div className="border-t border-border/50 px-4 py-2 bg-secondary/10">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">Last 7 days</span>
-          <div className="flex items-center gap-1.5">
+          <span className="text-[10px] text-muted-foreground">Last 7 days</span>
+          <div className="flex items-center gap-1">
             {last7.map((day, i) => (
               <div key={day.date} className="flex flex-col items-center gap-0.5">
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                  className={`w-4 h-4 rounded-full flex items-center justify-center ${
                     day.completed
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-muted-foreground/30"
                   }`}
                 >
                   {day.completed ? (
-                    <Check className="w-3 h-3" />
+                    <Check className="w-2.5 h-2.5" />
                   ) : (
-                    <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                    <span className="w-1 h-1 rounded-full bg-current" />
                   )}
                 </div>
-                <span className="text-[9px] text-muted-foreground/60">
+                <span className="text-[8px] text-muted-foreground/60">
                   {dayLabels[new Date(day.date).getDay()]}
                 </span>
               </div>
