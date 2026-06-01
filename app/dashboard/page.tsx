@@ -116,7 +116,7 @@ export default function DashboardPage() {
               src="/images/glowingseed.png"
               alt="Your type"
               fill
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
           <div className="p-4">
