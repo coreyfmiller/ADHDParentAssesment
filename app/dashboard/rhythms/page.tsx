@@ -1,6 +1,7 @@
 "use client"
 
-import { Coffee, Sun, Moon, AlertTriangle, UtensilsCrossed } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Coffee, Sun, Moon, AlertTriangle, UtensilsCrossed, Pencil, Check, RotateCcw } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const rhythms = [
@@ -48,14 +49,17 @@ const rhythms = [
   },
 ]
 
+const defaultMealRotation = [
+  { day: "Monday", meal: "Pasta night (jar sauce + noodles + whatever protein is in the fridge)" },
+  { day: "Tuesday", meal: "Sheet pan dinner (protein + vegetables + seasoning, one pan, done)" },
+  { day: "Wednesday", meal: "Slow cooker / instant pot (dump it in the morning, eat at night)" },
+  { day: "Thursday", meal: "Breakfast for dinner (eggs, toast, fruit — kids love it, zero effort)" },
+  { day: "Friday", meal: "Takeout or frozen pizza (this is PLANNED, not failure)" },
+  { day: "Saturday", meal: "Leftovers, eating out, or whatever feels right" },
+  { day: "Sunday", meal: "Leftovers, eating out, or whatever feels right" },
+]
+
 const mealSystem = {
-  rotation: [
-    { day: "Monday", meal: "Pasta night (jar sauce + noodles + whatever protein is in the fridge)" },
-    { day: "Tuesday", meal: "Sheet pan dinner (protein + vegetables + seasoning, one pan, done)" },
-    { day: "Wednesday", meal: "Slow cooker / instant pot (dump it in the morning, eat at night)" },
-    { day: "Thursday", meal: "Breakfast for dinner (eggs, toast, fruit — kids love it, zero effort)" },
-    { day: "Friday", meal: "Takeout or frozen pizza (this is PLANNED, not failure)" },
-  ],
   tiers: [
     { level: "No energy", options: "Cereal. Toast. Frozen meals. Sandwiches. Fruit and cheese plate. Ordering delivery." },
     { level: "10 minutes", options: "Quesadillas. Scrambled eggs. Instant ramen with an egg cracked in. Peanut butter wraps." },
@@ -79,6 +83,44 @@ const mealSystem = {
 }
 
 export default function RhythmsPage() {
+  const [mealRotation, setMealRotation] = useState(defaultMealRotation)
+  const [editingDay, setEditingDay] = useState<string | null>(null)
+  const [editValue, setEditValue] = useState("")
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("mindful-mama-meal-rotation")
+      if (stored) {
+        setMealRotation(JSON.parse(stored))
+      }
+    } catch {}
+  }, [])
+
+  const saveMealRotation = (updated: typeof defaultMealRotation) => {
+    setMealRotation(updated)
+    localStorage.setItem("mindful-mama-meal-rotation", JSON.stringify(updated))
+  }
+
+  const startEditing = (day: string, currentMeal: string) => {
+    setEditingDay(day)
+    setEditValue(currentMeal)
+  }
+
+  const saveEdit = (day: string) => {
+    if (editValue.trim()) {
+      const updated = mealRotation.map((item) =>
+        item.day === day ? { ...item, meal: editValue.trim() } : item
+      )
+      saveMealRotation(updated)
+    }
+    setEditingDay(null)
+    setEditValue("")
+  }
+
+  const resetToDefaults = () => {
+    saveMealRotation(defaultMealRotation)
+  }
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -133,18 +175,56 @@ export default function RhythmsPage() {
 
         {/* Weekly rotation */}
         <div className="bg-card rounded-2xl p-6 md:p-8 border border-border mb-6">
-          <h3 className="font-medium text-foreground mb-4">Your Weekly Rotation</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-medium text-foreground">Your Weekly Rotation</h3>
+            <button
+              onClick={resetToDefaults}
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              title="Reset to defaults"
+            >
+              <RotateCcw className="w-3 h-3" />
+              Reset
+            </button>
+          </div>
+          <p className="text-xs text-muted-foreground mb-4">
+            Tap any meal to customize it. Make this YOUR rotation — these are just suggestions to start.
+          </p>
           <div className="space-y-3">
-            {mealSystem.rotation.map((item, idx) => (
-              <div key={idx} className="flex gap-3 items-start">
-                <span className="text-sm font-medium text-primary w-24 flex-shrink-0">{item.day}</span>
-                <p className="text-sm text-foreground/80">{item.meal}</p>
+            {mealRotation.map((item) => (
+              <div key={item.day} className="flex gap-3 items-start">
+                <span className="text-sm font-medium text-primary w-24 flex-shrink-0 pt-1">{item.day}</span>
+                {editingDay === item.day ? (
+                  <div className="flex-1 flex gap-2">
+                    <input
+                      type="text"
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") saveEdit(item.day)
+                        if (e.key === "Escape") setEditingDay(null)
+                      }}
+                      autoFocus
+                      className="flex-1 text-sm bg-secondary/50 border border-primary/30 rounded-lg px-3 py-1.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    />
+                    <button
+                      onClick={() => saveEdit(item.day)}
+                      className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                    >
+                      <Check className="w-4 h-4 text-primary" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => startEditing(item.day, item.meal)}
+                    className="flex-1 text-left group flex items-start gap-2"
+                  >
+                    <p className="text-sm text-foreground/80 group-hover:text-foreground transition-colors">{item.meal}</p>
+                    <Pencil className="w-3 h-3 text-muted-foreground/0 group-hover:text-muted-foreground mt-1 flex-shrink-0 transition-colors" />
+                  </button>
+                )}
               </div>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground mt-4 italic">
-            Saturday and Sunday: leftovers, eating out, or whatever feels right. No rules on weekends.
-          </p>
         </div>
 
         {/* Energy tiers */}
