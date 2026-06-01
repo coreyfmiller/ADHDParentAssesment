@@ -11,7 +11,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "ef-task-initiation",
     title: "Why You Can't 'Just Start'",
-    subtitle: "The neuroscience of task initiation",
+    subtitle: "It's not laziness. Your brain's starter motor is broken.",
     category: "executive-function",
     archetypes: ["plate-spinner", "running-on-empty", "weight-bearer"],
     dimensions: ["cognitive-load"],
@@ -28,7 +28,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "ef-time-blindness",
     title: "Time Blindness Is Real",
-    subtitle: "Why you're always late and it's not carelessness",
+    subtitle: "Why you genuinely believed you had 20 minutes when you had 5.",
     category: "executive-function",
     archetypes: ["plate-spinner", "storm-weatherer"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -45,7 +45,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "ef-decision-fatigue",
     title: "Why You Can't Decide What's for Dinner",
-    subtitle: "Decision fatigue and the ADHD brain",
+    subtitle: "Your brain made 400 decisions today. It's out of fuel.",
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "weight-bearer"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -64,7 +64,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "er-rage-cycle",
     title: "Why You Yell at the People You Love Most",
-    subtitle: "The neuroscience of maternal rage",
+    subtitle: "It's not anger at them. It's overflow from everything else.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth"],
@@ -82,7 +82,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "er-guilt-spiral",
     title: "The Guilt Spiral Is Lying to You",
-    subtitle: "Why mom guilt is a cognitive distortion, not evidence",
+    subtitle: "Feeling guilty doesn't mean you're guilty.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "burning-engine"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -99,7 +99,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "er-emotional-flooding",
     title: "When Everything Hits at Once",
-    subtitle: "Understanding emotional flooding",
+    subtitle: "It's not about the bread. It's never about the bread.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "storm-weatherer"],
     dimensions: ["emotional-bandwidth"],
@@ -118,7 +118,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "pns-cortisol-curve",
     title: "The 3pm Crash Isn't Laziness",
-    subtitle: "Your cortisol curve explained",
+    subtitle: "There's a biological reason the afternoon destroys you.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion"],
@@ -135,7 +135,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "pns-touched-out",
     title: "Touched Out Is a Nervous System State",
-    subtitle: "Why physical contact becomes unbearable",
+    subtitle: "You love them. You can't be touched. Both are true.",
     category: "physical-nervous-system",
     archetypes: ["quiet-volcano", "burning-engine", "running-on-empty"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
@@ -152,7 +152,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "pns-burnout-vs-depression",
     title: "Burnout and Depression Look the Same",
-    subtitle: "How to tell the difference (and why it matters)",
+    subtitle: "One is fixed by rest. The other isn't. Here's how to tell.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
@@ -173,7 +173,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "horm-cycle-executive",
     title: "Your Cycle Is Changing Your Brain Every Week",
-    subtitle: "How hormones affect executive function",
+    subtitle: "Why some weeks you can handle everything and others you can't.",
     category: "hormonal",
     archetypes: ["quiet-volcano", "running-on-empty", "plate-spinner"],
     dimensions: ["cognitive-load", "emotional-bandwidth", "physical-depletion"],
@@ -191,7 +191,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "horm-postpartum-depletion",
     title: "Postpartum Depletion Can Last Years",
-    subtitle: "Why you're still exhausted long after the baby stage",
+    subtitle: "The baby stage is over. Why are you still this exhausted?",
     category: "hormonal",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "cognitive-load"],
@@ -210,7 +210,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "rel-invisible-labor",
     title: "The Invisible Labor Inventory",
-    subtitle: "What you're actually carrying (and why no one sees it)",
+    subtitle: "You're not 'nagging.' You're running an entire operation alone.",
     category: "relationships",
     archetypes: ["invisible-architect", "weight-bearer", "the-disappeared"],
     dimensions: ["system-friction", "identity-erosion"],
@@ -228,7 +228,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "rel-asking-for-help",
     title: "Why Asking for Help Feels Impossible",
-    subtitle: "The psychology behind the inability to ask",
+    subtitle: "You know you need it. You still can't ask. Here's why.",
     category: "relationships",
     archetypes: ["invisible-architect", "the-disappeared", "weight-bearer"],
     dimensions: ["system-friction", "identity-erosion"],
@@ -245,7 +245,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "rel-partner-communication",
     title: "Why 'I Need More Help' Never Works",
-    subtitle: "The specificity principle in partner communication",
+    subtitle: "What to say instead that actually changes things.",
     category: "relationships",
     archetypes: ["invisible-architect", "storm-weatherer", "quiet-volcano"],
     dimensions: ["system-friction", "emotional-bandwidth"],
@@ -264,7 +264,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "id-maternal-identity-shift",
     title: "You Didn't Lose Yourself Overnight",
-    subtitle: "The slow erosion of identity in motherhood",
+    subtitle: "It happened slowly. And the thread back is still there.",
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "invisible-architect"],
     dimensions: ["identity-erosion"],
@@ -281,7 +281,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "id-resentment-signal",
     title: "Resentment Is Not a Character Flaw",
-    subtitle: "What your anger is actually telling you",
+    subtitle: "It's not ugly. It's your psyche telling you something is unsustainable.",
     category: "identity",
     archetypes: ["the-disappeared", "invisible-architect", "quiet-volcano"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
@@ -300,7 +300,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "sys-routine-adhd",
     title: "Why Routines Fail (and How to Build Ones That Don't)",
-    subtitle: "Routine design for brains that resist structure",
+    subtitle: "They keep failing because they weren't built for your brain.",
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "running-on-empty"],
     dimensions: ["system-friction", "cognitive-load"],
@@ -317,7 +317,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "sys-lowering-standards",
     title: "Lowering Standards Is a Strategy, Not a Failure",
-    subtitle: "Strategic incompetence vs. strategic prioritization",
+    subtitle: "What if 'good enough' is actually the smartest strategy?",
     category: "systems-structure",
     archetypes: ["invisible-architect", "plate-spinner", "weight-bearer"],
     dimensions: ["system-friction", "cognitive-load", "physical-depletion"],
@@ -336,7 +336,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "par-repair-over-prevention",
     title: "Repair Matters More Than Prevention",
-    subtitle: "Why rupture isn't the end of the story",
+    subtitle: "You yelled. Here's why what you do NEXT matters more.",
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth"],
@@ -353,7 +353,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "par-co-regulation",
     title: "You Can't Regulate a Child You Haven't Regulated Yourself",
-    subtitle: "Co-regulation starts with you",
+    subtitle: "You can't calm them down until you calm yourself down first.",
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "storm-weatherer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],

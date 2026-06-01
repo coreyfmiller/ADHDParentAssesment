@@ -79,7 +79,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "er-rejection-sensitivity",
     title: "Why That Comment Destroyed Your Whole Day",
-    subtitle: "Rejection Sensitive Dysphoria and the ADHD brain",
+    subtitle: "Why one comment can ruin your entire day.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "burning-engine"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -97,7 +97,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "er-emotional-hangover",
     title: "The Emotional Hangover Is Real",
-    subtitle: "Why you're still wrecked the day after a hard moment",
+    subtitle: "Why yesterday's meltdown is still in your body today.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "running-on-empty"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
@@ -114,7 +114,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "er-anger-as-information",
     title: "Your Anger Is Trying to Tell You Something",
-    subtitle: "Anger as a secondary emotion",
+    subtitle: "There's always something more vulnerable hiding underneath.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -131,7 +131,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "er-nervous-system-states",
     title: "You're Not Choosing to Shut Down",
-    subtitle: "Understanding freeze, fight, flight, and fawn",
+    subtitle: "You're not choosing to shut down. Your body is choosing for you.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer", "storm-weatherer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
@@ -152,7 +152,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "pns-sleep-architecture",
     title: "Why 8 Hours Still Leaves You Exhausted",
-    subtitle: "Sleep quality vs. sleep quantity",
+    subtitle: "You slept 8 hours. You're still exhausted. Here's why.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion"],
@@ -169,7 +169,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "pns-interoception",
     title: "You Might Not Know You're Hungry, Thirsty, or Tired",
-    subtitle: "Interoception and the disconnected body",
+    subtitle: "You might not notice you're hungry until you're shaking.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "plate-spinner", "the-disappeared"],
     dimensions: ["physical-depletion", "cognitive-load"],
@@ -186,7 +186,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "pns-adrenaline-functioning",
     title: "You're Running on Adrenaline, Not Energy",
-    subtitle: "The difference between activation and vitality",
+    subtitle: "You look productive. Inside, you're running on emergency fuel.",
     category: "physical-nervous-system",
     archetypes: ["burning-engine", "running-on-empty", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
@@ -205,7 +205,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "horm-perimenopause-adhd",
     title: "Perimenopause Can Unmask ADHD",
-    subtitle: "When your coping strategies suddenly stop working",
+    subtitle: "Everything worked fine until your late 30s. Then it all fell apart.",
     category: "hormonal",
     archetypes: ["plate-spinner", "running-on-empty", "burning-engine"],
     dimensions: ["cognitive-load", "physical-depletion", "emotional-bandwidth"],
@@ -223,7 +223,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "horm-premenstrual-adhd",
     title: "The Week Before Your Period Is Not Your Fault",
-    subtitle: "Why ADHD symptoms spike premenstrually",
+    subtitle: "That week before your period? It's not willpower. It's dopamine.",
     category: "hormonal",
     archetypes: ["quiet-volcano", "plate-spinner", "burning-engine"],
     dimensions: ["emotional-bandwidth", "cognitive-load", "physical-depletion"],
@@ -240,7 +240,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "horm-breastfeeding-brain",
     title: "Breastfeeding Brain Is Neurologically Real",
-    subtitle: "Why nursing affects cognition and mood",
+    subtitle: "The fog is real. And it has a hormonal explanation.",
     category: "hormonal",
     archetypes: ["running-on-empty", "burning-engine", "plate-spinner"],
     dimensions: ["physical-depletion", "cognitive-load"],
@@ -259,7 +259,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "rel-weaponized-incompetence",
     title: "When 'I Don't Know How' Really Means 'I Don't Want To'",
-    subtitle: "Recognizing weaponized incompetence",
+    subtitle: "When 'I don't know how' is actually 'I don't want to.'",
     category: "relationships",
     archetypes: ["invisible-architect", "the-disappeared", "quiet-volcano"],
     dimensions: ["system-friction", "identity-erosion", "emotional-bandwidth"],
@@ -277,7 +277,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "rel-comparison-trap",
     title: "The Other Moms Are Struggling Too",
-    subtitle: "Why comparison is a rigged game",
+    subtitle: "She's not doing better. She's just hiding it better.",
     category: "relationships",
     archetypes: ["the-disappeared", "quiet-volcano", "weight-bearer"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
@@ -294,7 +294,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "rel-boundaries-not-walls",
     title: "Boundaries Are Not Punishment",
-    subtitle: "The difference between protecting yourself and pushing people away",
+    subtitle: "Saying no doesn't make you difficult. It makes you sustainable.",
     category: "relationships",
     archetypes: ["quiet-volcano", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -313,7 +313,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "id-good-mom-myth",
     title: "The 'Good Mom' Doesn't Exist",
-    subtitle: "Deconstructing an impossible standard",
+    subtitle: "She doesn't exist. And you're measuring yourself against her anyway.",
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "weight-bearer"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
@@ -330,7 +330,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "id-desire-as-data",
     title: "Wanting Things Isn't Selfish",
-    subtitle: "Desire as evidence of selfhood",
+    subtitle: "The fact that you want something means you're still in there.",
     category: "identity",
     archetypes: ["the-disappeared", "invisible-architect", "running-on-empty"],
     dimensions: ["identity-erosion"],
@@ -347,7 +347,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
   {
     id: "id-grief-permission",
     title: "You're Allowed to Grieve a Life You Chose",
-    subtitle: "Grief and gratitude can coexist",
+    subtitle: "You chose this life. You're still allowed to grieve what it cost.",
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "running-on-empty"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],

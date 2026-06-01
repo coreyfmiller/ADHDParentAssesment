@@ -9,7 +9,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "ef-context-switching",
     title: "Why One Interruption Ruins Your Whole Hour",
-    subtitle: "The true cost of context switching",
+    subtitle: "One 'Mom!' and your whole train of thought is gone.",
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "burning-engine"],
     dimensions: ["cognitive-load"],
@@ -26,7 +26,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "ef-note-imperative",
     title: "'I'll Remember This' — You Won't",
-    subtitle: "Why writing everything down isn't optional",
+    subtitle: "Your brain has a 30-second shelf life for information. Write it down.",
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -45,7 +45,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "er-perfectionism-loop",
     title: "The Perfectionism-Procrastination Loop",
-    subtitle: "Why high standards keep you stuck",
+    subtitle: "You can't start because it won't be perfect. So nothing gets done.",
     category: "emotional-regulation",
     archetypes: ["plate-spinner", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "cognitive-load"],
@@ -62,7 +62,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "er-compliments-uncomfortable",
     title: "Why Compliments Make You Uncomfortable",
-    subtitle: "When praise doesn't match your internal narrative",
+    subtitle: "Someone said 'you're a good mom' and it felt wrong. Here's why.",
     category: "emotional-regulation",
     archetypes: ["the-disappeared", "quiet-volcano", "running-on-empty"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -81,7 +81,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "pns-chronic-pain-adhd",
     title: "The ADHD-Chronic Pain Connection",
-    subtitle: "Why your body hurts and it's not 'just stress'",
+    subtitle: "Your shoulders are concrete. Your jaw aches. There's a reason.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion"],
@@ -98,7 +98,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "pns-sensory-seeking",
     title: "Why You Crave Intensity",
-    subtitle: "Sensory seeking in the understimulated brain",
+    subtitle: "You pick at your skin. You crave intensity. Your brain is asking for something.",
     category: "physical-nervous-system",
     archetypes: ["plate-spinner", "burning-engine", "storm-weatherer"],
     dimensions: ["physical-depletion", "cognitive-load"],
@@ -117,7 +117,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "horm-postpartum-rage",
     title: "Postpartum Rage Is Real (and Underdiagnosed)",
-    subtitle: "The anger no one warns you about",
+    subtitle: "Everyone warned about sadness. Nobody warned about the rage.",
     category: "hormonal",
     archetypes: ["quiet-volcano", "burning-engine", "running-on-empty"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
@@ -135,7 +135,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "horm-thyroid-mimics",
     title: "Is It ADHD or Is It Your Thyroid?",
-    subtitle: "When a treatable condition mimics executive dysfunction",
+    subtitle: "What if some of your 'ADHD symptoms' have a different, treatable cause?",
     category: "hormonal",
     archetypes: ["running-on-empty", "plate-spinner", "weight-bearer"],
     dimensions: ["physical-depletion", "cognitive-load"],
@@ -155,7 +155,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "rel-intimacy-touched-out",
     title: "Intimacy When You're Touched Out",
-    subtitle: "Navigating physical connection when your body says no",
+    subtitle: "You love your partner. Your body says 'don't touch me.' Both are real.",
     category: "relationships",
     archetypes: ["running-on-empty", "quiet-volcano", "the-disappeared"],
     dimensions: ["physical-depletion", "emotional-bandwidth", "identity-erosion"],
@@ -173,7 +173,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "rel-support-try-harder",
     title: "When People Say 'Just Try Harder'",
-    subtitle: "How to respond to people who don't understand",
+    subtitle: "'Have you tried a planner?' How to handle advice that misses the point.",
     category: "relationships",
     archetypes: ["plate-spinner", "weight-bearer", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -192,7 +192,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "id-five-minute-self",
     title: "Finding Yourself in 5-Minute Increments",
-    subtitle: "Identity rebuilds through micro-actions, not grand gestures",
+    subtitle: "You don't need an hour. You need 5 minutes of being a person.",
     category: "identity",
     archetypes: ["the-disappeared", "running-on-empty", "invisible-architect"],
     dimensions: ["identity-erosion"],
@@ -209,7 +209,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "id-self-care-vs-maintenance",
     title: "Self-Care vs. Self-Maintenance",
-    subtitle: "Why 'self-care' feels like another chore",
+    subtitle: "A bath bomb isn't self-care if it doesn't make you feel like yourself.",
     category: "identity",
     archetypes: ["running-on-empty", "the-disappeared", "invisible-architect"],
     dimensions: ["identity-erosion", "physical-depletion"],
@@ -228,7 +228,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "sys-batch-processing",
     title: "Batch Processing for ADHD Brains",
-    subtitle: "Do similar tasks together instead of scattered",
+    subtitle: "Stop switching between 20 different types of tasks. Group them.",
     category: "systems-structure",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -245,7 +245,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "sys-visual-timers",
     title: "Visual Timers Change Everything",
-    subtitle: "Making invisible time visible",
+    subtitle: "You can't manage time you can't see. Make it physical.",
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "burning-engine"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -264,7 +264,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "par-morning-chaos",
     title: "Morning Chaos Has 3 Real Levers",
-    subtitle: "Stop fighting the morning — redesign it",
+    subtitle: "Morning chaos isn't a discipline problem. It's a design problem.",
     category: "parenting",
     archetypes: ["plate-spinner", "storm-weatherer", "burning-engine"],
     dimensions: ["system-friction", "cognitive-load", "emotional-bandwidth"],
@@ -282,7 +282,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "par-letting-go-parent",
     title: "Letting Go of the Parent You Thought You'd Be",
-    subtitle: "Grieving the gap between expectation and reality",
+    subtitle: "The mom you thought you'd be was designed without knowing your brain.",
     category: "parenting",
     archetypes: ["the-disappeared", "quiet-volcano", "weight-bearer"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
@@ -301,7 +301,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
   {
     id: "meta-when-to-seek-help",
     title: "When Self-Help Isn't Enough",
-    subtitle: "How to know when you need more than an app",
+    subtitle: "There's no shame in needing more than self-reflection can provide.",
     category: "emotional-regulation",
     archetypes: ["weight-bearer", "burning-engine", "quiet-volcano", "running-on-empty", "the-disappeared", "plate-spinner", "invisible-architect", "storm-weatherer", "steady-ground"],
     dimensions: ["emotional-bandwidth", "physical-depletion", "identity-erosion"],

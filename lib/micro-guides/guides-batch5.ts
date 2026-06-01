@@ -9,7 +9,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "ef-starting-projects",
     title: "Why You Start 10 Projects and Finish None",
-    subtitle: "The novelty-completion gap",
+    subtitle: "The trail of half-finished projects behind you isn't laziness.",
     category: "executive-function",
     archetypes: ["plate-spinner", "the-disappeared", "storm-weatherer"],
     dimensions: ["cognitive-load"],
@@ -26,7 +26,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "er-emotional-labor",
     title: "Emotional Labor Is Depleting You Invisibly",
-    subtitle: "The work of managing everyone's feelings",
+    subtitle: "You manage the emotional temperature of your entire household. Invisibly.",
     category: "emotional-regulation",
     archetypes: ["invisible-architect", "quiet-volcano", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -43,7 +43,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "pns-gut-brain",
     title: "Your Gut Is Talking to Your Brain",
-    subtitle: "The gut-brain axis and overwhelm",
+    subtitle: "Your stomach and your brain are in constant conversation.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
@@ -60,7 +60,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "horm-pmdd",
     title: "PMDD Is Not 'Bad PMS'",
-    subtitle: "When premenstrual symptoms become disabling",
+    subtitle: "If you lose a week of your life every month, that's not 'just PMS.'",
     category: "hormonal",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
@@ -78,7 +78,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "rel-mental-load-conversation",
     title: "How to Actually Have the Mental Load Conversation",
-    subtitle: "A script for the hardest talk in your relationship",
+    subtitle: "How to actually have this conversation without it becoming a fight.",
     category: "relationships",
     archetypes: ["invisible-architect", "quiet-volcano", "the-disappeared"],
     dimensions: ["system-friction", "emotional-bandwidth"],
@@ -96,7 +96,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "id-reclaiming-no",
     title: "Reclaiming 'No' as a Complete Sentence",
-    subtitle: "Why you over-explain every boundary",
+    subtitle: "'No' is a complete sentence. Here's why you can't say it without a paragraph.",
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "invisible-architect"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
@@ -113,7 +113,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "sys-two-minute-rule",
     title: "The Two-Minute Rule (Actually Works for ADHD)",
-    subtitle: "If it takes less than 2 minutes, do it now",
+    subtitle: "Every small task you defer is an open loop draining your brain.",
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "invisible-architect"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -130,7 +130,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "par-homework-battles",
     title: "Homework Battles With an ADHD Brain (Yours or Theirs)",
-    subtitle: "Why homework is the worst and what actually helps",
+    subtitle: "Two depleted brains fighting over a boring task at 4pm. No wonder it's awful.",
     category: "parenting",
     archetypes: ["plate-spinner", "burning-engine", "quiet-volcano"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
@@ -147,7 +147,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "par-meltdown-not-failure",
     title: "Your Child's Meltdown Is Not Your Failure",
-    subtitle: "Separating their behavior from your worth",
+    subtitle: "Their meltdown is not your report card.",
     category: "parenting",
     archetypes: ["quiet-volcano", "weight-bearer", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -164,7 +164,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "pns-social-exhaustion",
     title: "Why Socializing Drains You Completely",
-    subtitle: "The hidden cost of masking in social situations",
+    subtitle: "2 hours of socializing. 24 hours of recovery. That's not introversion.",
     category: "physical-nervous-system",
     archetypes: ["the-disappeared", "running-on-empty", "quiet-volcano"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
@@ -181,7 +181,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "sys-anchor-habits",
     title: "Anchor Habits: The One Thing That Holds Everything Else",
-    subtitle: "Building structure around a single reliable point",
+    subtitle: "You don't need 10 new habits. You need one that holds on your worst day.",
     category: "systems-structure",
     archetypes: ["storm-weatherer", "running-on-empty", "weight-bearer"],
     dimensions: ["system-friction", "physical-depletion"],
@@ -198,7 +198,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "rel-partner-adhd-too",
     title: "When Your Partner Has ADHD Too",
-    subtitle: "Two ADHD brains in one household",
+    subtitle: "Neither of you is the 'organized one.' Now what?",
     category: "relationships",
     archetypes: ["invisible-architect", "storm-weatherer", "plate-spinner"],
     dimensions: ["system-friction", "cognitive-load"],
@@ -215,7 +215,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
   {
     id: "par-different-than-parented",
     title: "Parenting Differently Than You Were Parented",
-    subtitle: "Breaking the cycle without a roadmap",
+    subtitle: "You know how you DON'T want to parent. But what do you do instead?",
     category: "parenting",
     archetypes: ["quiet-volcano", "the-disappeared", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],

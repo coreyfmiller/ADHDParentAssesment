@@ -9,7 +9,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "ef-wall-of-awful",
     title: "The Wall of Awful",
-    subtitle: "Why emotional baggage blocks task initiation",
+    subtitle: "The task is 3 minutes. The feelings around it are 6 weeks old.",
     category: "executive-function",
     archetypes: ["plate-spinner", "quiet-volcano", "the-disappeared"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
@@ -26,7 +26,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "ef-body-doubling",
     title: "Why You Can Only Clean When Someone's Watching",
-    subtitle: "Body doubling and external accountability",
+    subtitle: "It's not weird. Your brain just works better with someone nearby.",
     category: "executive-function",
     archetypes: ["plate-spinner", "storm-weatherer", "running-on-empty"],
     dimensions: ["cognitive-load", "system-friction"],
@@ -43,7 +43,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "ef-revenge-bedtime",
     title: "Revenge Bedtime Procrastination",
-    subtitle: "Why you stay up too late even when you're exhausted",
+    subtitle: "You're not undisciplined. You're reclaiming the only time that's yours.",
     category: "executive-function",
     archetypes: ["the-disappeared", "running-on-empty", "invisible-architect"],
     dimensions: ["cognitive-load", "identity-erosion", "physical-depletion"],
@@ -60,7 +60,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "ef-urgency-dependency",
     title: "Why You Only Function Under Pressure",
-    subtitle: "The adrenaline-dopamine connection",
+    subtitle: "You only function under deadline pressure. Here's why.",
     category: "executive-function",
     archetypes: ["plate-spinner", "burning-engine", "storm-weatherer"],
     dimensions: ["cognitive-load", "physical-depletion"],
@@ -77,7 +77,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "ef-procrastination-emotion",
     title: "Procrastination Is Emotional, Not Logical",
-    subtitle: "You're not avoiding the task — you're avoiding the feeling",
+    subtitle: "The task isn't the problem. The feeling attached to it is.",
     category: "executive-function",
     archetypes: ["plate-spinner", "quiet-volcano", "the-disappeared"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
@@ -96,7 +96,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "er-emotional-permanence",
     title: "This Feeling Will Not Last Forever",
-    subtitle: "Emotional permanence and the ADHD brain",
+    subtitle: "When you're in it, it feels like forever. It's not.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth"],
@@ -113,7 +113,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "er-shame-avoidance",
     title: "The Shame Spiral Is Keeping You Stuck",
-    subtitle: "How shame prevents the very change it demands",
+    subtitle: "Shame says 'you ARE the problem.' That's a lie.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "plate-spinner"],
     dimensions: ["emotional-bandwidth", "identity-erosion", "cognitive-load"],
@@ -130,7 +130,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "er-crying-when-angry",
     title: "Why You Cry When You're Angry",
-    subtitle: "Frustration tears are not weakness",
+    subtitle: "You're furious. So why are you crying?",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "burning-engine"],
     dimensions: ["emotional-bandwidth"],
@@ -147,7 +147,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "er-fine-mask",
     title: "The Cost of Performing 'Fine'",
-    subtitle: "What masking does to your nervous system",
+    subtitle: "You look fine. It's costing you everything.",
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "identity-erosion", "physical-depletion"],
@@ -166,7 +166,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "pns-vagus-nerve",
     title: "Your Vagus Nerve Is the Reset Button",
-    subtitle: "The fastest way to shift your nervous system state",
+    subtitle: "Cold water, long exhales, humming — your body's reset button.",
     category: "physical-nervous-system",
     archetypes: ["quiet-volcano", "burning-engine", "storm-weatherer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
@@ -183,7 +183,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "pns-cant-relax",
     title: "Why You Can't Relax Even When You Have Time",
-    subtitle: "Hypervigilance and the always-on nervous system",
+    subtitle: "The kids are gone. The house is quiet. You still can't stop.",
     category: "physical-nervous-system",
     archetypes: ["invisible-architect", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "system-friction"],
@@ -200,7 +200,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "pns-exercise-paradox",
     title: "Why Exercise Helps But You Can't Start It",
-    subtitle: "The ADHD exercise paradox",
+    subtitle: "It helps. You know it helps. You still can't make yourself do it.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "plate-spinner", "the-disappeared"],
     dimensions: ["physical-depletion", "cognitive-load"],
@@ -219,7 +219,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "rel-default-parent",
     title: "The Default Parent Trap",
-    subtitle: "How you became the answer to every question",
+    subtitle: "Even when your partner is right there, they ask YOU.",
     category: "relationships",
     archetypes: ["invisible-architect", "the-disappeared", "weight-bearer"],
     dimensions: ["system-friction", "identity-erosion"],
@@ -236,7 +236,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "rel-friendship-after-kids",
     title: "Why Your Friendships Faded (and It's Not Your Fault)",
-    subtitle: "The structural barriers to adult friendship in motherhood",
+    subtitle: "You didn't become a bad friend. Life made friendship structurally impossible.",
     category: "relationships",
     archetypes: ["the-disappeared", "running-on-empty", "invisible-architect"],
     dimensions: ["identity-erosion", "system-friction"],
@@ -253,7 +253,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "rel-mothers-voice",
     title: "Your Mother's Voice in Your Head",
-    subtitle: "Intergenerational patterns and the inner critic",
+    subtitle: "That critical voice in your head? It might not be yours.",
     category: "relationships",
     archetypes: ["quiet-volcano", "the-disappeared", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -274,7 +274,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "id-ambivalence-normal",
     title: "Ambivalence About Motherhood Is Normal",
-    subtitle: "You can love your kids and wish for a different life simultaneously",
+    subtitle: "Both things are true. You love them AND you wish for something else.",
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "running-on-empty"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
@@ -291,7 +291,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "id-productivity-identity",
     title: "You Are Not What You Produce",
-    subtitle: "When your worth is tied to your output",
+    subtitle: "You feel worthless on days you 'didn't do anything.' Let's talk about that.",
     category: "identity",
     archetypes: ["invisible-architect", "plate-spinner", "running-on-empty"],
     dimensions: ["identity-erosion", "cognitive-load"],
@@ -310,7 +310,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "sys-sunday-reset",
     title: "The Sunday Reset (15 Minutes That Change Your Week)",
-    subtitle: "A minimal weekly planning ritual",
+    subtitle: "15 minutes on Sunday that change your entire Monday.",
     category: "systems-structure",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["system-friction", "cognitive-load"],
@@ -327,7 +327,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "sys-launch-pad",
     title: "The Launch Pad Concept",
-    subtitle: "One spot where everything lives so you can leave the house",
+    subtitle: "Stop searching for keys every morning. One spot. Everything.",
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "invisible-architect"],
     dimensions: ["system-friction", "cognitive-load"],
@@ -344,7 +344,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "sys-emergency-protocol",
     title: "When Everything Collapses: Your Emergency Protocol",
-    subtitle: "A pre-made plan for your worst days",
+    subtitle: "Write the plan when you're well. Follow it when you're not.",
     category: "systems-structure",
     archetypes: ["weight-bearer", "burning-engine", "storm-weatherer"],
     dimensions: ["system-friction", "physical-depletion", "emotional-bandwidth"],
@@ -363,7 +363,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "par-gentle-not-gentle",
     title: "Gentle Parenting When You're Not Gentle",
-    subtitle: "What to do when the ideal doesn't match your capacity",
+    subtitle: "The books say 'stay calm.' You have nothing left to stay calm WITH.",
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
@@ -380,7 +380,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "par-triggers",
     title: "Your Child Is Triggering Your Childhood",
-    subtitle: "When their behavior activates your old wounds",
+    subtitle: "Your reaction was too big for the moment. It belongs to a different time.",
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
@@ -399,7 +399,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
   {
     id: "par-child-adhd",
     title: "When You See Yourself in Your Child",
-    subtitle: "Recognizing ADHD patterns in your kids",
+    subtitle: "You see yourself in them. The struggles no one understood in you.",
     category: "parenting",
     archetypes: ["plate-spinner", "quiet-volcano", "invisible-architect"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
