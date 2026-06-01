@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
 
 export const metadata: Metadata = {
   title: "Terms of Service — Mindful Mama",
@@ -7,9 +9,19 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-background">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/">
+            <Image src="/logo2.png" alt="Mindful Mama" width={120} height={32} className="h-8 w-auto" />
+          </Link>
+          <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            My Toolkit
+          </Link>
+        </div>
+      </header>
       <div className="max-w-2xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-medium text-foreground mb-8">Terms of Service</h1>
-        <p className="text-sm text-muted-foreground mb-8">Last updated: May 21, 2026</p>
+        <p className="text-sm text-muted-foreground mb-8">Last updated: June 1, 2026</p>
 
         <div className="prose prose-sm max-w-none space-y-6 text-foreground/80">
           <section>

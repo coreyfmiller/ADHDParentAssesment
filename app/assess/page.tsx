@@ -84,6 +84,14 @@ export default function AssessHub() {
               My Toolkit
             </Link>
           )}
+          {!hasCompletedSnapshot && (
+            <Link
+              href="/dashboard"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              My Toolkit
+            </Link>
+          )}
         </div>
       </header>
 

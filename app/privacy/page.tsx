@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Mindful Mama",
@@ -7,16 +9,26 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-background">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/">
+            <Image src="/logo2.png" alt="Mindful Mama" width={120} height={32} className="h-8 w-auto" />
+          </Link>
+          <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            My Toolkit
+          </Link>
+        </div>
+      </header>
       <div className="max-w-2xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-medium text-foreground mb-8">Privacy Policy</h1>
-        <p className="text-sm text-muted-foreground mb-8">Last updated: May 21, 2026</p>
+        <p className="text-sm text-muted-foreground mb-8">Last updated: June 1, 2026</p>
 
         <div className="prose prose-sm max-w-none space-y-6 text-foreground/80">
           <section>
             <h2 className="text-xl font-medium text-foreground mb-3">1. Information We Collect</h2>
             <p>We collect the following information when you use Mindful Mama:</p>
             <ul className="list-disc pl-6 space-y-2 mt-2">
-              <li><strong>Assessment responses:</strong> Your answers to the 25 assessment questions, stored locally in your browser to enable session persistence</li>
+              <li><strong>Assessment responses:</strong> Your answers to the self-reflection questions, stored locally in your browser to enable session persistence and personalization</li>
               <li><strong>Email address:</strong> If you choose to provide it, for report delivery and occasional communications</li>
               <li><strong>Payment information:</strong> Processed securely through our payment provider (Stripe). We do not store credit card numbers</li>
               <li><strong>Analytics data:</strong> Anonymous usage data including pages visited, assessment progress, and general interaction patterns (via Vercel Analytics)</li>
