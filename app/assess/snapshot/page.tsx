@@ -12,7 +12,10 @@ import { SNAPSHOT_SECTIONS, SNAPSHOT_META } from "@/lib/assessments/overwhelm-sn
 import { calculatePatternMap } from "@/lib/assessments/routing"
 import { getTransitionCopy, getSectionOpener } from "@/lib/assessments/micro-validations"
 import { saveSnapshotToHistory, getProgressComparison, getProgressSummary, type DimensionChange } from "@/lib/progress-tracking"
+import { determineArchetype, saveArchetype } from "@/lib/archetypes"
+import { ArchetypeCard } from "@/components/archetype-card"
 import type { PatternMap } from "@/lib/assessments/types"
+import type { Archetype } from "@/lib/archetypes"
 import { PATHWAYS } from "@/lib/assessments/types"
 
 type SnapshotStep = "intro" | "questions" | "results"
@@ -56,6 +59,7 @@ export default function SnapshotPage() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [progressChanges, setProgressChanges] = useState<DimensionChange[] | null>(null)
+  const [archetype, setArchetype] = useState<Archetype | null>(null)
   const [showSectionTransition, setShowSectionTransition] = useState(false)
   const [nextSectionName, setNextSectionName] = useState("")
   const [transitionReady, setTransitionReady] = useState(false)
@@ -86,6 +90,7 @@ export default function SnapshotPage() {
       if (resultData) {
         const map = JSON.parse(resultData) as PatternMap
         setPatternMap(map)
+        setArchetype(determineArchetype(map))
         setAssessmentStep("results")
         return
       }
@@ -150,6 +155,11 @@ export default function SnapshotPage() {
         const updatedAnswers = { ...answers, [currentQuestion.id]: optionId }
         const map = calculatePatternMap(updatedAnswers)
         setPatternMap(map)
+
+        // Determine and save archetype
+        const arch = determineArchetype(map)
+        setArchetype(arch)
+        saveArchetype(arch)
 
         // Save to localStorage
         try {
@@ -404,6 +414,9 @@ export default function SnapshotPage() {
                 if (currentStep === totalSteps) {
                   const map = calculatePatternMap(answers)
                   setPatternMap(map)
+                  const arch = determineArchetype(map)
+                  setArchetype(arch)
+                  saveArchetype(arch)
                   try { localStorage.setItem(RESULT_KEY, JSON.stringify(map)); saveSnapshotToHistory(map) } catch {}
                   clearProgress()
                   setAssessmentStep("results")
@@ -486,6 +499,11 @@ export default function SnapshotPage() {
                 ))}
               </div>
             </div>
+
+            {/* Archetype */}
+            {archetype && (
+              <ArchetypeCard archetype={archetype} showFull />
+            )}
 
             {/* Progress Comparison (if retaking) */}
             {progressChanges && (

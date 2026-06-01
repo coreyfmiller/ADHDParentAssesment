@@ -6,6 +6,8 @@ import Image from "next/image"
 import { Compass } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
+import { getCurrentArchetype } from "@/lib/archetypes"
+import type { Archetype } from "@/lib/archetypes"
 
 // Engagement components
 import { IdentityAnchorCard } from "@/components/engagement/identity-anchor-card"
@@ -57,6 +59,7 @@ const sections = [
 export default function DashboardPage() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [contentRecs, setContentRecs] = useState<ContentRecommendation[]>([])
+  const [archetype, setArchetype] = useState<Archetype | null>(null)
 
   useEffect(() => {
     try {
@@ -66,6 +69,7 @@ export default function DashboardPage() {
         setPatternMap(map)
         setContentRecs(getContentRecommendations(map))
       }
+      setArchetype(getCurrentArchetype())
     } catch {}
   }, [])
 
@@ -77,6 +81,11 @@ export default function DashboardPage() {
         <p className="text-muted-foreground">
           Your parenting toolkit — built for how your brain actually works.
         </p>
+        {archetype && (
+          <p className="text-sm text-primary mt-1 font-medium">
+            {archetype.name}
+          </p>
+        )}
       </div>
 
       {/* Daily Identity Anchor — first thing she sees */}
