@@ -111,7 +111,7 @@ export default function DashboardPage() {
           href="/dashboard/me"
           className="block bg-card rounded-2xl overflow-hidden border border-primary/15 hover:border-primary/30 transition-all group"
         >
-          <div className="aspect-[3.5/1] relative bg-secondary/20">
+          <div className="aspect-[3/1] relative bg-secondary/20">
             <Image
               src="/images/glowingseed.png"
               alt="Your type"
