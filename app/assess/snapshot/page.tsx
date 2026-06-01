@@ -64,6 +64,7 @@ export default function SnapshotPage() {
   const [nextSectionName, setNextSectionName] = useState("")
   const [transitionReady, setTransitionReady] = useState(false)
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false)
+  const [hasPreviousResults, setHasPreviousResults] = useState(false)
 
   const totalSteps = allQuestions.length
   const currentQuestion = allQuestions[currentStep - 1]
@@ -84,26 +85,27 @@ export default function SnapshotPage() {
 
   // Restore progress
   useEffect(() => {
-    // First check if we already have completed results
-    try {
-      const resultData = localStorage.getItem(RESULT_KEY)
-      if (resultData) {
-        const map = JSON.parse(resultData) as PatternMap
-        setPatternMap(map)
-        setArchetype(determineArchetype(map))
-        setAssessmentStep("results")
-        return
-      }
-    } catch {}
-
-    // Otherwise check for in-progress answers
+    // Check for in-progress answers first
     const saved = loadProgress()
     if (saved && Object.keys(saved.answers).length > 0) {
       setCurrentStep(saved.step)
       setAnswers(saved.answers)
       setAssessmentStep("questions")
       setHasRestoredProgress(true)
+      return
     }
+
+    // If she has completed results, show intro with "Check In Again" option
+    // (not the results — those live on /dashboard/archetype and /assess now)
+    try {
+      const resultData = localStorage.getItem(RESULT_KEY)
+      if (resultData) {
+        // She's done it before — show intro with retake framing
+        setHasPreviousResults(true)
+        setHasRestoredProgress(false)
+        setAssessmentStep("intro")
+      }
+    } catch {}
   }, [])
 
   // Save progress on changes
@@ -329,6 +331,24 @@ export default function SnapshotPage() {
                 >
                   Start Over
                 </Button>
+              </div>
+            ) : hasPreviousResults ? (
+              <div className="space-y-3">
+                <Button
+                  onClick={startFresh}
+                  size="lg"
+                  className="w-full px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                >
+                  Check In Again
+                </Button>
+                <Link href="/dashboard/archetype" className="block">
+                  <Button
+                    variant="ghost"
+                    className="w-full text-muted-foreground"
+                  >
+                    View my current type instead
+                  </Button>
+                </Link>
               </div>
             ) : (
               <Button
