@@ -141,7 +141,7 @@ export default function TermsPage() {
             <h2 className="text-xl font-medium text-foreground mb-3">11. Contact</h2>
             <p>
               For questions about these terms, please contact us at{" "}
-              <a href="mailto:hello@mindfulmama.co" className="underline">hello@mindfulmama.co</a>.
+              <a href="mailto:hello@mindfulmama.ai" className="underline">hello@mindfulmama.ai</a>.
             </p>
           </section>
         </div>

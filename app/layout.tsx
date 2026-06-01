@@ -36,7 +36,7 @@ export default function RootLayout({
               <span>·</span>
               <a href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</a>
               <span>·</span>
-              <a href="mailto:hello@mindfulmama.co" className="hover:text-foreground transition-colors">Contact</a>
+              <a href="mailto:hello@mindfulmama.ai" className="hover:text-foreground transition-colors">Contact</a>
               <span>·</span>
               <span>© {new Date().getFullYear()} Mindful Mama</span>
             </div>

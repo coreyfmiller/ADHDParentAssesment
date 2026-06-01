@@ -66,7 +66,7 @@ export const PRINTABLES: PrintableContent[] = [
   <li><div class="checkbox"></div><div>Kids' needs (they can wait 15 minutes if safe)<div class="note">You cannot pour from empty. These 15 minutes are not selfish — they're structural.</div></div></li>
 </ul>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>This is not medical advice. It's a structure for brains that struggle with structure.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>This is not medical advice. It's a structure for brains that struggle with structure.</div>
 </body></html>`,
   },
   {
@@ -103,7 +103,7 @@ export const PRINTABLES: PrintableContent[] = [
   <strong>Parent note:</strong> This checklist works best when: (1) clothes are laid out the night before, (2) the bag is packed the night before, (3) breakfast options are limited to 2-3 choices. The goal is to reduce decisions, not add them. Laminate this and use a dry-erase marker so they can check it daily.
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co</div>
+<div class="footer">Mindful Mama — mindfulmama.ai</div>
 </body></html>`,
   },
   {
@@ -158,7 +158,7 @@ export const PRINTABLES: PrintableContent[] = [
   </ul>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>"If it's not visible, it doesn't exist" — this is your external memory.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>"If it's not visible, it doesn't exist" — this is your external memory.</div>
 </body></html>`,
   },
   {
@@ -192,7 +192,7 @@ export const PRINTABLES: PrintableContent[] = [
   <li><div class="checkbox"></div><div><span class="time">1 min</span> — Brain dump: write down anything still in your head<div class="note">If it's in your head, it's keeping you awake. Put it on paper. It'll be there tomorrow.</div></div></li>
 </ul>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Total: 10 minutes. The ROI on tomorrow morning: immeasurable.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Total: 10 minutes. The ROI on tomorrow morning: immeasurable.</div>
 </body></html>`,
   },
   {
@@ -241,7 +241,7 @@ export const PRINTABLES: PrintableContent[] = [
   </ul>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>The goal isn't gourmet. The goal is fed humans with minimal cognitive cost.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>The goal isn't gourmet. The goal is fed humans with minimal cognitive cost.</div>
 </body></html>`,
   },
   {
@@ -344,7 +344,7 @@ export const PRINTABLES: PrintableContent[] = [
   </div>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Same list. Every week. No decisions. Just execution.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Same list. Every week. No decisions. Just execution.</div>
 </body></html>`,
   },
   {
@@ -410,7 +410,7 @@ export const PRINTABLES: PrintableContent[] = [
   </ul>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>This is self-awareness data, not a diagnostic tool.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>This is self-awareness data, not a diagnostic tool.</div>
 </body></html>`,
   },
   {
@@ -467,7 +467,7 @@ export const PRINTABLES: PrintableContent[] = [
   <div class="note">Shutdown is a trauma/overwhelm response, not a choice. But kids interpret silence as rejection. Name what happened so they don't fill the gap with "mom doesn't love me."</div>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Repair is not weakness. It's the most powerful parenting tool that exists.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Repair is not weakness. It's the most powerful parenting tool that exists.</div>
 </body></html>`,
   },
   {
@@ -533,7 +533,7 @@ export const PRINTABLES: PrintableContent[] = [
   </ul>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Sensory breaks are nervous system maintenance, not selfishness.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Sensory breaks are nervous system maintenance, not selfishness.</div>
 </body></html>`,
   },
   {
@@ -586,7 +586,7 @@ export const PRINTABLES: PrintableContent[] = [
   <p>I did not have to be perfect today.<br/>I just had to be here.<br/>And I was.</p>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Print multiple copies. One per day. Stack them. Watch the evidence accumulate.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Print multiple copies. One per day. Stack them. Watch the evidence accumulate.</div>
 </body></html>`,
   },
   {
@@ -673,7 +673,7 @@ export const PRINTABLES: PrintableContent[] = [
   </div>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Cut along the dashed lines. These are prescriptions for self-compassion.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Cut along the dashed lines. These are prescriptions for self-compassion.</div>
 </body></html>`,
   },
   {
@@ -742,7 +742,7 @@ export const PRINTABLES: PrintableContent[] = [
   <ul class="lines"><li></li><li></li><li></li></ul>
 </div>
 
-<div class="footer">Mindful Mama — mindfulmama.co<br/>Do this every week. Same time. Same place. It becomes automatic.</div>
+<div class="footer">Mindful Mama — mindfulmama.ai<br/>Do this every week. Same time. Same place. It becomes automatic.</div>
 </body></html>`,
   },
 ]

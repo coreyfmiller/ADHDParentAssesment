@@ -145,7 +145,7 @@ export default function PrivacyPage() {
             <p>
               For privacy-related questions or to exercise your data rights, please
               contact us at{" "}
-              <a href="mailto:hello@mindfulmama.co" className="underline">hello@mindfulmama.co</a>.
+              <a href="mailto:hello@mindfulmama.ai" className="underline">hello@mindfulmama.ai</a>.
             </p>
           </section>
         </div>
