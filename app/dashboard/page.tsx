@@ -12,6 +12,7 @@ import { IdentityAnchorCard } from "@/components/engagement/identity-anchor-card
 import { PulseCheckin } from "@/components/engagement/pulse-checkin"
 import { OneThingInteractive } from "@/components/engagement/one-thing-interactive"
 import { MicroWinLogger } from "@/components/engagement/micro-win-logger"
+import { WhatsHeavy } from "@/components/engagement/whats-heavy"
 import { EvidenceJournalCard } from "@/components/engagement/evidence-journal-card"
 
 const sections = [
@@ -89,6 +90,9 @@ export default function DashboardPage() {
 
       {/* Micro-Win Logger — always accessible */}
       <MicroWinLogger patternMap={patternMap} />
+
+      {/* What's Heavy — emotional release valve */}
+      <WhatsHeavy patternMap={patternMap} />
 
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (
