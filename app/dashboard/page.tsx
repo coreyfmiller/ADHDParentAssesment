@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles, Compass, Clock } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
@@ -10,45 +11,39 @@ import { getOneThingToday, type DailyAction } from "@/lib/one-thing-today"
 const sections = [
   {
     href: "/dashboard/coach",
-    icon: Sparkles,
+    image: "/images/sitting3.png",
     title: "AI Parenting Coach",
     description: "Talk through what's happening right now. Personalized support for the hard moments.",
-    color: "bg-primary/10 text-primary",
   },
   {
     href: "/dashboard/toolkit",
-    icon: Zap,
+    image: "/images/deepbreath.png",
     title: "Emergency Toolkit",
     description: "In-the-moment support when you're about to snap, just snapped, or can't start.",
-    color: "bg-red-500/10 text-red-600",
   },
   {
     href: "/dashboard/scripts",
-    icon: MessageCircle,
+    image: "/images/hands4.png",
     title: "Script Library",
     description: "Ready-to-use words for repair, boundaries, partner conversations, and more.",
-    color: "bg-primary/10 text-primary",
   },
   {
     href: "/dashboard/rhythms",
-    icon: Coffee,
+    image: "/images/flowing4.png",
     title: "Daily Rhythms",
     description: "Templates for high-spoon, low-spoon, and crisis days. Plus the meal system.",
-    color: "bg-amber-500/10 text-amber-600",
   },
   {
     href: "/dashboard/guides",
-    icon: BookOpen,
+    image: "/images/mind3.png",
     title: "Guides",
     description: "Deep dives: seasonal survival, relationships, hormones, sleep, and identity.",
-    color: "bg-blue-500/10 text-blue-600",
   },
   {
     href: "/dashboard/printables",
-    icon: FileText,
+    image: "/images/checklist.png",
     title: "Printables",
     description: "Visual checklists, routine cards, and tools to stick on your fridge.",
-    color: "bg-green-500/10 text-green-600",
   },
 ]
 
@@ -82,22 +77,29 @@ export default function DashboardPage() {
 
       {/* One Thing Today */}
       {dailyAction && (
-        <div className="bg-card rounded-2xl p-6 border border-primary/20 shadow-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-primary" />
-            </div>
-            <h2 className="text-sm font-medium text-primary uppercase tracking-wide">One thing today</h2>
-            <span className="ml-auto flex items-center gap-1 text-sm text-muted-foreground">
-              <Clock className="w-3 h-3" /> {dailyAction.timeNeeded}
-            </span>
+        <div className="bg-card rounded-2xl overflow-hidden border border-primary/20 shadow-sm">
+          <div className="aspect-[4/1] relative bg-secondary/20">
+            <Image
+              src="/images/glowingseed.png"
+              alt="One thing today"
+              fill
+              className="object-cover"
+            />
           </div>
-          <p className="text-foreground font-medium leading-relaxed mb-2">
-            {dailyAction.action}
-          </p>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {dailyAction.why}
-          </p>
+          <div className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <h2 className="text-sm font-medium text-primary uppercase tracking-wide">One thing today</h2>
+              <span className="ml-auto flex items-center gap-1 text-sm text-muted-foreground">
+                <Clock className="w-3 h-3" /> {dailyAction.timeNeeded}
+              </span>
+            </div>
+            <p className="text-foreground font-medium leading-relaxed mb-2">
+              {dailyAction.action}
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {dailyAction.why}
+            </p>
+          </div>
         </div>
       )}
 
@@ -183,24 +185,28 @@ export default function DashboardPage() {
 
       {/* Quick access grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {sections.map((section) => {
-          const Icon = section.icon
-          return (
-            <Link
-              key={section.href}
-              href={section.href}
-              className="bg-card rounded-2xl p-6 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
-            >
-              <div className={`w-10 h-10 rounded-xl ${section.color} flex items-center justify-center mb-3`}>
-                <Icon className="w-5 h-5" />
-              </div>
+        {sections.map((section) => (
+          <Link
+            key={section.href}
+            href={section.href}
+            className="bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+          >
+            <div className="aspect-[2.5/1] relative bg-secondary/20">
+              <Image
+                src={section.image}
+                alt={section.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-5">
               <h2 className="text-lg font-medium text-foreground mb-1 group-hover:text-primary transition-colors">
                 {section.title}
               </h2>
               <p className="text-sm text-muted-foreground">{section.description}</p>
-            </Link>
-          )
-        })}
+            </div>
+          </Link>
+        ))}
       </div>
 
       {/* Quick reminder */}
