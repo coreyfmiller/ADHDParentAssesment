@@ -29,7 +29,7 @@ const sections = [
   },
   {
     href: "/dashboard/scripts",
-    image: "/images/hands4.png",
+    image: "/images/script.png",
     title: "Script Library",
     description: "Ready-to-use words for repair, boundaries, partner conversations, and more.",
   },
