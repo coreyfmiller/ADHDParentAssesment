@@ -4,16 +4,31 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ArrowRight, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { getCurrentArchetype, getArchetypeHistory, ARCHETYPES } from "@/lib/archetypes"
+import { getCurrentArchetype, getArchetypeHistory, ARCHETYPES, determineArchetype, saveArchetype } from "@/lib/archetypes"
 import { ArchetypeCard } from "@/components/archetype-card"
 import type { Archetype, ArchetypeRecord } from "@/lib/archetypes"
+import type { PatternMap } from "@/lib/assessments/types"
 
 export default function ArchetypePage() {
   const [archetype, setArchetype] = useState<Archetype | null>(null)
   const [history, setHistory] = useState<ArchetypeRecord[]>([])
 
   useEffect(() => {
-    setArchetype(getCurrentArchetype())
+    let arch = getCurrentArchetype()
+
+    // If no archetype saved but pattern map exists, calculate and save it
+    if (!arch) {
+      try {
+        const mapData = localStorage.getItem("mindful-mama-pattern-map")
+        if (mapData) {
+          const map = JSON.parse(mapData) as PatternMap
+          arch = determineArchetype(map)
+          saveArchetype(arch)
+        }
+      } catch {}
+    }
+
+    setArchetype(arch)
     setHistory(getArchetypeHistory())
   }, [])
 

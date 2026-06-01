@@ -6,7 +6,7 @@ import Image from "next/image"
 import { Compass } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
-import { getCurrentArchetype } from "@/lib/archetypes"
+import { getCurrentArchetype, determineArchetype, saveArchetype } from "@/lib/archetypes"
 import type { Archetype } from "@/lib/archetypes"
 
 // Engagement components
@@ -71,8 +71,15 @@ export default function DashboardPage() {
         const map = JSON.parse(stored) as PatternMap
         setPatternMap(map)
         setContentRecs(getContentRecommendations(map))
+
+        // Get or calculate archetype
+        let arch = getCurrentArchetype()
+        if (!arch) {
+          arch = determineArchetype(map)
+          saveArchetype(arch)
+        }
+        setArchetype(arch)
       }
-      setArchetype(getCurrentArchetype())
     } catch {}
   }, [])
 
