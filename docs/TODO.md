@@ -3,6 +3,7 @@
 ## High Priority (Before Launch)
 
 - [ ] **Age/life-stage filtering for micro-guides** — Don't show perimenopause/PMDD content to younger moms. Add a simple life-stage question (postpartum, toddler years, school-age, perimenopause) and filter guide selection accordingly.
+- [ ] **Relationship status filtering** — Single/partnered/co-parenting changes which content is relevant. Single moms don't need "talk to your partner" guides — they need "how to manage alone" content. Partnered moms don't need "solo parenting" strategies. Ask once, filter accordingly. Also affects: scripts (partner scripts vs. boundary scripts with ex), archetype descriptions (references to partner support), and coach context.
 - [ ] **Backend + Auth** — Move from localStorage to a real database (Supabase or Firebase). Enables: accounts, cross-device sync, email communication, payment, and data persistence.
 - [ ] **Payment integration** — Stripe subscription ($9.99/month or $79/year). Free tier: snapshot + archetype + 2 pathways + limited coach. Paid: everything.
 - [ ] **Email capture** — Optional "save my progress" after archetype reveal. Builds list for marketing + time capsule notifications + weekly summaries.
