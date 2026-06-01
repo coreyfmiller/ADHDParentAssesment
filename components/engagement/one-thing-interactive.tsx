@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { Check, Clock, Flame, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -58,16 +57,6 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
 
   return (
     <div className="bg-card rounded-2xl border border-primary/20 overflow-hidden shadow-sm">
-      {/* Image */}
-      <div className="aspect-[2.7/1] relative bg-secondary/20">
-        <Image
-          src="/images/glowingseed.png"
-          alt="One thing today"
-          fill
-          className="object-cover"
-        />
-      </div>
-
       {/* Header with streak */}
       <div className="p-5 pb-0">
         <div className="flex items-center justify-between mb-1">
