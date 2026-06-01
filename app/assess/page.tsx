@@ -231,7 +231,7 @@ export default function AssessHub() {
                       : "border-border/50 opacity-60"
                   } ${isRecommended && !isCompleted ? "ring-2 ring-primary/20" : ""} ${isCompleted ? "border-green-500/20 bg-green-500/[0.02]" : ""}`}
                 >
-                  <div className="aspect-[2.5/1] relative bg-secondary/20">
+                  <div className="aspect-[2/1] relative bg-secondary/20">
                     <Image
                       src={pathwayImages[pathway.slug] || "/images/flowing.png"}
                       alt={pathway.title}
