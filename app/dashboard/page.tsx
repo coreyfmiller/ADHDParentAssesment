@@ -85,9 +85,9 @@ export default function DashboardPage() {
           Your parenting toolkit — built for how your brain actually works.
         </p>
         {archetype && (
-          <p className="text-sm text-primary mt-1 font-medium">
-            {archetype.name}
-          </p>
+          <Link href="/dashboard/archetype" className="text-sm text-primary mt-1 font-medium hover:text-primary/80 transition-colors inline-block">
+            {archetype.name} →
+          </Link>
         )}
       </div>
 
