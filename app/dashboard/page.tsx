@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles, Compass } from "lucide-react"
+import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles, Compass, Clock } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
+import { getOneThingToday, type DailyAction } from "@/lib/one-thing-today"
 
 const sections = [
   {
@@ -54,6 +55,7 @@ const sections = [
 export default function DashboardPage() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [contentRecs, setContentRecs] = useState<ContentRecommendation[]>([])
+  const [dailyAction, setDailyAction] = useState<DailyAction | null>(null)
 
   useEffect(() => {
     try {
@@ -62,6 +64,9 @@ export default function DashboardPage() {
         const map = JSON.parse(stored) as PatternMap
         setPatternMap(map)
         setContentRecs(getContentRecommendations(map))
+        setDailyAction(getOneThingToday(map))
+      } else {
+        setDailyAction(getOneThingToday(null))
       }
     } catch {}
   }, [])
@@ -74,6 +79,27 @@ export default function DashboardPage() {
           Your parenting toolkit — built for how your brain actually works.
         </p>
       </div>
+
+      {/* One Thing Today */}
+      {dailyAction && (
+        <div className="bg-card rounded-2xl p-6 border border-primary/20 shadow-sm">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-sm font-medium text-primary uppercase tracking-wide">One thing today</h2>
+            <span className="ml-auto flex items-center gap-1 text-sm text-muted-foreground">
+              <Clock className="w-3 h-3" /> {dailyAction.timeNeeded}
+            </span>
+          </div>
+          <p className="text-foreground font-medium leading-relaxed mb-2">
+            {dailyAction.action}
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {dailyAction.why}
+          </p>
+        </div>
+      )}
 
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (

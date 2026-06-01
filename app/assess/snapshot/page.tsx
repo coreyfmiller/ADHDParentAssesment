@@ -11,6 +11,7 @@ import { QuestionCard } from "@/components/assessment/question-card"
 import { SNAPSHOT_SECTIONS, SNAPSHOT_META } from "@/lib/assessments/overwhelm-snapshot"
 import { calculatePatternMap } from "@/lib/assessments/routing"
 import { getTransitionCopy, getSectionOpener } from "@/lib/assessments/micro-validations"
+import { saveSnapshotToHistory, getProgressComparison, getProgressSummary, type DimensionChange } from "@/lib/progress-tracking"
 import type { PatternMap } from "@/lib/assessments/types"
 import { PATHWAYS } from "@/lib/assessments/types"
 
@@ -54,6 +55,7 @@ export default function SnapshotPage() {
   const [assessmentStep, setAssessmentStep] = useState<SnapshotStep>("intro")
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
+  const [progressChanges, setProgressChanges] = useState<DimensionChange[] | null>(null)
   const [showSectionTransition, setShowSectionTransition] = useState(false)
   const [nextSectionName, setNextSectionName] = useState("")
   const [transitionReady, setTransitionReady] = useState(false)
@@ -152,7 +154,12 @@ export default function SnapshotPage() {
         // Save to localStorage
         try {
           localStorage.setItem(RESULT_KEY, JSON.stringify(map))
+          saveSnapshotToHistory(map)
         } catch {}
+
+        // Check for progress comparison
+        const changes = getProgressComparison(map)
+        if (changes) setProgressChanges(changes)
 
         clearProgress()
         setAssessmentStep("results")
@@ -390,7 +397,7 @@ export default function SnapshotPage() {
                 if (currentStep === totalSteps) {
                   const map = calculatePatternMap(answers)
                   setPatternMap(map)
-                  try { localStorage.setItem(RESULT_KEY, JSON.stringify(map)) } catch {}
+                  try { localStorage.setItem(RESULT_KEY, JSON.stringify(map)); saveSnapshotToHistory(map) } catch {}
                   clearProgress()
                   setAssessmentStep("results")
                   return
@@ -472,6 +479,36 @@ export default function SnapshotPage() {
                 ))}
               </div>
             </div>
+
+            {/* Progress Comparison (if retaking) */}
+            {progressChanges && (
+              <div className="bg-card rounded-3xl p-8 shadow-sm border border-border">
+                <h2 className="text-lg font-medium text-foreground mb-2">Since Last Time</h2>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {getProgressSummary(progressChanges)}
+                </p>
+                <div className="space-y-2">
+                  {progressChanges.map((change) => (
+                    <div key={change.dimension} className="flex items-center justify-between py-2">
+                      <span className="text-sm text-foreground">{change.label}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">{change.previousIntensity}</span>
+                        <span className="text-muted-foreground">→</span>
+                        <span className={`text-sm font-medium ${
+                          change.direction === "improved" ? "text-green-600" :
+                          change.direction === "worsened" ? "text-amber-600" :
+                          "text-muted-foreground"
+                        }`}>
+                          {change.currentIntensity}
+                        </span>
+                        {change.direction === "improved" && <span className="text-green-600 text-sm">↓</span>}
+                        {change.direction === "worsened" && <span className="text-amber-600 text-sm">↑</span>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Recommended Pathways */}
             {patternMap.recommendedPathways.length > 0 && (

@@ -29,6 +29,7 @@ export default function CoachPage() {
   const [patternMap, setPatternMap] = useState<Record<string, unknown> | null>(null)
   const [pathwayResults, setPathwayResults] = useState<Record<string, unknown> | null>(null)
   const [hasAccess, setHasAccess] = useState(true)
+  const [coachGreeting, setCoachGreeting] = useState("Tell me what's happening — or tap a starter below.")
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -52,7 +53,23 @@ export default function CoachPage() {
 
       // Load pattern map
       const mapData = localStorage.getItem("mindful-mama-pattern-map")
-      if (mapData) setPatternMap(JSON.parse(mapData))
+      if (mapData) {
+        const map = JSON.parse(mapData)
+        setPatternMap(map)
+
+        // Generate context-aware greeting
+        const dims = map.dimensions || []
+        const critical = dims.filter((d: any) => d.intensity === "critical")
+        const high = dims.filter((d: any) => d.intensity === "high")
+
+        if (critical.length > 0) {
+          const area = critical[0].label.toLowerCase()
+          setCoachGreeting(`I can see your ${area} is at a critical level right now. I'm here — whether you want to talk about that specifically, or something else entirely is on your mind.`)
+        } else if (high.length > 0) {
+          const areas = high.slice(0, 2).map((d: any) => d.label.toLowerCase())
+          setCoachGreeting(`Based on your check-in, ${areas.join(" and ")} are where you're feeling the most strain. Want to dig into that, or is something else coming up today?`)
+        }
+      }
 
       // Load pathway results
       const pathways = ["executive-function", "depletion-burnout", "sensory-overwhelm", "systemic-load", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system"]
@@ -163,7 +180,7 @@ export default function CoachPage() {
           <div className="space-y-4">
             <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
               <p className="text-sm text-foreground/80 leading-relaxed">
-                Hi there. I&apos;m your parenting coach — here for the hard moments, the messy mornings, and the guilt spirals. Tell me what&apos;s happening, or tap a starter below.
+                {coachGreeting}
               </p>
             </div>
 
