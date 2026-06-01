@@ -84,12 +84,30 @@ export default function DashboardPage() {
         <p className="text-muted-foreground">
           Your parenting toolkit — built for how your brain actually works.
         </p>
-        {archetype && (
-          <Link href="/dashboard/archetype" className="text-sm text-primary mt-1 font-medium hover:text-primary/80 transition-colors inline-block">
-            {archetype.name} →
-          </Link>
-        )}
       </div>
+
+      {/* Archetype badge — prominent, tappable */}
+      {archetype && (
+        <Link
+          href="/dashboard/archetype"
+          className="block bg-card rounded-2xl p-5 border border-primary/15 hover:border-primary/30 transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <span className="text-lg">✦</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground">Your type</p>
+              <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                {archetype.name}
+              </p>
+            </div>
+            <span className="text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              View →
+            </span>
+          </div>
+        </Link>
+      )}
 
       {/* Daily Identity Anchor — first thing she sees */}
       <IdentityAnchorCard patternMap={patternMap} />
