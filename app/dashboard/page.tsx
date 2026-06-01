@@ -57,8 +57,8 @@ const sections = [
   {
     href: "/dashboard/printables",
     image: "/images/checklist.png",
-    title: "Printables",
-    description: "Visual checklists, routine cards, and tools to stick on your fridge.",
+    title: "Checklists",
+    description: "Interactive routines, grocery lists, and tools designed for ADHD brains.",
   },
 ]
 

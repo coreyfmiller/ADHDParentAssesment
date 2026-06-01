@@ -16,7 +16,7 @@ const navItems = [
   { href: "/dashboard/rhythms", label: "Daily Rhythms", icon: Coffee },
   { href: "/dashboard/scripts", label: "Script Library", icon: MessageCircle },
   { href: "/dashboard/guides", label: "Guides", icon: BookOpen },
-  { href: "/dashboard/printables", label: "Printables", icon: FileText },
+  { href: "/dashboard/printables", label: "Checklists", icon: FileText },
   { href: "/dashboard/share", label: "Share & Gift", icon: Share2 },
 ]
 

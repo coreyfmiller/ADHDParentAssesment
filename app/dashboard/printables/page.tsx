@@ -27,10 +27,10 @@ export default function PrintablesPage() {
           <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center">
             <FileText className="w-5 h-5 text-green-600" />
           </div>
-          <h1 className="text-2xl md:text-3xl font-medium text-foreground">Printables</h1>
+          <h1 className="text-2xl md:text-3xl font-medium text-foreground">Checklists</h1>
         </div>
         <p className="text-muted-foreground">
-          Visual tools designed for ADHD brains. Use them on your phone or print them out. If it&apos;s not visible, it doesn&apos;t exist.
+          Interactive tools designed for ADHD brains. Use them on your phone daily, or print them out for the fridge. If it&apos;s not visible, it doesn&apos;t exist.
         </p>
       </div>
 
