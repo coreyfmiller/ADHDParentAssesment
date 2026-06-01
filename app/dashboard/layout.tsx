@@ -4,21 +4,19 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Menu, X, Sparkles, Share2, Fingerprint, GraduationCap } from "lucide-react"
+import { Brain, Zap, BookOpen, Menu, X, Sparkles, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { href: "/dashboard", label: "My Profile", icon: Brain },
-  { href: "/dashboard/archetype", label: "My Type", icon: Fingerprint },
-  { href: "/dashboard/coach", label: "AI Coach", icon: Sparkles },
-  { href: "/dashboard/micro-guides", label: "Micro-Guides", icon: GraduationCap },
-  { href: "/dashboard/toolkit", label: "Emergency Toolkit", icon: Zap },
-  { href: "/dashboard/rhythms", label: "Daily Rhythms", icon: Coffee },
-  { href: "/dashboard/scripts", label: "Script Library", icon: MessageCircle },
-  { href: "/dashboard/guides", label: "Guides", icon: BookOpen },
-  { href: "/dashboard/printables", label: "Checklists", icon: FileText },
-  { href: "/dashboard/share", label: "Share & Gift", icon: Share2 },
+  { href: "/dashboard", label: "Home", icon: Brain },
+  { href: "/dashboard/coach", label: "Coach", icon: Sparkles },
+  { href: "/dashboard/toolkit", label: "Toolkit", icon: Zap },
+  { href: "/dashboard/library", label: "Library", icon: BookOpen },
+  { href: "/dashboard/me", label: "Me", icon: User },
 ]
+
+const libraryPaths = ["/dashboard/library", "/dashboard/micro-guides", "/dashboard/scripts", "/dashboard/rhythms", "/dashboard/printables", "/dashboard/guides"]
+const mePaths = ["/dashboard/me", "/dashboard/archetype", "/dashboard/share"]
 
 export default function DashboardLayout({
   children,
@@ -27,6 +25,13 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  function isNavActive(href: string): boolean {
+    if (href === "/dashboard") return pathname === "/dashboard"
+    if (href === "/dashboard/library") return libraryPaths.some(p => pathname.startsWith(p))
+    if (href === "/dashboard/me") return mePaths.some(p => pathname.startsWith(p))
+    return pathname.startsWith(href)
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -47,7 +52,7 @@ export default function DashboardLayout({
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon
-              const isActive = pathname === item.href
+              const isActive = isNavActive(item.href)
               return (
                 <Link
                   key={item.href}
@@ -71,7 +76,7 @@ export default function DashboardLayout({
           <nav className="md:hidden border-t border-border/50 bg-background px-4 py-3 space-y-1">
             {navItems.map((item) => {
               const Icon = item.icon
-              const isActive = pathname === item.href
+              const isActive = isNavActive(item.href)
               return (
                 <Link
                   key={item.href}
