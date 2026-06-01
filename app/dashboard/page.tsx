@@ -181,7 +181,7 @@ export default function DashboardPage() {
             href={section.href}
             className="bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
           >
-            <div className="aspect-[2.5/1] relative bg-secondary/20">
+            <div className="aspect-[2.2/1] relative bg-secondary/20">
               <Image
                 src={section.image}
                 alt={section.title}
