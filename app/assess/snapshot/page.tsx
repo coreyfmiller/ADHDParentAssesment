@@ -258,6 +258,13 @@ export default function SnapshotPage() {
         {/* Intro */}
         {assessmentStep === "intro" && (
           <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border text-center">
+            <Image
+              src="/images/flowing2.png"
+              alt="Self-reflection"
+              width={300}
+              height={150}
+              className="mx-auto mb-6 rounded-xl"
+            />
             <div className="mb-6">
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
                 {SNAPSHOT_META.estimatedMinutes} minutes · {SNAPSHOT_META.questionCount} questions · zero judgment

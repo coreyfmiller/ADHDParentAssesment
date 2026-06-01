@@ -1,51 +1,45 @@
 "use client"
 
 import Link from "next/link"
-import { BookOpen, Calendar, Heart, Moon, Sparkles, Baby, ArrowRight } from "lucide-react"
-import { cn } from "@/lib/utils"
+import Image from "next/image"
+import { BookOpen, ArrowRight } from "lucide-react"
 
 const guides = [
   {
     slug: "relationship-maintenance",
-    icon: <Heart className="w-5 h-5" />,
+    image: "/images/hearthshape.png",
     title: "The Relationship Maintenance Guide",
     description: "Division of labor, the recurring argument, explaining your brain to your partner, and staying connected when you're both depleted.",
-    color: "bg-pink-500/10 text-pink-600",
   },
   {
     slug: "sleep-and-the-brain",
-    icon: <Moon className="w-5 h-5" />,
+    image: "/images/moon2.png",
     title: "Sleep & The Overwhelmed Brain",
     description: "Why your brain resists bedtime, the racing-mind toolkit, revenge bedtime procrastination, and realistic sleep strategies that account for night wakings.",
-    color: "bg-indigo-500/10 text-indigo-600",
   },
   {
     slug: "hormonal-connection",
-    icon: <Baby className="w-5 h-5" />,
+    image: "/images/circle2.png",
     title: "The Hormonal Connection",
-    description: "How your cycle affects executive function, why some weeks are harder, perimenopause and the 'am I losing my mind' experience, and planning around your biology.",
-    color: "bg-purple-500/10 text-purple-600",
+    description: "How your cycle affects executive function, why some weeks are harder, perimenopause, and planning around your biology.",
   },
   {
     slug: "reclaiming-identity",
-    icon: <Sparkles className="w-5 h-5" />,
+    image: "/images/silhouette2.png",
     title: "Reclaiming Your Identity",
-    description: "Who you were before kids, the guilt of wanting time alone, the difference between self-care and identity, and rebuilding a sense of self inside motherhood.",
-    color: "bg-amber-500/10 text-amber-600",
+    description: "Who you were before kids, the guilt of wanting time alone, the difference between self-care and identity, and rebuilding a sense of self.",
   },
   {
     slug: "back-to-school",
-    icon: <Calendar className="w-5 h-5" />,
+    image: "/images/buildingblocks.png",
     title: "Back to School Survival Guide",
-    description: "New routines, new teachers, new forms. How to rebuild your systems without burning out in September — and what to do when they collapse by October.",
-    color: "bg-blue-500/10 text-blue-600",
+    description: "New routines, new teachers, new forms. How to rebuild your systems without burning out in September.",
   },
   {
     slug: "holiday-survival",
-    icon: <Sparkles className="w-5 h-5" />,
+    image: "/images/hands2.png",
     title: "Holiday Season Without Burnout",
-    description: "Gift buying, event scheduling, family gatherings, cooking expectations, and the emotional labor of making magic for everyone else. Your December survival plan.",
-    color: "bg-red-500/10 text-red-600",
+    description: "Gift buying, event scheduling, family gatherings, and the emotional labor of making magic for everyone else.",
   },
 ]
 
@@ -69,16 +63,23 @@ export default function GuidesPage() {
           <Link
             key={guide.slug}
             href={`/dashboard/guides/${guide.slug}`}
-            className="bg-card rounded-2xl p-6 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+            className="bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
           >
-            <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center mb-3", guide.color)}>
-              {guide.icon}
+            <div className="aspect-[2/1] relative bg-secondary/30">
+              <Image
+                src={guide.image}
+                alt={guide.title}
+                fill
+                className="object-cover"
+              />
             </div>
-            <h2 className="text-lg font-medium text-foreground mb-1 group-hover:text-primary transition-colors">{guide.title}</h2>
-            <p className="text-sm text-muted-foreground mb-3">{guide.description}</p>
-            <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-              Read guide <ArrowRight className="w-3 h-3" />
-            </span>
+            <div className="p-5">
+              <h2 className="text-base font-medium text-foreground mb-1 group-hover:text-primary transition-colors">{guide.title}</h2>
+              <p className="text-sm text-muted-foreground mb-3">{guide.description}</p>
+              <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+                Read guide <ArrowRight className="w-3 h-3" />
+              </span>
+            </div>
           </Link>
         ))}
       </div>

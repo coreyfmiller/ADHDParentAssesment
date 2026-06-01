@@ -63,11 +63,11 @@ export default function HomePage() {
         {/* Hero */}
         <section className="text-center mb-16">
           <Image
-            src="/logo.png"
-            alt="Mindful Mama"
-            width={280}
-            height={280}
-            className="mx-auto mb-8"
+            src="/images/sitting.png"
+            alt="A moment of calm"
+            width={400}
+            height={267}
+            className="mx-auto mb-8 rounded-2xl"
             priority
           />
           <h1 className="text-4xl md:text-5xl font-medium text-foreground mb-6 text-balance leading-tight">

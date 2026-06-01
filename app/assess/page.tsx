@@ -30,6 +30,16 @@ const iconMap: Record<string, React.ElementType> = {
   Users,
 }
 
+const pathwayImages: Record<string, string> = {
+  "executive-function": "/images/mind2.png",
+  "depletion-burnout": "/images/battery.png",
+  "sensory-overwhelm": "/images/flowing5.png",
+  "hormonal-patterns": "/images/circle4.png",
+  "sleep-recovery": "/images/moon.png",
+  "trauma-nervous-system": "/images/nervoussystem2.png",
+  "systemic-load": "/images/buildingblocks2.png",
+}
+
 const STORAGE_KEY = "mindful-mama-pattern-map"
 
 export default function AssessHub() {
@@ -215,48 +225,56 @@ export default function AssessHub() {
               return (
                 <div
                   key={pathway.id}
-                  className={`bg-card rounded-2xl p-6 border transition-all ${
+                  className={`bg-card rounded-2xl overflow-hidden border transition-all ${
                     pathway.available
                       ? "border-border hover:border-primary/30 hover:shadow-sm"
                       : "border-border/50 opacity-60"
                   } ${isRecommended && !isCompleted ? "ring-2 ring-primary/20" : ""} ${isCompleted ? "border-green-500/20 bg-green-500/[0.02]" : ""}`}
                 >
-                  <div className="flex items-start gap-3">
-                    <div className={`w-10 h-10 rounded-xl ${isCompleted ? "bg-green-500/10 text-green-600" : pathway.color} flex items-center justify-center flex-shrink-0`}>
-                      {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-sm font-medium text-foreground truncate">{pathway.title}</h3>
-                        {isCompleted && (
-                          <span className="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 font-medium">
-                            Done
-                          </span>
-                        )}
-                        {isRecommended && !isCompleted && (
-                          <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary" />
-                        )}
+                  <div className="aspect-[3/1] relative bg-secondary/20">
+                    <Image
+                      src={pathwayImages[pathway.slug] || "/images/flowing.png"}
+                      alt={pathway.title}
+                      fill
+                      className="object-cover opacity-80"
+                    />
+                    {isCompleted && (
+                      <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                        <CheckCircle2 className="w-4 h-4 text-white" />
                       </div>
-                      <p className="text-sm text-muted-foreground mb-3">{pathway.subtitle}</p>
-                      <div className="flex items-center gap-2">
-                        {pathway.available ? (
-                          <Link
-                            href={`/assess/pathway/${pathway.slug}`}
-                            className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
-                          >
-                            {isCompleted ? "View results" : "Begin reflection"}
-                            <ArrowRight className="w-3 h-3" />
-                          </Link>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                            <Lock className="w-3 h-3" />
-                            Coming soon
-                          </span>
-                        )}
-                        <span className="text-xs text-muted-foreground ml-auto">
-                          {pathway.estimatedMinutes} min
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-sm font-medium text-foreground">{pathway.title}</h3>
+                      {isCompleted && (
+                        <span className="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 font-medium">
+                          Done
                         </span>
-                      </div>
+                      )}
+                      {isRecommended && !isCompleted && (
+                        <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary" />
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">{pathway.subtitle}</p>
+                    <div className="flex items-center gap-2">
+                      {pathway.available ? (
+                        <Link
+                          href={`/assess/pathway/${pathway.slug}`}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                        >
+                          {isCompleted ? "View results" : "Begin reflection"}
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                          <Lock className="w-3 h-3" />
+                          Coming soon
+                        </span>
+                      )}
+                      <span className="text-xs text-muted-foreground ml-auto">
+                        {pathway.estimatedMinutes} min
+                      </span>
                     </div>
                   </div>
                 </div>
