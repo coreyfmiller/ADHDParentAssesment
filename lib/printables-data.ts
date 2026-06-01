@@ -29,6 +29,8 @@ export interface PrintableData {
   description: string
   category: string
   type: "checklist" | "fill-in" | "mixed" | "cards"
+  resetBehavior: "daily" | "manual" // daily = clears each morning, manual = only clears when user clicks reset
+  editable?: boolean // if true, fill-in fields are saveable/editable
   sections?: ChecklistSection[]
   fillIns?: FillInItem[]
   cards?: { title: string; content: string; note?: string }[]

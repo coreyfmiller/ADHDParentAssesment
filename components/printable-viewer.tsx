@@ -62,13 +62,15 @@ export function PrintableViewer({ printable, onBack }: PrintableViewerProps) {
     <div className="space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <button
+        <Button
           onClick={onBack}
-          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          variant="outline"
+          size="sm"
+          className="rounded-xl"
         >
-          <ChevronLeft className="w-4 h-4" />
-          Back
-        </button>
+          <ChevronLeft className="w-4 h-4 mr-1" />
+          All Checklists
+        </Button>
         <div className="flex items-center gap-2">
           {totalItems > 0 && checked.size > 0 && (
             <button

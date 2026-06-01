@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { FileText, ArrowRight } from "lucide-react"
 import { PRINTABLES_DATA } from "@/lib/printables-data"
 import { PrintableViewer } from "@/components/printable-viewer"
