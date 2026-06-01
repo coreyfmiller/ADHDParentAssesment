@@ -3,10 +3,16 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Sparkles, Compass, Clock } from "lucide-react"
+import { Compass } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
-import { getOneThingToday, type DailyAction } from "@/lib/one-thing-today"
+
+// Engagement components
+import { IdentityAnchorCard } from "@/components/engagement/identity-anchor-card"
+import { PulseCheckin } from "@/components/engagement/pulse-checkin"
+import { OneThingInteractive } from "@/components/engagement/one-thing-interactive"
+import { MicroWinLogger } from "@/components/engagement/micro-win-logger"
+import { EvidenceJournalCard } from "@/components/engagement/evidence-journal-card"
 
 const sections = [
   {
@@ -50,7 +56,6 @@ const sections = [
 export default function DashboardPage() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [contentRecs, setContentRecs] = useState<ContentRecommendation[]>([])
-  const [dailyAction, setDailyAction] = useState<DailyAction | null>(null)
 
   useEffect(() => {
     try {
@@ -59,15 +64,13 @@ export default function DashboardPage() {
         const map = JSON.parse(stored) as PatternMap
         setPatternMap(map)
         setContentRecs(getContentRecommendations(map))
-        setDailyAction(getOneThingToday(map))
-      } else {
-        setDailyAction(getOneThingToday(null))
       }
     } catch {}
   }, [])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
+      {/* Welcome */}
       <div>
         <h1 className="text-3xl font-medium text-foreground mb-2">Welcome back</h1>
         <p className="text-muted-foreground">
@@ -75,33 +78,17 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {/* One Thing Today */}
-      {dailyAction && (
-        <div className="bg-card rounded-2xl overflow-hidden border border-primary/20 shadow-sm">
-          <div className="aspect-[3/1] relative bg-secondary/20">
-            <Image
-              src="/images/glowingseed.png"
-              alt="One thing today"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <h2 className="text-sm font-medium text-primary uppercase tracking-wide">One thing today</h2>
-              <span className="ml-auto flex items-center gap-1 text-sm text-muted-foreground">
-                <Clock className="w-3 h-3" /> {dailyAction.timeNeeded}
-              </span>
-            </div>
-            <p className="text-foreground font-medium leading-relaxed mb-2">
-              {dailyAction.action}
-            </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {dailyAction.why}
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Daily Identity Anchor — first thing she sees */}
+      <IdentityAnchorCard patternMap={patternMap} />
+
+      {/* Pulse Check-In — contextual based on time of day */}
+      <PulseCheckin patternMap={patternMap} />
+
+      {/* One Thing Today — interactive with streaks */}
+      <OneThingInteractive patternMap={patternMap} />
+
+      {/* Micro-Win Logger — always accessible */}
+      <MicroWinLogger patternMap={patternMap} />
 
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (
@@ -161,6 +148,9 @@ export default function DashboardPage() {
           </div>
         </Link>
       )}
+
+      {/* Evidence Journal — weekly summary */}
+      <EvidenceJournalCard patternMap={patternMap} />
 
       {/* Personalized Recommendations */}
       {contentRecs.length > 0 && (
