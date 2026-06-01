@@ -145,6 +145,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     ],
     tryThis: "Learn your default survival response. Which one do you go to most often under stress — fight, flight, freeze, or fawn? Once you know your pattern, you can catch it earlier: 'I'm starting to fawn right now. That means I'm feeling threatened. What do I actually need?'",
     remember: "Fight, flight, freeze, and fawn aren't choices — they're your nervous system's automatic survival responses. You can't willpower past them. But you can name them, which begins to shift them.",
+    groundingNote: "If recognizing your survival responses connects to experiences from your past that feel overwhelming, please be gentle with yourself. This awareness is powerful but can also surface difficult material. A trauma-informed therapist can help you process what comes up safely.",
   },
 
   // ---- PHYSICAL / NERVOUS SYSTEM (3 more) ----
@@ -217,6 +218,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     ],
     tryThis: "If you're 35+ and your cognitive function has noticeably declined, consider discussing both perimenopause AND ADHD with your healthcare provider. They're not mutually exclusive — and addressing both changes the treatment approach significantly.",
     remember: "If your coping strategies suddenly stopped working in your late 30s-40s, it might not be 'just stress.' Declining estrogen unmasks ADHD that was previously compensated. You're not losing your mind — your hormonal scaffolding is shifting.",
+    caveat: "This is a possibility to explore with your healthcare provider, not a conclusion to draw from an app. Many conditions can cause cognitive changes in your 30s-40s. A proper evaluation considers the full picture.",
   },
   {
     id: "horm-premenstrual-adhd",

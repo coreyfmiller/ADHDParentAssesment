@@ -14,6 +14,8 @@ export interface MicroGuide {
   body: string[] // paragraphs
   tryThis: string // one actionable takeaway
   remember: string // one-line reframe to carry with her
+  groundingNote?: string // for trauma-adjacent content — containment/support note
+  caveat?: string // for medical-adjacent content — "explore, don't conclude" note
 }
 
 export type MicroGuideCategory =

@@ -120,6 +120,20 @@ export default function MicroGuidesPage() {
             <p className="text-sm text-foreground font-medium leading-relaxed italic">{todaysGuide.remember}</p>
           </div>
 
+          {/* Grounding note (trauma-adjacent content) */}
+          {todaysGuide.groundingNote && (
+            <div className="border-t border-border/50 px-5 py-4 bg-amber-500/5">
+              <p className="text-xs text-amber-800/70 leading-relaxed">{todaysGuide.groundingNote}</p>
+            </div>
+          )}
+
+          {/* Caveat (medical-adjacent content) */}
+          {todaysGuide.caveat && (
+            <div className="border-t border-border/50 px-5 py-4 bg-sky-500/5">
+              <p className="text-xs text-sky-800/70 leading-relaxed">{todaysGuide.caveat}</p>
+            </div>
+          )}
+
           {/* Mark as read */}
           <div className="border-t border-border/50 px-5 py-3">
             {readIds.includes(todaysGuide.id) ? (
@@ -202,6 +216,16 @@ export default function MicroGuidesPage() {
                         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Remember</p>
                         <p className="text-sm text-foreground font-medium italic">{guide.remember}</p>
                       </div>
+                      {guide.groundingNote && (
+                        <div className="border-t border-border/50 px-5 py-3 bg-amber-500/5">
+                          <p className="text-xs text-amber-800/70 leading-relaxed">{guide.groundingNote}</p>
+                        </div>
+                      )}
+                      {guide.caveat && (
+                        <div className="border-t border-border/50 px-5 py-3 bg-sky-500/5">
+                          <p className="text-xs text-sky-800/70 leading-relaxed">{guide.caveat}</p>
+                        </div>
+                      )}
                       {!isRead && (
                         <div className="border-t border-border/50 px-5 py-3">
                           <Button
@@ -224,9 +248,14 @@ export default function MicroGuidesPage() {
       </div>
 
       {/* Disclaimer */}
-      <p className="text-xs text-muted-foreground/70 text-center leading-relaxed">
-        These guides are for educational and self-reflection purposes only. They are informed by research but are not a substitute for professional care.
-      </p>
+      <div className="bg-secondary/30 rounded-2xl p-5 border border-border/50">
+        <p className="text-xs text-foreground/70 leading-relaxed mb-2">
+          <strong>Important:</strong> These guides are for educational and self-reflection purposes only. They are informed by research on executive function, neurodivergence, and maternal mental health — but they are not a diagnosis, treatment plan, or substitute for professional care.
+        </p>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          If you&apos;re struggling beyond what self-reflection can address, please reach out to a qualified healthcare provider. There&apos;s no shame in needing more support than an app can provide — that&apos;s not failure, it&apos;s self-awareness.
+        </p>
+      </div>
     </div>
   )
 }

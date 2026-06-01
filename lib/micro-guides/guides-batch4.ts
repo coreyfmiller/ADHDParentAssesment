@@ -130,6 +130,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     ],
     tryThis: "If rage is a significant part of your postpartum experience: mention it explicitly to your healthcare provider. Say: 'I'm experiencing intense anger that feels disproportionate and out of my control.' Many providers won't ask about rage specifically — you may need to name it yourself.",
     remember: "Postpartum rage is as real and valid as postpartum depression. It's hormonal, not moral. If you're experiencing it, you deserve support — not shame.",
+    caveat: "Postpartum rage can be a symptom of postpartum mood disorders that benefit significantly from professional treatment. This guide validates your experience — but a healthcare provider can offer interventions (therapy, medication, hormonal support) that self-reflection alone cannot.",
   },
   {
     id: "horm-thyroid-mimics",
@@ -147,6 +148,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     ],
     tryThis: "If you haven't had comprehensive thyroid testing: ask your doctor for TSH, Free T3, Free T4, and thyroid antibodies (TPO and TG). Especially if your symptoms worsened postpartum or you have a family history of thyroid issues. It's a simple blood test that could change everything.",
     remember: "Thyroid disorders mimic ADHD almost perfectly and are extremely common in women postpartum. A simple blood test could reveal a treatable condition hiding behind your symptoms.",
+    caveat: "This guide suggests a possibility to explore — not a self-diagnosis. Thyroid testing is simple and your doctor can determine whether it's relevant to your symptoms. You may have ADHD, thyroid issues, both, or neither. A professional can help you sort it out.",
   },
 
   // ---- RELATIONSHIPS (2 more) ----
@@ -293,5 +295,25 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     ],
     tryThis: "Write a letter to the parent you thought you'd be. Thank her for the vision. Then let her go: 'You were created without knowing what I'd be working with. I release you. The parent I actually am is enough for the children I actually have.'",
     remember: "The parent you imagined was designed without data. She didn't know your brain, your body, or your circumstances. Let her go. The parent you actually are — imperfect and present — is what your children need.",
+  },
+
+  // ---- BONUS: THE BRIDGE GUIDE ----
+  {
+    id: "meta-when-to-seek-help",
+    title: "When Self-Help Isn't Enough",
+    subtitle: "How to know when you need more than an app",
+    category: "emotional-regulation",
+    archetypes: ["weight-bearer", "burning-engine", "quiet-volcano", "running-on-empty", "the-disappeared", "plate-spinner", "invisible-architect", "storm-weatherer", "steady-ground"],
+    dimensions: ["emotional-bandwidth", "physical-depletion", "identity-erosion"],
+    readTime: "3 min",
+    body: [
+      "This app is a tool. A good one, hopefully. But it has limits — and knowing those limits is part of taking care of yourself. There are situations where self-reflection, psychoeducation, and coping strategies aren't enough. Where you need a human professional who can hold space for what an app cannot.",
+      "Consider seeking professional help if: you're having thoughts of harming yourself or your children (even fleeting ones). You can't function at a basic level for more than 2 weeks (can't get out of bed, can't feed yourself or your kids, can't maintain safety). Joy has completely disappeared and rest doesn't bring it back. You're using substances to cope. Your relationships are deteriorating and you can't stop the pattern. You're experiencing flashbacks, nightmares, or dissociation.",
+      "Also consider it if: you suspect ADHD but aren't diagnosed (a proper evaluation changes everything). You think you might be experiencing postpartum depression or anxiety. Your overwhelm hasn't improved despite trying strategies consistently. You're in a relationship that feels unsafe. You recognize trauma patterns but can't interrupt them alone.",
+      "What therapy actually looks like for overwhelmed mothers: it's not lying on a couch talking about your childhood (unless you want that). It can be: ADHD coaching (practical strategies with accountability), CBT (changing thought patterns), EMDR (processing trauma without re-living it), DBT (emotional regulation skills), or simply having one hour per week where someone holds space for YOU — not your kids, not your partner, not your household. Just you.",
+      "Finding the right provider: look for someone who understands ADHD in women, maternal mental health, or neurodivergence. Ask: 'Do you have experience with ADHD in adult women?' and 'Do you understand how motherhood intersects with executive function challenges?' If they say 'ADHD is overdiagnosed' or 'have you tried a planner?' — find someone else.",
+    ],
+    tryThis: "If any of the above resonated: take one step today. Google 'ADHD therapist near me' or 'maternal mental health therapist [your city].' You don't have to book an appointment. Just look. Having the information removes one barrier for the day you're ready.",
+    remember: "Seeking professional help isn't failure — it's the most intelligent response to a situation that exceeds what self-help can address. You deserve support that matches the scale of what you're carrying.",
   },
 ]

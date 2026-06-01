@@ -267,6 +267,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     ],
     tryThis: "Notice your inner critic today. When it speaks, ask: 'Whose voice is this? Is this mine, or did I inherit it?' You don't have to do anything with the answer yet. Just notice. Awareness is the first crack in the pattern.",
     remember: "The critical voice in your head may not be yours. It might be inherited. You can acknowledge where it came from AND choose not to pass it forward. Awareness breaks the cycle.",
+    groundingNote: "If exploring your mother's influence brings up grief, anger, or painful memories — that's normal and valid. You don't have to resolve it here. A therapist who works with intergenerational patterns can hold this with you in a way an app cannot.",
   },
 
   // ---- IDENTITY (2 more) ----
@@ -393,6 +394,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     ],
     tryThis: "Next time you have a disproportionate reaction to your child: pause and ask 'How old do I feel right now?' If the answer isn't your actual age — you're triggered. The reaction belongs to a younger you. Name it: 'This is old. This isn't about right now.'",
     remember: "Your child will trigger your childhood. That's not their fault or yours. The awareness — 'this reaction is bigger than this moment' — is what breaks the intergenerational cycle.",
+    groundingNote: "If this brought up something heavy from your own childhood, you don't have to process it alone. The 'What's Heavy' space is here for you, and a therapist who specializes in intergenerational trauma can help you work through what an app cannot.",
   },
   {
     id: "par-child-adhd",

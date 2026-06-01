@@ -166,6 +166,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     ],
     tryThis: "Ask yourself the cabin question honestly. Then ask: 'If my circumstances changed dramatically (more support, less load), would I feel better?' If yes — the structure is the problem, not your brain chemistry. If no — consider talking to a professional.",
     remember: "Burnout and depression look identical from the outside. The difference is whether rest would fix it. If you're not sure, ask for help. That's not weakness — it's intelligence.",
+    caveat: "This guide helps you reflect on what you might be experiencing — it cannot diagnose. Burnout and depression can coexist, and both deserve professional support. If you're unsure, please speak with a healthcare provider who can assess you properly.",
   },
 
   // ---- HORMONAL (2) ----
