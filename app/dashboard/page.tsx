@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Compass } from "lucide-react"
+import { Compass, BookOpen, Clock, Check } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
 import { getCurrentArchetype, determineArchetype, saveArchetype } from "@/lib/archetypes"
@@ -20,6 +20,8 @@ import { TimeCapsuleWidget } from "@/components/engagement/time-capsule"
 import { WhatWorkedTracker } from "@/components/engagement/what-worked-tracker"
 import { MilestoneToast } from "@/components/engagement/milestone-toast"
 import { ProactiveCoachMessage } from "@/components/engagement/proactive-coach-message"
+import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
+import type { MicroGuide } from "@/lib/micro-guides"
 
 const sections = [
   {
@@ -64,23 +66,32 @@ export default function DashboardPage() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [contentRecs, setContentRecs] = useState<ContentRecommendation[]>([])
   const [archetype, setArchetype] = useState<Archetype | null>(null)
+  const [dailyGuide, setDailyGuide] = useState<MicroGuide | null>(null)
+  const [guideRead, setGuideRead] = useState(false)
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem("mindful-mama-pattern-map")
+      let map: PatternMap | null = null
+      let arch: Archetype | null = null
+
       if (stored) {
-        const map = JSON.parse(stored) as PatternMap
+        map = JSON.parse(stored) as PatternMap
         setPatternMap(map)
         setContentRecs(getContentRecommendations(map))
 
-        // Get or calculate archetype
-        let arch = getCurrentArchetype()
+        arch = getCurrentArchetype()
         if (!arch) {
           arch = determineArchetype(map)
           saveArchetype(arch)
         }
         setArchetype(arch)
       }
+
+      // Get today's micro-guide
+      const guide = getTodaysGuide(map, arch)
+      setDailyGuide(guide)
+      setGuideRead(getReadGuideIds().includes(guide.id))
     } catch {}
   }, [])
 
@@ -131,6 +142,37 @@ export default function DashboardPage() {
 
       {/* Micro-Win Logger — always accessible */}
       <MicroWinLogger patternMap={patternMap} />
+
+      {/* Today's Micro-Guide */}
+      {dailyGuide && (
+        <Link
+          href="/dashboard/micro-guides"
+          className="block bg-card rounded-2xl border border-border hover:border-primary/20 transition-all overflow-hidden group"
+        >
+          <div className="p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <BookOpen className="w-4 h-4 text-primary" />
+              <span className="text-xs font-medium text-primary uppercase tracking-wide">Today&apos;s learn</span>
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
+                {CATEGORY_LABELS[dailyGuide.category]}
+              </span>
+              <span className="text-xs text-muted-foreground ml-auto flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {dailyGuide.readTime}
+              </span>
+            </div>
+            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">
+              {dailyGuide.title}
+            </h3>
+            <p className="text-sm text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
+            {guideRead && (
+              <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
+                <Check className="w-3 h-3" /> Read
+              </p>
+            )}
+          </div>
+        </Link>
+      )}
 
       {/* What's Heavy — emotional release valve */}
       <WhatsHeavy patternMap={patternMap} />

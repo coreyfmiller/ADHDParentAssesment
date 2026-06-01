@@ -4,13 +4,14 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Menu, X, Sparkles, Share2, Fingerprint } from "lucide-react"
+import { Brain, Zap, Coffee, MessageCircle, BookOpen, FileText, Menu, X, Sparkles, Share2, Fingerprint, GraduationCap } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
   { href: "/dashboard", label: "My Profile", icon: Brain },
   { href: "/dashboard/archetype", label: "My Type", icon: Fingerprint },
   { href: "/dashboard/coach", label: "AI Coach", icon: Sparkles },
+  { href: "/dashboard/micro-guides", label: "Micro-Guides", icon: GraduationCap },
   { href: "/dashboard/toolkit", label: "Emergency Toolkit", icon: Zap },
   { href: "/dashboard/rhythms", label: "Daily Rhythms", icon: Coffee },
   { href: "/dashboard/scripts", label: "Script Library", icon: MessageCircle },
