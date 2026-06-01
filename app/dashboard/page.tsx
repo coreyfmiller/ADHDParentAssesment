@@ -108,22 +108,32 @@ export default function DashboardPage() {
       {/* Archetype badge — prominent, tappable */}
       {archetype && (
         <Link
-          href="/dashboard/archetype"
-          className="block bg-card rounded-2xl p-5 border border-primary/15 hover:border-primary/30 transition-all group"
+          href="/dashboard/me"
+          className="block bg-card rounded-2xl overflow-hidden border border-primary/15 hover:border-primary/30 transition-all group"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <span className="text-lg">✦</span>
+          <div className="aspect-[3.5/1] relative bg-secondary/20">
+            <Image
+              src="/images/glowingseed.png"
+              alt="Your type"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="p-5">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <span className="text-lg">✦</span>
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-muted-foreground">Your type</p>
+                <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                  {archetype.name}
+                </p>
+              </div>
+              <span className="text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                View →
+              </span>
             </div>
-            <div className="flex-1">
-              <p className="text-sm text-muted-foreground">Your type</p>
-              <p className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                {archetype.name}
-              </p>
-            </div>
-            <span className="text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-              View →
-            </span>
           </div>
         </Link>
       )}
