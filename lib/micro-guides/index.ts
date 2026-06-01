@@ -5,6 +5,7 @@
 import { MICRO_GUIDES as BATCH1 } from "./guides"
 import { MICRO_GUIDES_BATCH2 } from "./guides-batch2"
 import { MICRO_GUIDES_BATCH3 } from "./guides-batch3"
+import { MICRO_GUIDES_BATCH4 } from "./guides-batch4"
 import type { MicroGuide } from "./types"
 import type { PatternMap } from "../assessments/types"
 import type { Archetype } from "../archetypes"
@@ -12,7 +13,7 @@ import type { Archetype } from "../archetypes"
 export * from "./types"
 
 // Combine all guide batches
-export const MICRO_GUIDES: MicroGuide[] = [...BATCH1, ...MICRO_GUIDES_BATCH2, ...MICRO_GUIDES_BATCH3]
+export const MICRO_GUIDES: MicroGuide[] = [...BATCH1, ...MICRO_GUIDES_BATCH2, ...MICRO_GUIDES_BATCH3, ...MICRO_GUIDES_BATCH4]
 
 const READ_KEY = "mindful-mama-guides-read"
 const DAILY_KEY = "mindful-mama-guide-today"
