@@ -131,18 +131,6 @@ export default function DashboardPage() {
       {/* Proactive Coach Message — the coach reaches out first */}
       <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
 
-      {/* Daily Identity Anchor — first thing she sees */}
-      <IdentityAnchorCard patternMap={patternMap} />
-
-      {/* Pulse Check-In — contextual based on time of day */}
-      <PulseCheckin patternMap={patternMap} />
-
-      {/* One Thing Today — interactive with streaks */}
-      <OneThingInteractive patternMap={patternMap} />
-
-      {/* Micro-Win Logger — always accessible */}
-      <MicroWinLogger patternMap={patternMap} />
-
       {/* Today's Micro-Guide */}
       {dailyGuide && (
         <Link
@@ -173,6 +161,18 @@ export default function DashboardPage() {
           </div>
         </Link>
       )}
+
+      {/* Daily Identity Anchor — first thing she sees */}
+      <IdentityAnchorCard patternMap={patternMap} />
+
+      {/* Pulse Check-In — contextual based on time of day */}
+      <PulseCheckin patternMap={patternMap} />
+
+      {/* One Thing Today — interactive with streaks */}
+      <OneThingInteractive patternMap={patternMap} />
+
+      {/* Micro-Win Logger — always accessible */}
+      <MicroWinLogger patternMap={patternMap} />
 
       {/* What's Heavy — emotional release valve */}
       <WhatsHeavy patternMap={patternMap} />
