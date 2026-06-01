@@ -128,6 +128,9 @@ export default function DashboardPage() {
         </Link>
       )}
 
+      {/* One Thing Today — the daily anchor action */}
+      <OneThingInteractive patternMap={patternMap} />
+
       {/* Proactive Coach Message — the coach reaches out first */}
       <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
 
@@ -167,9 +170,6 @@ export default function DashboardPage() {
 
       {/* Pulse Check-In — contextual based on time of day */}
       <PulseCheckin patternMap={patternMap} />
-
-      {/* One Thing Today — interactive with streaks */}
-      <OneThingInteractive patternMap={patternMap} />
 
       {/* Micro-Win Logger — always accessible */}
       <MicroWinLogger patternMap={patternMap} />
