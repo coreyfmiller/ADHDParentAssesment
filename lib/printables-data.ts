@@ -57,12 +57,12 @@ export const PRINTABLES_DATA: PrintableData[] = [
         ],
       },
       {
-        title: "Fuel",
-        description: "Before you give anything to anyone.",
+        title: "Fuel (even a little helps)",
+        description: "Perfect isn't the goal. Something is better than nothing.",
         items: [
-          { id: "mm-5", text: "Eat something with protein", note: "Protein → amino acids → dopamine precursors. Your brain needs this more than coffee." },
-          { id: "mm-6", text: "Medication (if applicable)", note: "Same time every day. Pair it with eating so it becomes automatic." },
-          { id: "mm-7", text: "Coffee/tea (after food, not instead of it)" },
+          { id: "mm-5", text: "Eat something — anything with protein if you can", note: "A cheese stick, a handful of nuts, last night's leftovers. Your brain runs better with fuel. But anything counts." },
+          { id: "mm-6", text: "Medication (if applicable)", note: "Pair it with eating if you can. If you forgot yesterday, just take it today. No spiral needed." },
+          { id: "mm-7", text: "Coffee/tea — no judgment on the order", note: "Ideally after food, but honestly? Coffee first is fine. You're surviving. Hydrate when you can." },
         ],
       },
       {
