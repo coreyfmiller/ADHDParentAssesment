@@ -19,6 +19,7 @@ import { EvidenceJournalCard } from "@/components/engagement/evidence-journal-ca
 import { TimeCapsuleWidget } from "@/components/engagement/time-capsule"
 import { WhatWorkedTracker } from "@/components/engagement/what-worked-tracker"
 import { MilestoneToast } from "@/components/engagement/milestone-toast"
+import { ProactiveCoachMessage } from "@/components/engagement/proactive-coach-message"
 
 const sections = [
   {
@@ -115,6 +116,9 @@ export default function DashboardPage() {
           </div>
         </Link>
       )}
+
+      {/* Proactive Coach Message — the coach reaches out first */}
+      <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
 
       {/* Daily Identity Anchor — first thing she sees */}
       <IdentityAnchorCard patternMap={patternMap} />
