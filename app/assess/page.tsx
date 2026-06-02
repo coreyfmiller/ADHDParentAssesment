@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { PATHWAYS } from "@/lib/assessments/types"
 import type { PatternMap } from "@/lib/assessments/types"
+import { PathwayInsightBadge } from "@/components/engagement/pathway-insight-badge"
 
 const iconMap: Record<string, React.ElementType> = {
   Brain,
@@ -265,7 +266,8 @@ export default function AssessHub() {
                       )}
                     </div>
                     <p className="text-sm text-muted-foreground mb-3">{pathway.subtitle}</p>
-                    <div className="flex items-center gap-2">
+                    {isCompleted && <PathwayInsightBadge pathwaySlug={pathway.slug} />}
+                    <div className="flex items-center gap-2 mt-3">
                       {pathway.available ? (
                         <div className="flex items-center gap-3">
                           <Link

@@ -17,6 +17,8 @@ import { Button } from "@/components/ui/button"
 import { PATHWAYS } from "@/lib/assessments/types"
 import type { PatternMap } from "@/lib/assessments/types"
 import { generateProfile, type UserProfile } from "@/lib/assessments/profile-generator"
+import { AIProfileSynthesis } from "@/components/engagement/ai-profile-synthesis"
+import { UnlockedContent } from "@/components/engagement/unlocked-content"
 
 const PROFILE_STORAGE_KEY = "mindful-mama-generated-profile"
 
@@ -120,6 +122,12 @@ export default function ProfilePage() {
             Generated from {pathwayCount} pathway{pathwayCount !== 1 ? "s" : ""} · Updated {new Date(profile.generatedAt).toLocaleDateString()}
           </p>
         </div>
+
+        {/* AI-Powered Deep Synthesis */}
+        <AIProfileSynthesis patternMap={patternMap} profile={profile} />
+
+        {/* Unlocked Content Based on Pathways */}
+        <UnlockedContent completedPathways={profile.completedPathways} />
 
         {/* Narrative Summary */}
         <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border">
