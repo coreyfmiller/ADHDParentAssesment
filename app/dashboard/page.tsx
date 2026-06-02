@@ -187,7 +187,7 @@ export default function DashboardPage() {
                   {archetype.name}
                 </p>
               </div>
-              <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="text-xs text-primary">
                 View →
               </span>
             </div>
