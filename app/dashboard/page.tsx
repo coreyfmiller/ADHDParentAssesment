@@ -23,6 +23,7 @@ import { ProactiveCoachMessage } from "@/components/engagement/proactive-coach-m
 import { ActivityHeatmap } from "@/components/engagement/activity-heatmap"
 import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
 import { WeeklyRecap } from "@/components/engagement/weekly-recap"
+import { EveningRecap } from "@/components/engagement/evening-recap"
 import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
 import type { DailyAIContent } from "@/lib/engagement/daily-ai"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
@@ -194,6 +195,9 @@ export default function DashboardPage() {
           </div>
         </Link>
       )}
+
+      {/* Evening Recap — shows after 6pm with day's evidence */}
+      <EveningRecap />
 
       {/* One Thing Today — the daily anchor action */}
       <div className={`transition-all duration-300 ${completedWidgets.has("one-thing") ? "opacity-60" : ""} ${firstIncomplete === "one-thing" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
