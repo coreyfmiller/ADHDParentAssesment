@@ -17,6 +17,7 @@ const categoryEmoji: Record<string, string> = {
   connection: "💬",
   progress: "✓",
   rest: "🛋️",
+  exercise: "💪",
   uncategorized: "✦",
 }
 

@@ -9,7 +9,7 @@ export interface MicroWin {
   id: string
   text: string
   timestamp: number
-  category: "survival" | "care" | "connection" | "progress" | "rest" | "uncategorized"
+  category: "survival" | "care" | "connection" | "progress" | "rest" | "exercise" | "uncategorized"
   reflection?: string // AI-generated or pattern-based response
 }
 
