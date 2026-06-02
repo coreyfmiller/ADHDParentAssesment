@@ -60,7 +60,7 @@ export function MicroWinLogger({ patternMap }: MicroWinLoggerProps) {
   }
 
   return (
-    <div className="bg-card rounded-2xl border border-border overflow-hidden">
+    <div className="bg-card rounded-2xl border border-primary/15 overflow-hidden shadow-sm">
       {/* Header */}
       <div className="p-5 pb-3">
         <div className="flex items-center justify-between mb-1">
