@@ -131,11 +131,11 @@ export function getDailySummary(date?: string): { count: number; categories: Rec
 // ---- Win Categorization ----
 
 const categoryKeywords: Record<string, string[]> = {
-  survival: ["fed", "ate", "cereal", "shower", "dressed", "alive", "survived", "got up", "woke", "morning", "laundry", "dishes", "cleaned"],
-  care: ["water", "rest", "nap", "walked", "outside", "breath", "sat down", "quiet", "alone", "bath"],
-  connection: ["talked", "texted", "called", "hugged", "played", "listened", "friend", "partner", "laughed"],
-  progress: ["finished", "started", "made", "organized", "planned", "booked", "appointment", "email", "paid", "submitted"],
-  rest: ["slept", "rested", "said no", "cancelled", "skipped", "let go", "didn't", "stopped"],
+  survival: ["fed", "ate", "cereal", "shower", "dressed", "alive", "survived", "got up", "woke", "morning", "laundry", "dishes", "cleaned", "cooked", "dinner", "lunch", "breakfast", "groceries", "picked up", "dropped off", "packed", "made beds", "tidied", "vacuumed", "mopped", "wiped", "trash", "garbage", "recycl"],
+  care: ["water", "rest", "nap", "walked", "outside", "breath", "sat down", "quiet", "alone", "bath", "bathed", "exercise", "exercised", "ran", "run", "yoga", "stretch", "meditat", "journal", "read", "tea", "coffee", "vitamin", "supplement", "skincare", "lotion", "makeup", "hair"],
+  connection: ["talked", "texted", "called", "hugged", "played", "listened", "friend", "partner", "laughed", "date", "visited", "hang", "met up", "coffee with", "lunch with", "facetime", "zoom"],
+  progress: ["finished", "started", "made", "organized", "planned", "booked", "appointment", "email", "paid", "submitted", "filed", "sorted", "signed", "enrolled", "registered", "applied", "scheduled", "completed", "bought", "ordered", "returned", "fixed", "repaired", "built"],
+  rest: ["slept", "rested", "said no", "cancelled", "skipped", "let go", "didn't", "stopped", "boundaries", "delegated", "asked for help"],
 }
 
 function categorizeWin(text: string): MicroWin["category"] {

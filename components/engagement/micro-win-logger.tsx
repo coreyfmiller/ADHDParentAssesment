@@ -17,7 +17,7 @@ const categoryEmoji: Record<string, string> = {
   connection: "💬",
   progress: "✓",
   rest: "🛋️",
-  uncategorized: "·",
+  uncategorized: "✦",
 }
 
 export function MicroWinLogger({ patternMap }: MicroWinLoggerProps) {
