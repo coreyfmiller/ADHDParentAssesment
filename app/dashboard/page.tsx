@@ -233,7 +233,7 @@ export default function DashboardPage() {
             <div className="p-4">
               <div className="flex items-center gap-2 mb-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-primary" />
-                <span className="text-[10px] font-medium text-primary uppercase tracking-wide">Today&apos;s learn</span>
+                <span className="text-[10px] font-medium text-primary uppercase tracking-wide">{guideRead ? "Done — you learned something today" : "Today\u0027s learn"}</span>
                 <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
                   {CATEGORY_LABELS[dailyGuide.category]}
                 </span>
