@@ -92,7 +92,13 @@ export default function MePage() {
       )}
 
       {/* Actions */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <Link href="/dashboard">
+          <Button variant="outline" className="w-full rounded-xl">
+            <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
+            Back to Toolkit
+          </Button>
+        </Link>
         <Link href="/assess/snapshot">
           <Button variant="outline" className="w-full rounded-xl">
             <RotateCcw className="w-4 h-4 mr-2" />
