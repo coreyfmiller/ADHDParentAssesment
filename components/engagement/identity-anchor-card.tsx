@@ -8,20 +8,21 @@ import type { PatternMap } from "@/lib/assessments/types"
 
 interface IdentityAnchorCardProps {
   patternMap: PatternMap | null
+  aiAnchor?: string | null
 }
 
-export function IdentityAnchorCard({ patternMap }: IdentityAnchorCardProps) {
+export function IdentityAnchorCard({ patternMap, aiAnchor }: IdentityAnchorCardProps) {
   const [anchor, setAnchor] = useState<IdentityAnchor | null>(null)
   const [isSaved, setIsSaved] = useState(false)
   const [showFavorites, setShowFavorites] = useState(false)
   const [favorites, setFavorites] = useState<string[]>([])
 
   useEffect(() => {
-    const todaysAnchor = getTodaysAnchor(patternMap)
+    const todaysAnchor = getTodaysAnchor(patternMap, aiAnchor || undefined)
     setAnchor(todaysAnchor)
     setIsSaved(todaysAnchor.saved)
     setFavorites(getSavedFavorites())
-  }, [patternMap])
+  }, [patternMap, aiAnchor])
 
   const handleSave = () => {
     if (!anchor) return

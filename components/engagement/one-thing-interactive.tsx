@@ -16,11 +16,12 @@ import type { PatternMap } from "@/lib/assessments/types"
 
 interface OneThingInteractiveProps {
   patternMap: PatternMap | null
+  aiOneThing?: { action: string; why: string; timeNeeded: string } | null
 }
 
 const dayLabels = ["S", "M", "T", "W", "T", "F", "S"]
 
-export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
+export function OneThingInteractive({ patternMap, aiOneThing }: OneThingInteractiveProps) {
   const [entry, setEntry] = useState<OneThingEntry | null>(null)
   const [streak, setStreak] = useState<StreakData>({ currentStreak: 0, longestStreak: 0, lastActiveDate: "" })
   const [last7, setLast7] = useState<{ date: string; completed: boolean }[]>([])
@@ -28,12 +29,12 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
   const [justCompleted, setJustCompleted] = useState(false)
 
   useEffect(() => {
-    const todaysEntry = getTodaysOneThing(patternMap)
+    const todaysEntry = getTodaysOneThing(patternMap, aiOneThing || undefined)
     setEntry(todaysEntry)
     setStreak(getOneThingStreak())
     setLast7(getLast7Days())
     setReflection(getWeeklyReflection())
-  }, [patternMap])
+  }, [patternMap, aiOneThing])
 
   const handleComplete = () => {
     const updated = markOneThingComplete()

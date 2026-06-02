@@ -89,15 +89,15 @@ const generalAnchors = [
 
 // ---- Core Functions ----
 
-export function getTodaysAnchor(patternMap: PatternMap | null): IdentityAnchor {
+export function getTodaysAnchor(patternMap: PatternMap | null, aiAnchor?: string): IdentityAnchor {
   const today = getToday()
 
   // Check if we already generated one today
   const existing = getSavedAnchorsHistory().find((a) => a.date === today)
   if (existing) return existing
 
-  // Generate a new one
-  const statement = generateAnchor(patternMap)
+  // Use AI-generated anchor if available, otherwise fall back to pre-written
+  const statement = aiAnchor || generateAnchor(patternMap)
   const anchor: IdentityAnchor = { date: today, statement, saved: false }
 
   // Save to history

@@ -22,6 +22,8 @@ import { MilestoneToast } from "@/components/engagement/milestone-toast"
 import { ProactiveCoachMessage } from "@/components/engagement/proactive-coach-message"
 import { ActivityHeatmap } from "@/components/engagement/activity-heatmap"
 import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
+import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
+import type { DailyAIContent } from "@/lib/engagement/daily-ai"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
 import type { MicroGuide } from "@/lib/micro-guides"
 
@@ -71,6 +73,7 @@ export default function DashboardPage() {
   const [dailyGuide, setDailyGuide] = useState<MicroGuide | null>(null)
   const [guideRead, setGuideRead] = useState(false)
   const [completedWidgets, setCompletedWidgets] = useState<Set<string>>(new Set())
+  const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
 
   useEffect(() => {
     try {
@@ -129,6 +132,21 @@ export default function DashboardPage() {
     } catch {}
   }, [])
 
+  // Daily AI content — one call per day, cached
+  useEffect(() => {
+    // Check cache synchronously first
+    const cached = getCachedDailyContent()
+    if (cached) {
+      setAiContent(cached)
+      return
+    }
+
+    // Make the API call (only if no cache for today)
+    getDailyAIContent(patternMap, archetype).then((content) => {
+      if (content) setAiContent(content)
+    })
+  }, [patternMap, archetype])
+
   // Determine the first incomplete widget to highlight
   const widgetOrder = ["one-thing", "micro-guide", "pulse"]
   const firstIncomplete = widgetOrder.find((w) => !completedWidgets.has(w)) || null
@@ -183,7 +201,7 @@ export default function DashboardPage() {
             <ArrowRight className="w-3 h-3" /> Start here
           </p>
         )}
-        <OneThingInteractive patternMap={patternMap} />
+        <OneThingInteractive patternMap={patternMap} aiOneThing={aiContent?.oneThing} />
       </div>
 
       {/* What's Hard This Week — anticipatory support */}
@@ -226,7 +244,7 @@ export default function DashboardPage() {
       )}
 
       {/* Daily Identity Anchor — first thing she sees */}
-      <IdentityAnchorCard patternMap={patternMap} />
+      <IdentityAnchorCard patternMap={patternMap} aiAnchor={aiContent?.anchor} />
 
       {/* Pulse Check-In — contextual based on time of day */}
       <div className={`transition-all duration-300 ${completedWidgets.has("pulse") ? "opacity-60" : ""} ${firstIncomplete === "pulse" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>

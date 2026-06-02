@@ -13,12 +13,29 @@ const ONE_THING_STREAK_KEY = "mindful-mama-one-thing-streak"
 
 // ---- Core Functions ----
 
-export function getTodaysOneThing(patternMap: PatternMap | null): OneThingEntry {
+export function getTodaysOneThing(
+  patternMap: PatternMap | null,
+  aiOneThing?: { action: string; why: string; timeNeeded: string }
+): OneThingEntry {
   const today = getToday()
   const history = getOneThingHistory()
   const existing = history.find((e) => e.date === today)
 
   if (existing) return existing
+
+  // Use AI-generated content if available
+  if (aiOneThing) {
+    const entry: OneThingEntry = {
+      date: today,
+      action: aiOneThing.action,
+      why: aiOneThing.why,
+      timeNeeded: aiOneThing.timeNeeded,
+      category: "ai-generated",
+      completed: false,
+    }
+    saveEntry(entry)
+    return entry
+  }
 
   // Check if there's a hard thing this week — 30% chance to generate a prep action
   const hardThing = getThisWeeksHardThing()
