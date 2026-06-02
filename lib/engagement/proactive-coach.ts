@@ -21,6 +21,7 @@ import { getAllPulses } from "./pulse-checkins"
 import { getAllWins } from "./micro-wins"
 import { getOneThingHistory } from "./one-thing-interactive"
 import { getPersonalPlaybook } from "./what-worked"
+import { getThisWeeksHardThing } from "./whats-hard-this-week"
 
 const LAST_PROACTIVE_KEY = "mindful-mama-proactive-last"
 const PROACTIVE_HISTORY_KEY = "mindful-mama-proactive-history"
@@ -80,6 +81,8 @@ interface UserContext {
   timeOfDay: "morning" | "afternoon" | "evening"
   isMonday: boolean
   isFriday: boolean
+  hardThingText: string | null
+  hardThingTags: string[]
 }
 
 function gatherContext(patternMap: PatternMap | null, archetype: Archetype | null): UserContext {
@@ -148,6 +151,9 @@ function gatherContext(patternMap: PatternMap | null, archetype: Archetype | nul
   const playbook = getPersonalPlaybook()
   const workedStrategies = playbook.map(p => p.strategy)
 
+  // What's hard this week
+  const hardThing = getThisWeeksHardThing()
+
   return {
     daysSinceLastVisit,
     hasPatternMap: patternMap !== null,
@@ -167,6 +173,8 @@ function gatherContext(patternMap: PatternMap | null, archetype: Archetype | nul
     timeOfDay: hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening",
     isMonday: dayOfWeek === 1,
     isFriday: dayOfWeek === 5,
+    hardThingText: hardThing?.text || null,
+    hardThingTags: hardThing?.tags || [],
   }
 }
 
@@ -181,6 +189,11 @@ function selectMessage(ctx: UserContext): ProactiveMessage | null {
   // Priority 2: Monday — start of week framing
   if (ctx.isMonday && ctx.timeOfDay === "morning") {
     return selectMondayMessage(ctx)
+  }
+
+  // Priority 2.5: Hard thing this week — contextual acknowledgment
+  if (ctx.hardThingText && !ctx.isMonday) {
+    return selectHardThingMessage(ctx)
   }
 
   // Priority 3: Energy trend observation
@@ -258,6 +271,15 @@ function selectWelcomeBack(ctx: UserContext): ProactiveMessage {
 }
 
 function selectMondayMessage(ctx: UserContext): ProactiveMessage {
+  if (ctx.hardThingText) {
+    return {
+      message: `New week. You've already named it: "${ctx.hardThingText}" is the hard thing ahead. That's brave — most people avoid looking at what's coming. You're facing it. And you're not facing it alone.`,
+      followUp: "Check the prep suggestions when you're ready. No rush.",
+      type: "check-in",
+      generatedAt: Date.now(),
+    }
+  }
+
   if (ctx.winsThisWeek > 0) {
     // She was active last week
     return {
@@ -272,6 +294,46 @@ function selectMondayMessage(ctx: UserContext): ProactiveMessage {
     message: "Monday. Clean slate. Whatever last week was — it's done. You don't carry it forward. What does this week need from you?",
     followUp: "Start with your One Thing. Just one.",
     type: "check-in",
+    generatedAt: Date.now(),
+  }
+}
+
+function selectHardThingMessage(ctx: UserContext): ProactiveMessage | null {
+  if (!ctx.hardThingText) return null
+
+  const dayOfWeek = ctx.dayOfWeek
+  const text = ctx.hardThingText
+
+  // Mid-week (Wed-Thu) — the hard thing is likely approaching
+  if (dayOfWeek >= 3 && dayOfWeek <= 4) {
+    const messages = [
+      {
+        message: `You mentioned "${text}" is weighing on you this week. How are you feeling about it? Whatever comes up — you don't have to be ready. You just have to show up.`,
+        followUp: "The Emergency Toolkit has scripts if you need words for the hard moment.",
+      },
+      {
+        message: `I remember you said "${text}" was the hard thing this week. That's still here, and so am I. You've handled hard things before — imperfectly, and that was enough.`,
+        followUp: "What's one thing that would make it 10% easier?",
+      },
+    ]
+    const idx = dayOfWeek % messages.length
+    return { ...messages[idx], type: "check-in", generatedAt: Date.now() }
+  }
+
+  // End of week (Fri-Sun) — follow-up energy
+  if (dayOfWeek >= 5 || dayOfWeek === 0) {
+    return {
+      message: `The week is almost done. You named "${text}" as your hard thing. Whether it's happened or not — you faced the week knowing it was coming. That takes a kind of courage people don't talk about.`,
+      followUp: "If it's done, log how it went. If it's still coming — you've got this.",
+      type: "check-in",
+      generatedAt: Date.now(),
+    }
+  }
+
+  // Early week (Tue) — gentle reference
+  return {
+    message: `You said "${text}" is on your plate this week. I'm keeping it in mind too. When you're ready, the prep suggestions are there — but no pressure to look at them until you need them.`,
+    type: "observation",
     generatedAt: Date.now(),
   }
 }

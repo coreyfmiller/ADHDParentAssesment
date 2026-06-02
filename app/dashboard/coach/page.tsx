@@ -15,6 +15,7 @@ import {
   buildMemoryPrompt,
 } from "@/lib/coach-memory"
 import { buildWhatWorkedPrompt } from "@/lib/engagement/what-worked"
+import { buildHardThingPrompt } from "@/lib/engagement/whats-hard-this-week"
 import type { CoachConversation } from "@/lib/coach-memory"
 
 interface Message {
@@ -191,7 +192,7 @@ export default function CoachPage() {
           profile: profile,
           patternMap: patternMap,
           pathwayResults: pathwayResults,
-          memory: (buildMemoryPrompt() + buildWhatWorkedPrompt()) || null,
+          memory: (buildMemoryPrompt() + buildWhatWorkedPrompt() + buildHardThingPrompt()) || null,
         }),
       })
 

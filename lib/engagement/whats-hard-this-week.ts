@@ -225,3 +225,31 @@ function formatDate(d: Date): string {
   const day = String(d.getDate()).padStart(2, "0")
   return `${year}-${month}-${day}`
 }
+
+// ---- Coach Prompt Builder ----
+
+export function buildHardThingPrompt(): string {
+  const current = getThisWeeksHardThing()
+  if (!current) return ""
+
+  let prompt = `\n\nThis week, she identified something hard coming up: "${current.text}"`
+  if (current.tags.length > 0) {
+    prompt += ` (relates to: ${current.tags.join(", ")})`
+  }
+  prompt += `. If she brings up anything related to this, acknowledge that you know about it. Offer practical prep support — scripts, mindset reframes, or logistical strategies specific to this situation. Don't ask her to explain it again — you already know.`
+
+  // Add history context if relevant
+  const all = getAllHardThings()
+  const resolved = all.filter((e) => e.resolved).slice(-4)
+  if (resolved.length > 0) {
+    const betterCount = resolved.filter((e) => e.howItWent === "better-than-expected").length
+    const harderCount = resolved.filter((e) => e.howItWent === "harder-than-expected").length
+    if (betterCount > harderCount) {
+      prompt += ` Based on her history, things often go better than she expects. Gently remind her of this pattern if she's catastrophizing.`
+    } else if (harderCount > betterCount) {
+      prompt += ` Based on her history, things have sometimes been harder than expected. Be extra supportive with practical prep — she's not overreacting.`
+    }
+  }
+
+  return prompt
+}

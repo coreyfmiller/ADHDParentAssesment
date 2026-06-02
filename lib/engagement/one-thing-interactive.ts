@@ -6,6 +6,7 @@
 import type { OneThingEntry, WeeklyReflection, StreakData } from "./types"
 import type { PatternMap } from "../assessments/types"
 import { getOneThingToday } from "../one-thing-today"
+import { getThisWeeksHardThing } from "./whats-hard-this-week"
 
 const ONE_THING_KEY = "mindful-mama-one-thing-history"
 const ONE_THING_STREAK_KEY = "mindful-mama-one-thing-streak"
@@ -19,8 +20,17 @@ export function getTodaysOneThing(patternMap: PatternMap | null): OneThingEntry 
 
   if (existing) return existing
 
-  // Generate from the existing one-thing-today system
-  const generated = getOneThingToday(patternMap)
+  // Check if there's a hard thing this week — 30% chance to generate a prep action
+  const hardThing = getThisWeeksHardThing()
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
+
+  let generated
+  if (hardThing && dayOfYear % 3 === 0) {
+    generated = getHardThingAction(hardThing.text, hardThing.tags)
+  } else {
+    generated = getOneThingToday(patternMap)
+  }
+
   const entry: OneThingEntry = {
     date: today,
     action: generated.action,
@@ -205,4 +215,63 @@ function formatDate(d: Date): string {
   const month = String(d.getMonth() + 1).padStart(2, "0")
   const day = String(d.getDate()).padStart(2, "0")
   return `${year}-${month}-${day}`
+}
+
+// ---- Hard Thing Prep Actions ----
+
+interface DailyAction {
+  action: string
+  why: string
+  timeNeeded: string
+  category: string
+}
+
+function getHardThingAction(text: string, tags: string[]): DailyAction {
+  const actions: DailyAction[] = []
+
+  if (tags.includes("school")) {
+    actions.push(
+      { action: `Write down your 3 key points for "${text}." Not a script — just 3 things you need them to hear.`, why: "Having your priorities externalized means you won't freeze or forget in the moment. Three is manageable.", timeNeeded: "3 min", category: "prep" },
+      { action: `Decide in advance: what's the ONE outcome you need from "${text}"? Write it on your hand if you have to.`, why: "Knowing your non-negotiable keeps you anchored when the conversation drifts or gets overwhelming.", timeNeeded: "1 min", category: "prep" },
+    )
+  }
+
+  if (tags.includes("medical")) {
+    actions.push(
+      { action: `Write your questions for the appointment on your phone. You'll forget them in the room otherwise.`, why: "White coat syndrome + executive function challenges = blank mind. Your phone is your external brain.", timeNeeded: "3 min", category: "prep" },
+      { action: `Give yourself permission to say 'I need to think about that' if they suggest something unexpected.`, why: "You don't owe anyone an immediate decision about your health or your child's. Pressure is not urgency.", timeNeeded: "0 min", category: "prep" },
+    )
+  }
+
+  if (tags.includes("social")) {
+    actions.push(
+      { action: `Set a mental time limit for "${text}" before you go. Decide when you'll leave — and honor it.`, why: "An exit plan reduces anticipatory anxiety by 40%. Knowing you CAN leave makes staying bearable.", timeNeeded: "1 min", category: "prep" },
+      { action: `Prep one small-talk question so your brain doesn't have to generate conversation from scratch.`, why: "Social interactions are executive function tasks in disguise. Pre-loading one question reduces the cognitive demand.", timeNeeded: "1 min", category: "prep" },
+    )
+  }
+
+  if (tags.includes("work")) {
+    actions.push(
+      { action: `Identify the ONE thing that needs to happen at "${text}" for it to count as a win. Just one.`, why: "Overwhelm comes from seeing the whole mountain. Pick one rock. Move it. That's the win.", timeNeeded: "1 min", category: "prep" },
+    )
+  }
+
+  if (tags.includes("family")) {
+    actions.push(
+      { action: `Decide your one boundary in advance for "${text}." What topic will you not engage with today?`, why: "Boundaries decided under pressure fail. Boundaries decided in advance hold. Choose one and practice saying it.", timeNeeded: "2 min", category: "prep" },
+      { action: `Give yourself a silent mantra for the hard moment: 'I don't have to fix this. I just have to get through it.'`, why: "Mantras work because they occupy your inner monologue — leaving less room for the shame/guilt spiral to take over.", timeNeeded: "0 min", category: "prep" },
+    )
+  }
+
+  // Generic fallback for any hard thing
+  if (actions.length === 0) {
+    actions.push(
+      { action: `Name the specific part of "${text}" that feels hardest. Not the whole thing — the one piece that makes your stomach clench.`, why: "Vague dread is always worse than specific fear. Naming the exact hard part makes it smaller and more manageable.", timeNeeded: "1 min", category: "prep" },
+      { action: `Ask yourself: what's the absolute bare minimum version of handling "${text}" that would be acceptable?`, why: "Lowering the bar in advance isn't giving up — it's giving yourself permission to be human. You can always exceed the minimum.", timeNeeded: "1 min", category: "prep" },
+      { action: `Remind yourself: you don't have to be good at "${text}." You just have to get through it. Getting through IS the win.`, why: "Performance pressure makes hard things harder. Releasing the need to do it well frees energy for just doing it.", timeNeeded: "0 min", category: "prep" },
+    )
+  }
+
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000)
+  return actions[dayOfYear % actions.length]
 }
