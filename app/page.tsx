@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Brain, Battery, Volume2, Moon, CloudMoon, Shield, Users } from "lucide-react"
@@ -44,6 +45,15 @@ const patterns = [
 ]
 
 export default function HomePage() {
+  const [isReturningUser, setIsReturningUser] = useState(false)
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("mindful-mama-pattern-map")
+      if (stored) setIsReturningUser(true)
+    } catch {}
+  }, [])
+
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
@@ -76,15 +86,41 @@ export default function HomePage() {
           <p className="text-xl text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
             A self-reflection tool that helps mothers understand why everything feels harder than it should — and gives you strategies that actually fit your brain, your body, and your life.
           </p>
-          <Link href="/assess/snapshot">
-            <Button
-              size="lg"
-              className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-            >
-              Check In With Yourself
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
+          {isReturningUser ? (
+            <div className="space-y-3">
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                >
+                  Go to My Toolkit
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <div>
+                <Link href="/assess/snapshot" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Check in again →
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <Link href="/assess/snapshot">
+                <Button
+                  size="lg"
+                  className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                >
+                  Check In With Yourself
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <div>
+                <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Already been here? Go to your toolkit →
+                </Link>
+              </div>
+            </div>
+          )}
           <p className="text-sm text-muted-foreground mt-3">
             5 minutes · Free · No email required
           </p>
@@ -223,21 +259,43 @@ export default function HomePage() {
         {/* Final CTA */}
         <section className="text-center mb-12">
           <div className="bg-card rounded-3xl p-8 md:p-10 border border-border shadow-sm">
-            <h2 className="text-2xl md:text-3xl font-medium text-foreground mb-4 text-balance">
-              You deserve to understand yourself — not just push through.
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Start with a 5-minute check-in. See what&apos;s actually going on — and what to do about it.
-            </p>
-            <Link href="/assess/snapshot">
-              <Button
-                size="lg"
-                className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
-              >
-                Start My Check-In
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+            {isReturningUser ? (
+              <>
+                <h2 className="text-2xl md:text-3xl font-medium text-foreground mb-4 text-balance">
+                  Your toolkit is waiting.
+                </h2>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  Pick up where you left off — your strategies, scripts, and coach are all ready.
+                </p>
+                <Link href="/dashboard">
+                  <Button
+                    size="lg"
+                    className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                  >
+                    Go to My Toolkit
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <h2 className="text-2xl md:text-3xl font-medium text-foreground mb-4 text-balance">
+                  You deserve to understand yourself — not just push through.
+                </h2>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  Start with a 5-minute check-in. See what&apos;s actually going on — and what to do about it.
+                </p>
+                <Link href="/assess/snapshot">
+                  <Button
+                    size="lg"
+                    className="px-8 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                  >
+                    Start My Check-In
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </section>
       </div>
