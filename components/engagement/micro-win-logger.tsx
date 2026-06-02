@@ -13,7 +13,7 @@ interface MicroWinLoggerProps {
 
 const categoryEmoji: Record<string, string> = {
   survival: "🫠",
-  care: "💧",
+  care: "🌿",
   connection: "💬",
   progress: "✓",
   rest: "🛋️",
