@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Compass, BookOpen, Clock, Check } from "lucide-react"
+import { Compass, BookOpen, Clock, Check, ArrowRight } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 import { getContentRecommendations, type ContentRecommendation } from "@/lib/assessments/content-matching"
 import { getCurrentArchetype, determineArchetype, saveArchetype } from "@/lib/archetypes"
@@ -68,6 +68,7 @@ export default function DashboardPage() {
   const [archetype, setArchetype] = useState<Archetype | null>(null)
   const [dailyGuide, setDailyGuide] = useState<MicroGuide | null>(null)
   const [guideRead, setGuideRead] = useState(false)
+  const [completedWidgets, setCompletedWidgets] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     try {
@@ -91,9 +92,64 @@ export default function DashboardPage() {
       // Get today's micro-guide
       const guide = getTodaysGuide(map, arch)
       setDailyGuide(guide)
-      setGuideRead(getReadGuideIds().includes(guide.id))
+      const isGuideRead = getReadGuideIds().includes(guide.id)
+      setGuideRead(isGuideRead)
+
+      // Check which widgets have been completed today
+      const done = new Set<string>()
+      const now = new Date()
+      const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`
+
+      // One Thing
+      try {
+        const oneThingData = localStorage.getItem("mindful-mama-one-thing-history")
+        if (oneThingData) {
+          const history = JSON.parse(oneThingData)
+          const todayEntry = history.find((e: { date: string; completed: boolean }) => e.date === today)
+          if (todayEntry?.completed) done.add("one-thing")
+        }
+      } catch {}
+
+      // Pulse Check-In
+      try {
+        const pulseData = localStorage.getItem("mindful-mama-pulse-checkins")
+        if (pulseData) {
+          const pulses = JSON.parse(pulseData)
+          const todayPulse = pulses.find((p: { date: string }) => p.date === today)
+          if (todayPulse?.entries?.length > 0) done.add("pulse")
+        }
+      } catch {}
+
+      // Micro-Win
+      try {
+        const winsData = localStorage.getItem("mindful-mama-micro-wins")
+        if (winsData) {
+          const wins = JSON.parse(winsData)
+          const todayWins = wins.find((w: { date: string }) => w.date === today)
+          if (todayWins?.wins?.length > 0) done.add("micro-win")
+        }
+      } catch {}
+
+      // What's Heavy
+      try {
+        const heavyData = localStorage.getItem("mindful-mama-whats-heavy")
+        if (heavyData) {
+          const entries = JSON.parse(heavyData)
+          const todayEntry = entries.find((e: { date: string }) => e.date === today)
+          if (todayEntry) done.add("whats-heavy")
+        }
+      } catch {}
+
+      // Micro-Guide read
+      if (isGuideRead) done.add("micro-guide")
+
+      setCompletedWidgets(done)
     } catch {}
   }, [])
+
+  // Determine the first incomplete widget to highlight
+  const widgetOrder = ["one-thing", "micro-guide", "pulse", "micro-win", "whats-heavy"]
+  const firstIncomplete = widgetOrder.find((w) => !completedWidgets.has(w)) || null
 
   return (
     <div className="space-y-4">
@@ -139,48 +195,83 @@ export default function DashboardPage() {
       )}
 
       {/* One Thing Today — the daily anchor action */}
-      <OneThingInteractive patternMap={patternMap} />
+      <div className={`transition-all duration-300 ${completedWidgets.has("one-thing") ? "opacity-60" : ""} ${firstIncomplete === "one-thing" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
+        {firstIncomplete === "one-thing" && (
+          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
+            <ArrowRight className="w-3 h-3" /> Start here
+          </p>
+        )}
+        <OneThingInteractive patternMap={patternMap} />
+      </div>
 
       {/* Proactive Coach Message — the coach reaches out first */}
       <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
 
       {/* Today's Micro-Guide */}
       {dailyGuide && (
-        <Link
-          href="/dashboard/micro-guides"
-          className="block bg-card rounded-2xl border border-border hover:border-primary/20 transition-all overflow-hidden group"
-        >
-          <div className="p-4">
-            <div className="flex items-center gap-2 mb-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-primary" />
-              <span className="text-[10px] font-medium text-primary uppercase tracking-wide">Today&apos;s learn</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
-                {CATEGORY_LABELS[dailyGuide.category]}
-              </span>
-              <span className="text-[10px] text-muted-foreground ml-auto flex items-center gap-0.5">
-                <Clock className="w-2.5 h-2.5" />
-                {dailyGuide.readTime}
-              </span>
+        <div className={`transition-all duration-300 ${completedWidgets.has("micro-guide") ? "opacity-60" : ""} ${firstIncomplete === "micro-guide" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
+          {firstIncomplete === "micro-guide" && (
+            <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
+              <ArrowRight className="w-3 h-3" /> Up next
+            </p>
+          )}
+          <Link
+            href="/dashboard/micro-guides"
+            className="block bg-card rounded-2xl border border-border hover:border-primary/20 transition-all overflow-hidden group"
+          >
+            <div className="p-4">
+              <div className="flex items-center gap-2 mb-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-primary" />
+                <span className="text-[10px] font-medium text-primary uppercase tracking-wide">Today&apos;s learn</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
+                  {CATEGORY_LABELS[dailyGuide.category]}
+                </span>
+                <span className="text-[10px] text-muted-foreground ml-auto flex items-center gap-0.5">
+                  <Clock className="w-2.5 h-2.5" />
+                  {dailyGuide.readTime}
+                </span>
+              </div>
+              <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                {dailyGuide.title}
+              </h3>
+              <p className="text-xs text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
             </div>
-            <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-              {dailyGuide.title}
-            </h3>
-            <p className="text-xs text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
-          </div>
-        </Link>
+          </Link>
+        </div>
       )}
 
       {/* Daily Identity Anchor — first thing she sees */}
       <IdentityAnchorCard patternMap={patternMap} />
 
       {/* Pulse Check-In — contextual based on time of day */}
-      <PulseCheckin patternMap={patternMap} />
+      <div className={`transition-all duration-300 ${completedWidgets.has("pulse") ? "opacity-60" : ""} ${firstIncomplete === "pulse" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
+        {firstIncomplete === "pulse" && (
+          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
+            <ArrowRight className="w-3 h-3" /> Up next
+          </p>
+        )}
+        <PulseCheckin patternMap={patternMap} />
+      </div>
 
       {/* Micro-Win Logger — always accessible */}
-      <MicroWinLogger patternMap={patternMap} />
+      <div className={`transition-all duration-300 ${completedWidgets.has("micro-win") ? "opacity-60" : ""} ${firstIncomplete === "micro-win" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
+        {firstIncomplete === "micro-win" && (
+          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
+            <ArrowRight className="w-3 h-3" /> Up next
+          </p>
+        )}
+        <MicroWinLogger patternMap={patternMap} />
+      </div>
 
       {/* What's Heavy — emotional release valve */}
-      <WhatsHeavy patternMap={patternMap} />
+      <div className={`transition-all duration-300 ${completedWidgets.has("whats-heavy") ? "opacity-60" : ""} ${firstIncomplete === "whats-heavy" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
+        {firstIncomplete === "whats-heavy" && (
+          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
+            <ArrowRight className="w-3 h-3" /> Up next
+          </p>
+        )}
+        <WhatsHeavy patternMap={patternMap} />
+      </div>
 
       {/* Time Capsule — letter to future self */}
       <TimeCapsuleWidget />
