@@ -22,6 +22,7 @@ import { MilestoneToast } from "@/components/engagement/milestone-toast"
 import { ProactiveCoachMessage } from "@/components/engagement/proactive-coach-message"
 import { ActivityHeatmap } from "@/components/engagement/activity-heatmap"
 import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
+import { WeeklyRecap } from "@/components/engagement/weekly-recap"
 import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
 import type { DailyAIContent } from "@/lib/engagement/daily-ai"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
@@ -209,6 +210,9 @@ export default function DashboardPage() {
 
       {/* Proactive Coach Message — the coach reaches out first */}
       <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
+
+      {/* Weekly Recap — AI-generated summary, shows Sun/Mon only */}
+      <WeeklyRecap />
 
       {/* Today's Micro-Guide */}
       {dailyGuide && (

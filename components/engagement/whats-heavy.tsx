@@ -17,6 +17,8 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
   const [input, setInput] = useState("")
   const [lastEntry, setLastEntry] = useState<HeavyEntry | null>(null)
   const [repairLink, setRepairLink] = useState<{ href: string; label: string } | null>(null)
+  const [aiWitness, setAiWitness] = useState<string | null>(null)
+  const [isLoadingAI, setIsLoadingAI] = useState(false)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -35,17 +37,57 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
 
     const repair = getRepairSuggestion(entry.category)
     setRepairLink(repair)
+
+    // Call AI for personalized witnessing (non-blocking, enhances the pre-written response)
+    setIsLoadingAI(true)
+    fetchAIWitness(entry.text, entry.category, patternMap)
+  }
+
+  const fetchAIWitness = async (text: string, category: string, pm: PatternMap | null) => {
+    try {
+      const body: Record<string, unknown> = { text, category }
+      if (pm) {
+        const elevated = pm.dimensions
+          .filter((d) => d.intensity === "high" || d.intensity === "critical")
+          .map((d) => d.label)
+        if (elevated.length > 0) body.elevatedDimensions = elevated
+      }
+      // Get archetype from localStorage
+      try {
+        const archData = localStorage.getItem("mindful-mama-archetype")
+        if (archData) {
+          const arch = JSON.parse(archData)
+          if (arch.name) body.archetype = arch.name
+        }
+      } catch {}
+
+      const response = await fetch("/api/coach/witness", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+      if (response.ok) {
+        const data = await response.json()
+        if (data.witness) setAiWitness(data.witness)
+      }
+    } catch {
+      // Silently fail — pre-written response is already showing
+    } finally {
+      setIsLoadingAI(false)
+    }
   }
 
   const handleClose = () => {
     setLastEntry(null)
     setRepairLink(null)
+    setAiWitness(null)
     setIsOpen(false)
   }
 
   const handleReset = () => {
     setLastEntry(null)
     setRepairLink(null)
+    setAiWitness(null)
   }
 
   // Collapsed state — just a subtle entry point
@@ -95,8 +137,13 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
 
           {/* The response (the focus) */}
           <p className="text-foreground leading-relaxed mb-4">
-            {lastEntry.response}
+            {aiWitness || lastEntry.response}
           </p>
+          {isLoadingAI && !aiWitness && (
+            <div className="h-1 w-16 bg-primary/20 rounded-full overflow-hidden mb-4">
+              <div className="h-full w-full bg-primary/50 rounded-full animate-pulse" />
+            </div>
+          )}
 
           {/* Repair link if available */}
           {repairLink && (
