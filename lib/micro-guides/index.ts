@@ -50,7 +50,8 @@ export function getTodaysGuide(
   archetype: Archetype | null
 ): MicroGuide {
   // Check if we already selected one today
-  const today = new Date().toISOString().split("T")[0]
+  const now = new Date()
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`
   try {
     const cached = localStorage.getItem(DAILY_KEY)
     if (cached) {

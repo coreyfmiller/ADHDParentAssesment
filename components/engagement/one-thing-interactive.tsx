@@ -140,7 +140,10 @@ export function OneThingInteractive({ patternMap }: OneThingInteractiveProps) {
                   )}
                 </div>
                 <span className="text-[8px] text-muted-foreground/60">
-                  {dayLabels[new Date(day.date).getDay()]}
+                  {dayLabels[(() => {
+                    const [y, m, d] = day.date.split("-").map(Number)
+                    return new Date(y, m - 1, d).getDay()
+                  })()]}
                 </span>
               </div>
             ))}
