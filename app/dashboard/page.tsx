@@ -20,6 +20,8 @@ import { TimeCapsuleWidget } from "@/components/engagement/time-capsule"
 import { WhatWorkedTracker } from "@/components/engagement/what-worked-tracker"
 import { MilestoneToast } from "@/components/engagement/milestone-toast"
 import { ProactiveCoachMessage } from "@/components/engagement/proactive-coach-message"
+import { ActivityHeatmap } from "@/components/engagement/activity-heatmap"
+import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
 import type { MicroGuide } from "@/lib/micro-guides"
 
@@ -184,6 +186,9 @@ export default function DashboardPage() {
         <OneThingInteractive patternMap={patternMap} />
       </div>
 
+      {/* What's Hard This Week — anticipatory support */}
+      <WhatsHardThisWeek />
+
       {/* Proactive Coach Message — the coach reaches out first */}
       <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
 
@@ -244,6 +249,9 @@ export default function DashboardPage() {
 
       {/* What Worked — personal strategy playbook */}
       <WhatWorkedTracker />
+
+      {/* Activity Heatmap — visual proof of showing up */}
+      <ActivityHeatmap />
 
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (
