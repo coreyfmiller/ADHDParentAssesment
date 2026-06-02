@@ -120,26 +120,6 @@ export default function DashboardPage() {
         }
       } catch {}
 
-      // Micro-Win
-      try {
-        const winsData = localStorage.getItem("mindful-mama-micro-wins")
-        if (winsData) {
-          const wins = JSON.parse(winsData)
-          const todayWins = wins.find((w: { date: string }) => w.date === today)
-          if (todayWins?.wins?.length > 0) done.add("micro-win")
-        }
-      } catch {}
-
-      // What's Heavy
-      try {
-        const heavyData = localStorage.getItem("mindful-mama-whats-heavy")
-        if (heavyData) {
-          const entries = JSON.parse(heavyData)
-          const todayEntry = entries.find((e: { date: string }) => e.date === today)
-          if (todayEntry) done.add("whats-heavy")
-        }
-      } catch {}
-
       // Micro-Guide read
       if (isGuideRead) done.add("micro-guide")
 
@@ -148,7 +128,7 @@ export default function DashboardPage() {
   }, [])
 
   // Determine the first incomplete widget to highlight
-  const widgetOrder = ["one-thing", "micro-guide", "pulse", "micro-win", "whats-heavy"]
+  const widgetOrder = ["one-thing", "micro-guide", "pulse"]
   const firstIncomplete = widgetOrder.find((w) => !completedWidgets.has(w)) || null
 
   return (
@@ -254,24 +234,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Micro-Win Logger — always accessible */}
-      <div className={`transition-all duration-300 ${completedWidgets.has("micro-win") ? "opacity-60" : ""} ${firstIncomplete === "micro-win" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
-        {firstIncomplete === "micro-win" && (
-          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
-            <ArrowRight className="w-3 h-3" /> Up next
-          </p>
-        )}
-        <MicroWinLogger patternMap={patternMap} />
-      </div>
+      <MicroWinLogger patternMap={patternMap} />
 
       {/* What's Heavy — emotional release valve */}
-      <div className={`transition-all duration-300 ${completedWidgets.has("whats-heavy") ? "opacity-60" : ""} ${firstIncomplete === "whats-heavy" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
-        {firstIncomplete === "whats-heavy" && (
-          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
-            <ArrowRight className="w-3 h-3" /> Up next
-          </p>
-        )}
-        <WhatsHeavy patternMap={patternMap} />
-      </div>
+      <WhatsHeavy patternMap={patternMap} />
 
       {/* Time Capsule — letter to future self */}
       <TimeCapsuleWidget />
