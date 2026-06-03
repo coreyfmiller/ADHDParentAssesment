@@ -24,6 +24,7 @@ import { ActivityHeatmap } from "@/components/engagement/activity-heatmap"
 import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
 import { WeeklyRecap } from "@/components/engagement/weekly-recap"
 import { EveningRecap } from "@/components/engagement/evening-recap"
+import { PatternMapFlower } from "@/components/pattern-map-flower"
 import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
 import type { DailyAIContent } from "@/lib/engagement/daily-ai"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
@@ -76,6 +77,7 @@ export default function DashboardPage() {
   const [guideRead, setGuideRead] = useState(false)
   const [completedWidgets, setCompletedWidgets] = useState<Set<string>>(new Set())
   const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
+  const [mapView, setMapView] = useState<"flower" | "bars">("flower")
 
   useEffect(() => {
     try {
@@ -282,42 +284,67 @@ export default function DashboardPage() {
       {/* Pattern Map Summary or CTA */}
       {patternMap ? (
         <div className="space-y-3">
-          <Link
-            href="/assess"
-            className="block bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Compass className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                  Your Pattern Map
-                </h2>
-                <p className="text-xs text-muted-foreground">
-                  {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
-                </p>
-              </div>
-            </div>
-            <div className="grid grid-cols-5 gap-2">
-              {patternMap.dimensions.map((dim) => (
-                <div key={dim.dimension} className="space-y-1">
-                  <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full ${
-                        dim.intensity === "critical" ? "bg-red-500" :
-                        dim.intensity === "high" ? "bg-amber-500" :
-                        dim.intensity === "moderate" ? "bg-yellow-500" :
-                        "bg-green-500"
-                      }`}
-                      style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                    />
-                  </div>
-                  <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+          <div className="bg-card rounded-2xl p-6 border border-primary/20">
+            <div className="flex items-center justify-between mb-4">
+              <Link href="/assess" className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Compass className="w-5 h-5 text-primary" />
                 </div>
-              ))}
+                <div>
+                  <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                    Your Pattern Map
+                  </h2>
+                  <p className="text-xs text-muted-foreground">
+                    {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
+                  </p>
+                </div>
+              </Link>
+              {/* View toggle */}
+              <div className="flex items-center gap-1 bg-secondary/50 rounded-lg p-0.5">
+                <button
+                  onClick={() => setMapView("flower")}
+                  className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
+                    mapView === "flower" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  Flower
+                </button>
+                <button
+                  onClick={() => setMapView("bars")}
+                  className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
+                    mapView === "bars" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  Bars
+                </button>
+              </div>
             </div>
-          </Link>
+
+            {mapView === "flower" ? (
+              <div className="flex justify-center py-2">
+                <PatternMapFlower dimensions={patternMap.dimensions} size={240} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-5 gap-2">
+                {patternMap.dimensions.map((dim) => (
+                  <div key={dim.dimension} className="space-y-1">
+                    <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${
+                          dim.intensity === "critical" ? "bg-red-500" :
+                          dim.intensity === "high" ? "bg-amber-500" :
+                          dim.intensity === "moderate" ? "bg-yellow-500" :
+                          "bg-green-500"
+                        }`}
+                        style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                      />
+                    </div>
+                    <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           <Link
             href="/assess/snapshot"
             className="block bg-secondary/20 rounded-xl p-4 border border-border/50 hover:border-primary/20 transition-all text-center"
