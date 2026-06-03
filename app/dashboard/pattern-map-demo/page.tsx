@@ -126,8 +126,8 @@ export default function PatternMapDemoPage() {
 
       {/* 5. Flower Petals — Gradient */}
       <section className="bg-card rounded-2xl p-6 border border-border">
-        <h2 className="text-lg font-medium text-foreground mb-1">3. Flower / Petals — Gradient</h2>
-        <p className="text-sm text-muted-foreground mb-6">Brand color → warm coral as intensity rises. Size = severity.</p>
+        <h2 className="text-lg font-medium text-foreground mb-1">3. Flower / Petals — Gradient (current)</h2>
+        <p className="text-sm text-muted-foreground mb-6">Brand color → warm coral as intensity rises. Has green/red connotation.</p>
         <div className="flex justify-center">
           <FlowerPetalsGradient dimensions={dimensions} />
         </div>
@@ -139,6 +139,42 @@ export default function PatternMapDemoPage() {
         <p className="text-sm text-muted-foreground mb-6">All petals in brand palette. Bigger + more opaque = more overwhelm.</p>
         <div className="flex justify-center">
           <FlowerPetalsSingleColor dimensions={dimensions} />
+        </div>
+      </section>
+
+      {/* 7. Blush → Deep Rose */}
+      <section className="bg-card rounded-2xl p-6 border border-border">
+        <h2 className="text-lg font-medium text-foreground mb-1">5. Blush → Deep Rose</h2>
+        <p className="text-sm text-muted-foreground mb-6">Stays in your warm palette. Soft blush at low, rich burgundy at critical. No good/bad read.</p>
+        <div className="flex justify-center">
+          <FlowerPetalsBlushRose dimensions={dimensions} />
+        </div>
+      </section>
+
+      {/* 8. Lavender → Warm Coral */}
+      <section className="bg-card rounded-2xl p-6 border border-border">
+        <h2 className="text-lg font-medium text-foreground mb-1">6. Lavender → Warm Coral</h2>
+        <p className="text-sm text-muted-foreground mb-6">Cool to warm temperature shift. Calm → heated. Communicates intensity without judgment.</p>
+        <div className="flex justify-center">
+          <FlowerPetalsLavenderCoral dimensions={dimensions} />
+        </div>
+      </section>
+
+      {/* 9. Pale Gold → Deep Amber */}
+      <section className="bg-card rounded-2xl p-6 border border-border">
+        <h2 className="text-lg font-medium text-foreground mb-1">7. Pale Gold → Deep Amber</h2>
+        <p className="text-sm text-muted-foreground mb-6">Like embers. More intense = more glow. Warm throughout, no positive/negative.</p>
+        <div className="flex justify-center">
+          <FlowerPetalsGoldAmber dimensions={dimensions} />
+        </div>
+      </section>
+
+      {/* 10. Single Hue Saturation */}
+      <section className="bg-card rounded-2xl p-6 border border-border">
+        <h2 className="text-lg font-medium text-foreground mb-1">8. Single Hue — Saturation Ramp</h2>
+        <p className="text-sm text-muted-foreground mb-6">One color (your brand mauve). Low = barely visible, high = fully saturated. Purest version.</p>
+        <div className="flex justify-center">
+          <FlowerPetalsSaturation dimensions={dimensions} />
         </div>
       </section>
     </div>
@@ -349,6 +385,199 @@ function FlowerPetalsSingleColor({ dimensions }: VizProps) {
           </div>
         )
       })}
+    </div>
+  )
+}
+
+// ---- Helper: Build petal path ----
+function buildPetalPath(center: number, angle: number, score: number, maxScore: number) {
+  const ratio = score / maxScore
+  const petalLength = 45 + ratio * 75
+  const petalWidth = 28 + ratio * 22
+  const tipX = center + petalLength * Math.cos(angle)
+  const tipY = center + petalLength * Math.sin(angle)
+
+  const perpAngle = angle + Math.PI / 2
+  const cp1X = center + petalWidth * Math.cos(perpAngle) + (petalLength * 0.5) * Math.cos(angle)
+  const cp1Y = center + petalWidth * Math.sin(perpAngle) + (petalLength * 0.5) * Math.sin(angle)
+  const cp2X = center - petalWidth * Math.cos(perpAngle) + (petalLength * 0.5) * Math.cos(angle)
+  const cp2Y = center - petalWidth * Math.sin(perpAngle) + (petalLength * 0.5) * Math.sin(angle)
+
+  return `M ${center} ${center} Q ${cp1X} ${cp1Y} ${tipX} ${tipY} Q ${cp2X} ${cp2Y} ${center} ${center}`
+}
+
+// ---- Helper: Render labels at fixed distance ----
+function renderLabels(dimensions: VizProps["dimensions"], size: number, startAngle: number, angleStep: number) {
+  const center = size / 2
+  return dimensions.map((dim, i) => {
+    const angle = startAngle + i * angleStep
+    const labelDist = 140
+    const x = center + labelDist * Math.cos(angle)
+    const y = center + labelDist * Math.sin(angle)
+    return (
+      <div
+        key={dim.dimension}
+        className="absolute text-[10px] font-medium text-muted-foreground text-center w-20 -translate-x-1/2 -translate-y-1/2"
+        style={{ left: x, top: y }}
+      >
+        {dim.label}
+      </div>
+    )
+  })
+}
+
+// ---- 5. Blush → Deep Rose ----
+function FlowerPetalsBlushRose({ dimensions }: VizProps) {
+  const size = 320
+  const center = size / 2
+  const angleStep = (2 * Math.PI) / dimensions.length
+  const startAngle = -Math.PI / 2
+
+  const getColor = (score: number, maxScore: number) => {
+    const ratio = score / maxScore
+    // Hue stays around 340-350 (rose family). Saturation and lightness shift.
+    const hue = 345
+    const sat = 40 + ratio * 45 // 40% → 85%
+    const light = 80 - ratio * 35 // 80% (blush) → 45% (deep rose)
+    const opacity = 0.35 + ratio * 0.45
+    return {
+      fill: `hsla(${hue}, ${sat}%, ${light}%, ${opacity})`,
+      stroke: `hsla(${hue}, ${sat + 10}%, ${light - 8}%, ${opacity + 0.2})`,
+    }
+  }
+
+  return (
+    <div className="relative">
+      <svg width={size} height={size}>
+        {dimensions.map((dim, i) => {
+          const angle = startAngle + i * angleStep
+          const path = buildPetalPath(center, angle, dim.score, dim.maxScore)
+          const colors = getColor(dim.score, dim.maxScore)
+          return (
+            <path key={dim.dimension} d={path} fill={colors.fill} stroke={colors.stroke} strokeWidth="1.5" className="transition-all duration-500" />
+          )
+        })}
+        <circle cx={center} cy={center} r="14" fill="hsla(345, 60%, 65%, 0.15)" />
+        <circle cx={center} cy={center} r="7" fill="hsla(345, 60%, 55%, 0.4)" />
+      </svg>
+      {renderLabels(dimensions, size, startAngle, angleStep)}
+    </div>
+  )
+}
+
+// ---- 6. Lavender → Warm Coral ----
+function FlowerPetalsLavenderCoral({ dimensions }: VizProps) {
+  const size = 320
+  const center = size / 2
+  const angleStep = (2 * Math.PI) / dimensions.length
+  const startAngle = -Math.PI / 2
+
+  const getColor = (score: number, maxScore: number) => {
+    const ratio = score / maxScore
+    // Hue: 270 (lavender) → 15 (coral). Temperature shift.
+    const hue = 270 - ratio * 255 // 270 → 15
+    const sat = 45 + ratio * 35
+    const light = 72 - ratio * 22
+    const opacity = 0.35 + ratio * 0.45
+    return {
+      fill: `hsla(${hue < 0 ? hue + 360 : hue}, ${sat}%, ${light}%, ${opacity})`,
+      stroke: `hsla(${hue < 0 ? hue + 360 : hue}, ${sat + 10}%, ${light - 8}%, ${opacity + 0.2})`,
+    }
+  }
+
+  return (
+    <div className="relative">
+      <svg width={size} height={size}>
+        {dimensions.map((dim, i) => {
+          const angle = startAngle + i * angleStep
+          const path = buildPetalPath(center, angle, dim.score, dim.maxScore)
+          const colors = getColor(dim.score, dim.maxScore)
+          return (
+            <path key={dim.dimension} d={path} fill={colors.fill} stroke={colors.stroke} strokeWidth="1.5" className="transition-all duration-500" />
+          )
+        })}
+        <circle cx={center} cy={center} r="14" fill="hsla(270, 40%, 70%, 0.15)" />
+        <circle cx={center} cy={center} r="7" fill="hsla(270, 40%, 60%, 0.4)" />
+      </svg>
+      {renderLabels(dimensions, size, startAngle, angleStep)}
+    </div>
+  )
+}
+
+// ---- 7. Pale Gold → Deep Amber ----
+function FlowerPetalsGoldAmber({ dimensions }: VizProps) {
+  const size = 320
+  const center = size / 2
+  const angleStep = (2 * Math.PI) / dimensions.length
+  const startAngle = -Math.PI / 2
+
+  const getColor = (score: number, maxScore: number) => {
+    const ratio = score / maxScore
+    // Hue: 48 (gold) → 25 (deep amber)
+    const hue = 48 - ratio * 23
+    const sat = 50 + ratio * 40
+    const light = 75 - ratio * 30
+    const opacity = 0.35 + ratio * 0.5
+    return {
+      fill: `hsla(${hue}, ${sat}%, ${light}%, ${opacity})`,
+      stroke: `hsla(${hue}, ${sat + 10}%, ${light - 10}%, ${opacity + 0.2})`,
+    }
+  }
+
+  return (
+    <div className="relative">
+      <svg width={size} height={size}>
+        {dimensions.map((dim, i) => {
+          const angle = startAngle + i * angleStep
+          const path = buildPetalPath(center, angle, dim.score, dim.maxScore)
+          const colors = getColor(dim.score, dim.maxScore)
+          return (
+            <path key={dim.dimension} d={path} fill={colors.fill} stroke={colors.stroke} strokeWidth="1.5" className="transition-all duration-500" />
+          )
+        })}
+        <circle cx={center} cy={center} r="14" fill="hsla(45, 60%, 65%, 0.15)" />
+        <circle cx={center} cy={center} r="7" fill="hsla(40, 70%, 50%, 0.4)" />
+      </svg>
+      {renderLabels(dimensions, size, startAngle, angleStep)}
+    </div>
+  )
+}
+
+// ---- 8. Single Hue — Saturation Ramp ----
+function FlowerPetalsSaturation({ dimensions }: VizProps) {
+  const size = 320
+  const center = size / 2
+  const angleStep = (2 * Math.PI) / dimensions.length
+  const startAngle = -Math.PI / 2
+
+  const getColor = (score: number, maxScore: number) => {
+    const ratio = score / maxScore
+    // Fixed hue (brand mauve ~340), saturation ramps up
+    const hue = 340
+    const sat = 15 + ratio * 60 // 15% (barely there) → 75% (rich)
+    const light = 70 - ratio * 20 // lighter when low, deeper when high
+    const opacity = 0.25 + ratio * 0.55
+    return {
+      fill: `hsla(${hue}, ${sat}%, ${light}%, ${opacity})`,
+      stroke: `hsla(${hue}, ${sat + 10}%, ${light - 8}%, ${opacity + 0.15})`,
+    }
+  }
+
+  return (
+    <div className="relative">
+      <svg width={size} height={size}>
+        {dimensions.map((dim, i) => {
+          const angle = startAngle + i * angleStep
+          const path = buildPetalPath(center, angle, dim.score, dim.maxScore)
+          const colors = getColor(dim.score, dim.maxScore)
+          return (
+            <path key={dim.dimension} d={path} fill={colors.fill} stroke={colors.stroke} strokeWidth="1.5" className="transition-all duration-500" />
+          )
+        })}
+        <circle cx={center} cy={center} r="14" fill="hsla(340, 30%, 70%, 0.1)" />
+        <circle cx={center} cy={center} r="7" fill="hsla(340, 50%, 60%, 0.3)" />
+      </svg>
+      {renderLabels(dimensions, size, startAngle, angleStep)}
     </div>
   )
 }
