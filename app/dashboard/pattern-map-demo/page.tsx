@@ -270,11 +270,10 @@ function FlowerPetalsGradient({ dimensions }: VizProps) {
         <circle cx={center} cy={center} r="7" fill="hsl(var(--primary))" opacity="0.4" />
       </svg>
 
-      {/* Labels */}
+      {/* Labels — always outside the petals at a fixed distance */}
       {dimensions.map((dim, i) => {
         const angle = startAngle + i * angleStep
-        const ratio = dim.score / dim.maxScore
-        const labelDist = 55 + ratio * 85
+        const labelDist = 140 // Fixed distance, always outside max petal size
         const x = center + labelDist * Math.cos(angle)
         const y = center + labelDist * Math.sin(angle)
         return (
