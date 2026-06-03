@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react"
 import type { PatternMap } from "@/lib/assessments/types"
 
 // Sample data for demo (will use real data if available)
-const sampleDimensions = [
+const defaultDimensions = [
   { dimension: "cognitive-load", label: "Cognitive Load", score: 14, maxScore: 20, intensity: "critical" as const, description: "" },
   { dimension: "emotional-bandwidth", label: "Emotional Bandwidth", score: 12, maxScore: 20, intensity: "high" as const, description: "" },
   { dimension: "physical-depletion", label: "Physical Depletion", score: 16, maxScore: 20, intensity: "critical" as const, description: "" },
@@ -15,7 +15,8 @@ const sampleDimensions = [
 ]
 
 export default function PatternMapDemoPage() {
-  const [dimensions, setDimensions] = useState(sampleDimensions)
+  const [dimensions, setDimensions] = useState(defaultDimensions)
+  const [scores, setScores] = useState(defaultDimensions.map((d) => d.score))
 
   useEffect(() => {
     try {
@@ -24,10 +25,28 @@ export default function PatternMapDemoPage() {
         const map = JSON.parse(stored) as PatternMap
         if (map.dimensions?.length > 0) {
           setDimensions(map.dimensions)
+          setScores(map.dimensions.map((d) => d.score))
         }
       }
     } catch {}
   }, [])
+
+  const updateScore = (index: number, value: number) => {
+    const newScores = [...scores]
+    newScores[index] = value
+    setScores(newScores)
+
+    const newDims = dimensions.map((dim, i) => {
+      if (i !== index) return dim
+      const ratio = value / dim.maxScore
+      let intensity: "low" | "moderate" | "high" | "critical" = "low"
+      if (ratio >= 0.75) intensity = "critical"
+      else if (ratio >= 0.55) intensity = "high"
+      else if (ratio >= 0.35) intensity = "moderate"
+      return { ...dim, score: value, intensity }
+    })
+    setDimensions(newDims)
+  }
 
   return (
     <div className="space-y-12 pb-16">
@@ -36,10 +55,33 @@ export default function PatternMapDemoPage() {
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </Link>
         <h1 className="text-2xl font-medium text-foreground mb-2">Pattern Map Visualizations</h1>
-        <p className="text-muted-foreground">Same data, different ways to see it. Which one feels right?</p>
+        <p className="text-muted-foreground">Adjust the sliders to see how the visualizations respond.</p>
       </div>
 
-      {/* 1. Current — Horizontal Bars */}
+      {/* Sliders */}
+      <section className="bg-card rounded-2xl p-6 border border-border">
+        <h2 className="text-sm font-medium text-foreground mb-4">Adjust Dimensions</h2>
+        <div className="space-y-4">
+          {dimensions.map((dim, i) => (
+            <div key={dim.dimension} className="space-y-1">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-foreground">{dim.label}</span>
+                <span className="text-xs text-muted-foreground">{scores[i]}/{dim.maxScore}</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max={dim.maxScore}
+                value={scores[i]}
+                onChange={(e) => updateScore(i, Number(e.target.value))}
+                className="w-full h-2 rounded-full appearance-none bg-secondary cursor-pointer accent-primary"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 1. Horizontal Bars (current) */}
       <section className="bg-card rounded-2xl p-6 border border-border">
         <h2 className="text-lg font-medium text-foreground mb-1">1. Horizontal Bars (current)</h2>
         <p className="text-sm text-muted-foreground mb-6">Familiar, readable, but generic.</p>
@@ -59,7 +101,7 @@ export default function PatternMapDemoPage() {
               </div>
               <div className="h-2.5 w-full bg-secondary rounded-full overflow-hidden">
                 <div
-                  className={`h-full rounded-full transition-all duration-700 ${
+                  className={`h-full rounded-full transition-all duration-300 ${
                     dim.intensity === "critical" ? "bg-red-500" :
                     dim.intensity === "high" ? "bg-amber-500" :
                     dim.intensity === "moderate" ? "bg-yellow-500" :
@@ -82,39 +124,21 @@ export default function PatternMapDemoPage() {
         </div>
       </section>
 
-      {/* 3. Concentric Rings */}
+      {/* 5. Flower Petals — Gradient */}
       <section className="bg-card rounded-2xl p-6 border border-border">
-        <h2 className="text-lg font-medium text-foreground mb-1">3. Concentric Rings</h2>
-        <p className="text-sm text-muted-foreground mb-6">Compact, organic. Critical fills the full ring.</p>
+        <h2 className="text-lg font-medium text-foreground mb-1">3. Flower / Petals — Gradient</h2>
+        <p className="text-sm text-muted-foreground mb-6">Brand color → warm coral as intensity rises. Size = severity.</p>
         <div className="flex justify-center">
-          <ConcentricRings dimensions={dimensions} />
+          <FlowerPetalsGradient dimensions={dimensions} />
         </div>
       </section>
 
-      {/* 4. Body Map */}
+      {/* 6. Flower Petals — Single Brand Color */}
       <section className="bg-card rounded-2xl p-6 border border-border">
-        <h2 className="text-lg font-medium text-foreground mb-1">4. Body Map</h2>
-        <p className="text-sm text-muted-foreground mb-6">Visceral. Where you carry it in your body.</p>
+        <h2 className="text-lg font-medium text-foreground mb-1">4. Flower / Petals — Single Color (opacity + size)</h2>
+        <p className="text-sm text-muted-foreground mb-6">All petals in brand palette. Bigger + more opaque = more overwhelm.</p>
         <div className="flex justify-center">
-          <BodyMap dimensions={dimensions} />
-        </div>
-      </section>
-
-      {/* 5. Stacking Blocks */}
-      <section className="bg-card rounded-2xl p-6 border border-border">
-        <h2 className="text-lg font-medium text-foreground mb-1">5. Weight / Stacking Blocks</h2>
-        <p className="text-sm text-muted-foreground mb-6">&quot;This is what you&apos;re carrying.&quot; Literal weight visualization.</p>
-        <div className="flex justify-center">
-          <StackingBlocks dimensions={dimensions} />
-        </div>
-      </section>
-
-      {/* 6. Flower Petals */}
-      <section className="bg-card rounded-2xl p-6 border border-border">
-        <h2 className="text-lg font-medium text-foreground mb-1">6. Flower / Petals</h2>
-        <p className="text-sm text-muted-foreground mb-6">Soft, organic. Oversized petals = overwhelm areas.</p>
-        <div className="flex justify-center">
-          <FlowerPetals dimensions={dimensions} />
+          <FlowerPetalsSingleColor dimensions={dimensions} />
         </div>
       </section>
     </div>
@@ -126,10 +150,10 @@ export default function PatternMapDemoPage() {
 // ============================================================
 
 interface VizProps {
-  dimensions: typeof sampleDimensions
+  dimensions: typeof defaultDimensions
 }
 
-// ---- 2. Radar Chart ----
+// ---- Radar Chart ----
 function RadarChart({ dimensions }: VizProps) {
   const size = 280
   const center = size / 2
@@ -137,7 +161,7 @@ function RadarChart({ dimensions }: VizProps) {
   const levels = 4
 
   const angleStep = (2 * Math.PI) / dimensions.length
-  const startAngle = -Math.PI / 2 // Start at top
+  const startAngle = -Math.PI / 2
 
   const getPoint = (index: number, value: number): { x: number; y: number } => {
     const angle = startAngle + index * angleStep
@@ -148,7 +172,6 @@ function RadarChart({ dimensions }: VizProps) {
     }
   }
 
-  // Grid lines
   const gridPaths = Array.from({ length: levels }, (_, level) => {
     const radius = ((level + 1) / levels) * maxRadius
     const points = dimensions.map((_, i) => {
@@ -158,35 +181,25 @@ function RadarChart({ dimensions }: VizProps) {
     return `M${points.join("L")}Z`
   })
 
-  // Data polygon
   const dataPoints = dimensions.map((dim, i) => getPoint(i, dim.score))
   const dataPath = `M${dataPoints.map((p) => `${p.x},${p.y}`).join("L")}Z`
 
   return (
     <div className="relative">
       <svg width={size} height={size} className="overflow-visible">
-        {/* Grid */}
         {gridPaths.map((path, i) => (
           <path key={i} d={path} fill="none" stroke="currentColor" className="text-border" strokeWidth="1" opacity={0.3 + i * 0.15} />
         ))}
-
-        {/* Axis lines */}
         {dimensions.map((_, i) => {
           const end = getPoint(i, 20)
           return <line key={i} x1={center} y1={center} x2={end.x} y2={end.y} stroke="currentColor" className="text-border" strokeWidth="1" opacity="0.3" />
         })}
-
-        {/* Data fill */}
         <path d={dataPath} fill="hsl(var(--primary))" opacity="0.15" />
         <path d={dataPath} fill="none" stroke="hsl(var(--primary))" strokeWidth="2.5" />
-
-        {/* Data points */}
         {dataPoints.map((point, i) => (
           <circle key={i} cx={point.x} cy={point.y} r="4" fill="hsl(var(--primary))" />
         ))}
       </svg>
-
-      {/* Labels */}
       {dimensions.map((dim, i) => {
         const labelPoint = getPoint(i, 24)
         return (
@@ -196,14 +209,6 @@ function RadarChart({ dimensions }: VizProps) {
             style={{ left: labelPoint.x, top: labelPoint.y }}
           >
             {dim.label.split(" ")[0]}
-            <br />
-            <span className={`text-[9px] ${
-              dim.intensity === "critical" ? "text-red-500" :
-              dim.intensity === "high" ? "text-amber-500" :
-              "text-muted-foreground/60"
-            }`}>
-              {dim.intensity}
-            </span>
           </div>
         )
       })}
@@ -211,215 +216,36 @@ function RadarChart({ dimensions }: VizProps) {
   )
 }
 
-// ---- 3. Concentric Rings ----
-function ConcentricRings({ dimensions }: VizProps) {
-  const size = 280
-  const center = size / 2
-  const ringWidth = 18
-  const gap = 4
-
-  const getColor = (intensity: string) => {
-    if (intensity === "critical") return "hsl(0, 84%, 60%)"
-    if (intensity === "high") return "hsl(38, 92%, 50%)"
-    if (intensity === "moderate") return "hsl(48, 96%, 53%)"
-    return "hsl(142, 71%, 45%)"
-  }
-
-  return (
-    <div className="relative">
-      <svg width={size} height={size}>
-        {dimensions.map((dim, i) => {
-          const radius = center - (i * (ringWidth + gap)) - 30
-          const circumference = 2 * Math.PI * radius
-          const progress = dim.score / dim.maxScore
-          const dashOffset = circumference * (1 - progress)
-
-          return (
-            <g key={dim.dimension}>
-              {/* Background ring */}
-              <circle
-                cx={center}
-                cy={center}
-                r={radius}
-                fill="none"
-                stroke="currentColor"
-                className="text-secondary"
-                strokeWidth={ringWidth}
-              />
-              {/* Progress ring */}
-              <circle
-                cx={center}
-                cy={center}
-                r={radius}
-                fill="none"
-                stroke={getColor(dim.intensity)}
-                strokeWidth={ringWidth}
-                strokeDasharray={circumference}
-                strokeDashoffset={dashOffset}
-                strokeLinecap="round"
-                transform={`rotate(-90 ${center} ${center})`}
-                className="transition-all duration-1000"
-              />
-            </g>
-          )
-        })}
-      </svg>
-
-      {/* Center label */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-xs text-muted-foreground">Pattern</p>
-          <p className="text-sm font-medium text-foreground">Map</p>
-        </div>
-      </div>
-
-      {/* Legend */}
-      <div className="mt-4 flex flex-wrap justify-center gap-3">
-        {dimensions.map((dim) => (
-          <div key={dim.dimension} className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: getColor(dim.intensity) }} />
-            <span className="text-[10px] text-muted-foreground">{dim.label.split(" ")[0]}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-// ---- 4. Body Map ----
-function BodyMap({ dimensions }: VizProps) {
-  const getOpacity = (dimension: string) => {
-    const dim = dimensions.find((d) => d.dimension === dimension)
-    if (!dim) return 0.1
-    return 0.2 + (dim.score / dim.maxScore) * 0.8
-  }
-
-  const getColor = (dimension: string) => {
-    const dim = dimensions.find((d) => d.dimension === dimension)
-    if (!dim) return "#ccc"
-    if (dim.intensity === "critical") return "rgb(239, 68, 68)"
-    if (dim.intensity === "high") return "rgb(245, 158, 11)"
-    if (dim.intensity === "moderate") return "rgb(234, 179, 8)"
-    return "rgb(34, 197, 94)"
-  }
-
-  return (
-    <div className="relative w-48">
-      {/* Simple body silhouette with regions */}
-      <svg viewBox="0 0 200 400" className="w-full h-auto">
-        {/* Head — Cognitive Load */}
-        <ellipse cx="100" cy="50" rx="35" ry="40" fill={getColor("cognitive-load")} opacity={getOpacity("cognitive-load")} />
-        <ellipse cx="100" cy="50" rx="35" ry="40" fill="none" stroke={getColor("cognitive-load")} strokeWidth="2" opacity="0.6" />
-
-        {/* Chest — Emotional Bandwidth */}
-        <ellipse cx="100" cy="140" rx="45" ry="45" fill={getColor("emotional-bandwidth")} opacity={getOpacity("emotional-bandwidth")} />
-        <ellipse cx="100" cy="140" rx="45" ry="45" fill="none" stroke={getColor("emotional-bandwidth")} strokeWidth="2" opacity="0.6" />
-
-        {/* Core — Physical Depletion */}
-        <ellipse cx="100" cy="220" rx="40" ry="40" fill={getColor("physical-depletion")} opacity={getOpacity("physical-depletion")} />
-        <ellipse cx="100" cy="220" rx="40" ry="40" fill="none" stroke={getColor("physical-depletion")} strokeWidth="2" opacity="0.6" />
-
-        {/* Arms/Hands — System Friction (carrying the load) */}
-        <ellipse cx="40" cy="170" rx="20" ry="50" fill={getColor("system-friction")} opacity={getOpacity("system-friction")} />
-        <ellipse cx="40" cy="170" rx="20" ry="50" fill="none" stroke={getColor("system-friction")} strokeWidth="2" opacity="0.6" />
-        <ellipse cx="160" cy="170" rx="20" ry="50" fill={getColor("system-friction")} opacity={getOpacity("system-friction")} />
-        <ellipse cx="160" cy="170" rx="20" ry="50" fill="none" stroke={getColor("system-friction")} strokeWidth="2" opacity="0.6" />
-
-        {/* Legs/Foundation — Identity Erosion */}
-        <ellipse cx="75" cy="330" rx="20" ry="55" fill={getColor("identity-erosion")} opacity={getOpacity("identity-erosion")} />
-        <ellipse cx="75" cy="330" rx="20" ry="55" fill="none" stroke={getColor("identity-erosion")} strokeWidth="2" opacity="0.6" />
-        <ellipse cx="125" cy="330" rx="20" ry="55" fill={getColor("identity-erosion")} opacity={getOpacity("identity-erosion")} />
-        <ellipse cx="125" cy="330" rx="20" ry="55" fill="none" stroke={getColor("identity-erosion")} strokeWidth="2" opacity="0.6" />
-      </svg>
-
-      {/* Labels */}
-      <div className="absolute top-1 right-0 text-[9px] text-right">
-        <p className="font-medium" style={{ color: getColor("cognitive-load") }}>Cognitive</p>
-      </div>
-      <div className="absolute top-[30%] right-0 text-[9px] text-right">
-        <p className="font-medium" style={{ color: getColor("emotional-bandwidth") }}>Emotional</p>
-      </div>
-      <div className="absolute top-[50%] right-0 text-[9px] text-right">
-        <p className="font-medium" style={{ color: getColor("physical-depletion") }}>Physical</p>
-      </div>
-      <div className="absolute top-[38%] left-0 text-[9px]">
-        <p className="font-medium" style={{ color: getColor("system-friction") }}>Systems</p>
-      </div>
-      <div className="absolute bottom-[10%] right-0 text-[9px] text-right">
-        <p className="font-medium" style={{ color: getColor("identity-erosion") }}>Identity</p>
-      </div>
-    </div>
-  )
-}
-
-// ---- 5. Stacking Blocks ----
-function StackingBlocks({ dimensions }: VizProps) {
-  const sorted = [...dimensions].sort((a, b) => b.score - a.score)
-
-  const getColor = (intensity: string) => {
-    if (intensity === "critical") return "bg-red-500/70 border-red-600/50"
-    if (intensity === "high") return "bg-amber-500/60 border-amber-600/40"
-    if (intensity === "moderate") return "bg-yellow-400/50 border-yellow-500/40"
-    return "bg-green-400/40 border-green-500/30"
-  }
-
-  return (
-    <div className="w-full max-w-sm">
-      <div className="flex flex-col items-center gap-1.5">
-        {sorted.map((dim) => {
-          const widthPct = 40 + (dim.score / dim.maxScore) * 60
-          return (
-            <div
-              key={dim.dimension}
-              className={`rounded-xl border-2 py-3 px-4 flex items-center justify-between transition-all duration-500 ${getColor(dim.intensity)}`}
-              style={{ width: `${widthPct}%` }}
-            >
-              <span className="text-xs font-medium text-foreground/90">{dim.label}</span>
-              <span className="text-[10px] text-foreground/60">{Math.round((dim.score / dim.maxScore) * 100)}%</span>
-            </div>
-          )
-        })}
-      </div>
-      <p className="text-center text-xs text-muted-foreground mt-4 italic">
-        Widest blocks = heaviest weight you&apos;re carrying
-      </p>
-    </div>
-  )
-}
-
-// ---- 6. Flower Petals ----
-function FlowerPetals({ dimensions }: VizProps) {
-  const size = 300
+// ---- Flower Petals — Gradient (brand → warm coral) ----
+function FlowerPetalsGradient({ dimensions }: VizProps) {
+  const size = 320
   const center = size / 2
   const angleStep = (2 * Math.PI) / dimensions.length
   const startAngle = -Math.PI / 2
 
-  const getColor = (intensity: string) => {
-    if (intensity === "critical") return "rgba(239, 68, 68, 0.5)"
-    if (intensity === "high") return "rgba(245, 158, 11, 0.4)"
-    if (intensity === "moderate") return "rgba(234, 179, 8, 0.35)"
-    return "rgba(34, 197, 94, 0.3)"
-  }
-
-  const getStroke = (intensity: string) => {
-    if (intensity === "critical") return "rgba(239, 68, 68, 0.8)"
-    if (intensity === "high") return "rgba(245, 158, 11, 0.7)"
-    if (intensity === "moderate") return "rgba(234, 179, 8, 0.6)"
-    return "rgba(34, 197, 94, 0.5)"
+  // Gradient: brand pink/mauve at low → warm coral/rose at critical
+  // Using HSL: brand ~340 hue → coral ~15 hue
+  const getColor = (score: number, maxScore: number) => {
+    const ratio = score / maxScore
+    // Interpolate hue from 340 (cool pink) to 10 (warm coral)
+    const hue = 340 - ratio * 330 + (ratio > 0.5 ? (ratio - 0.5) * 40 : 0)
+    const sat = 60 + ratio * 25
+    const light = 65 - ratio * 15
+    const opacity = 0.3 + ratio * 0.45
+    return { fill: `hsla(${hue % 360}, ${sat}%, ${light}%, ${opacity})`, stroke: `hsla(${hue % 360}, ${sat}%, ${light - 10}%, ${opacity + 0.2})` }
   }
 
   return (
     <div className="relative">
       <svg width={size} height={size}>
-        {/* Petals */}
         {dimensions.map((dim, i) => {
           const angle = startAngle + i * angleStep
-          const petalLength = 40 + (dim.score / dim.maxScore) * 70
-          const petalWidth = 25 + (dim.score / dim.maxScore) * 20
+          const ratio = dim.score / dim.maxScore
+          const petalLength = 45 + ratio * 75
+          const petalWidth = 28 + ratio * 22
           const tipX = center + petalLength * Math.cos(angle)
           const tipY = center + petalLength * Math.sin(angle)
 
-          // Control points for bezier curve (create petal shape)
           const perpAngle = angle + Math.PI / 2
           const cp1X = center + petalWidth * Math.cos(perpAngle) + (petalLength * 0.5) * Math.cos(angle)
           const cp1Y = center + petalWidth * Math.sin(perpAngle) + (petalLength * 0.5) * Math.sin(angle)
@@ -427,37 +253,100 @@ function FlowerPetals({ dimensions }: VizProps) {
           const cp2Y = center - petalWidth * Math.sin(perpAngle) + (petalLength * 0.5) * Math.sin(angle)
 
           const path = `M ${center} ${center} Q ${cp1X} ${cp1Y} ${tipX} ${tipY} Q ${cp2X} ${cp2Y} ${center} ${center}`
+          const colors = getColor(dim.score, dim.maxScore)
 
           return (
             <path
               key={dim.dimension}
               d={path}
-              fill={getColor(dim.intensity)}
-              stroke={getStroke(dim.intensity)}
+              fill={colors.fill}
+              stroke={colors.stroke}
               strokeWidth="1.5"
-              className="transition-all duration-700"
+              className="transition-all duration-500"
             />
           )
         })}
-
-        {/* Center circle */}
-        <circle cx={center} cy={center} r="12" fill="hsl(var(--primary))" opacity="0.2" />
-        <circle cx={center} cy={center} r="6" fill="hsl(var(--primary))" opacity="0.5" />
+        <circle cx={center} cy={center} r="14" fill="hsl(var(--primary))" opacity="0.15" />
+        <circle cx={center} cy={center} r="7" fill="hsl(var(--primary))" opacity="0.4" />
       </svg>
 
       {/* Labels */}
       {dimensions.map((dim, i) => {
         const angle = startAngle + i * angleStep
-        const labelDist = 50 + (dim.score / dim.maxScore) * 80
+        const ratio = dim.score / dim.maxScore
+        const labelDist = 55 + ratio * 85
         const x = center + labelDist * Math.cos(angle)
         const y = center + labelDist * Math.sin(angle)
         return (
           <div
             key={dim.dimension}
-            className="absolute text-[10px] font-medium text-center w-16 -translate-x-1/2 -translate-y-1/2"
-            style={{ left: x, top: y, color: getStroke(dim.intensity) }}
+            className="absolute text-[10px] font-medium text-muted-foreground text-center w-20 -translate-x-1/2 -translate-y-1/2"
+            style={{ left: x, top: y }}
           >
-            {dim.label.split(" ")[0]}
+            {dim.label}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+// ---- Flower Petals — Single Brand Color (opacity + size only) ----
+function FlowerPetalsSingleColor({ dimensions }: VizProps) {
+  const size = 320
+  const center = size / 2
+  const angleStep = (2 * Math.PI) / dimensions.length
+  const startAngle = -Math.PI / 2
+
+  return (
+    <div className="relative">
+      <svg width={size} height={size}>
+        {dimensions.map((dim, i) => {
+          const angle = startAngle + i * angleStep
+          const ratio = dim.score / dim.maxScore
+          const petalLength = 45 + ratio * 75
+          const petalWidth = 28 + ratio * 22
+          const tipX = center + petalLength * Math.cos(angle)
+          const tipY = center + petalLength * Math.sin(angle)
+
+          const perpAngle = angle + Math.PI / 2
+          const cp1X = center + petalWidth * Math.cos(perpAngle) + (petalLength * 0.5) * Math.cos(angle)
+          const cp1Y = center + petalWidth * Math.sin(perpAngle) + (petalLength * 0.5) * Math.sin(angle)
+          const cp2X = center - petalWidth * Math.cos(perpAngle) + (petalLength * 0.5) * Math.cos(angle)
+          const cp2Y = center - petalWidth * Math.sin(perpAngle) + (petalLength * 0.5) * Math.sin(angle)
+
+          const path = `M ${center} ${center} Q ${cp1X} ${cp1Y} ${tipX} ${tipY} Q ${cp2X} ${cp2Y} ${center} ${center}`
+          const opacity = 0.15 + ratio * 0.5
+
+          return (
+            <path
+              key={dim.dimension}
+              d={path}
+              fill={`hsl(var(--primary) / ${opacity})`}
+              stroke={`hsl(var(--primary) / ${opacity + 0.15})`}
+              strokeWidth="1.5"
+              className="transition-all duration-500"
+            />
+          )
+        })}
+        <circle cx={center} cy={center} r="14" fill="hsl(var(--primary))" opacity="0.1" />
+        <circle cx={center} cy={center} r="7" fill="hsl(var(--primary))" opacity="0.3" />
+      </svg>
+
+      {/* Labels */}
+      {dimensions.map((dim, i) => {
+        const angle = startAngle + i * angleStep
+        const ratio = dim.score / dim.maxScore
+        const labelDist = 55 + ratio * 85
+        const x = center + labelDist * Math.cos(angle)
+        const y = center + labelDist * Math.sin(angle)
+        return (
+          <div
+            key={dim.dimension}
+            className="absolute text-[10px] font-medium text-muted-foreground text-center w-20 -translate-x-1/2 -translate-y-1/2"
+            style={{ left: x, top: y }}
+          >
+            {dim.label}
           </div>
         )
       })}
