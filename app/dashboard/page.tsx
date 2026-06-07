@@ -173,7 +173,7 @@ export default function DashboardPage() {
         >
           <div className="aspect-[3.2/1] relative bg-secondary/20">
             <Image
-              src="/images/glowingseed.png"
+              src="/images/wildflower.png"
               alt="Your type"
               fill
               className="object-cover object-[center_40%]"
