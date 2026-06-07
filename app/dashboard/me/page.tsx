@@ -42,6 +42,8 @@ interface Portrait {
   season?: string
   futureletter?: string
   generatedAt: number
+  pathwayCount?: number
+  winCount?: number
 }
 
 export default function MePage() {
@@ -151,7 +153,11 @@ export default function MePage() {
 
       if (response.ok) {
         const data = await response.json()
-        const newPortrait: Portrait = { ...data, generatedAt: Date.now() }
+        const pathwaySlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+        const currentPathwayCount = pathwaySlugs.filter(slug => { try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false } }).length
+        const currentWinCount = getAllWins().reduce((sum, d) => sum + d.wins.length, 0)
+
+        const newPortrait: Portrait = { ...data, generatedAt: Date.now(), pathwayCount: currentPathwayCount, winCount: currentWinCount }
         setPortrait(newPortrait)
         try { localStorage.setItem(PORTRAIT_KEY, JSON.stringify(newPortrait)) } catch {}
       }
@@ -310,16 +316,29 @@ export default function MePage() {
             </section>
           )}
 
-          {/* Regenerate option */}
-          <div className="text-center pt-2">
-            <button
-              onClick={generatePortrait}
-              disabled={isGenerating}
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {isGenerating ? "Generating..." : "Regenerate portrait (uses latest data)"}
-            </button>
-          </div>
+          {/* Regenerate option — only if new data since last generation */}
+          {(() => {
+            const allWinsData = getAllWins()
+            const totalWins = allWinsData.reduce((sum, d) => sum + d.wins.length, 0)
+            const pathwaySlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+            const currentPathwayCount = pathwaySlugs.filter(slug => { try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false } }).length
+
+            const hasNewPathways = currentPathwayCount > (portrait.pathwayCount || 0)
+            const hasSignificantNewWins = totalWins - (portrait.winCount || 0) >= 20
+
+            if (!hasNewPathways && !hasSignificantNewWins) return null
+            return (
+              <div className="text-center pt-2">
+                <button
+                  onClick={generatePortrait}
+                  disabled={isGenerating}
+                  className="text-xs text-primary hover:text-primary/80 transition-colors"
+                >
+                  {isGenerating ? "Generating..." : "✦ New data available — refresh your portrait"}
+                </button>
+              </div>
+            )
+          })()}
         </div>
       )}
 
