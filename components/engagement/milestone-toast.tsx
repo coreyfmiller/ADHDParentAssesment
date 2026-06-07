@@ -40,7 +40,7 @@ export function MilestoneToast() {
   if (!visible || !milestone) return null
 
   return (
-    <div className="fixed bottom-6 left-4 right-4 z-50 flex justify-center animate-in slide-in-from-bottom-4 fade-in duration-500">
+    <div className="fixed bottom-20 md:bottom-6 left-4 right-4 z-50 flex justify-center animate-in slide-in-from-bottom-4 fade-in duration-500">
       <div className="bg-card rounded-2xl border border-primary/20 shadow-lg max-w-md w-full overflow-hidden">
         <div className="p-5">
           <div className="flex items-start gap-3">

@@ -147,6 +147,65 @@ const MILESTONE_DEFS: {
     message: "30 micro-actions completed. That's not a streak — that's a lifestyle. You are someone who takes care of herself. The evidence is undeniable.",
     type: "time",
   },
+  // Pathway milestones
+  {
+    id: "first-pathway",
+    check: () => {
+      try {
+        const pathways = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+        return pathways.some(p => localStorage.getItem(`mindful-mama-pathway-result-${p}`) !== null)
+      } catch { return false }
+    },
+    title: "First pathway explored",
+    message: "You went deeper. Most people stop at the surface. You chose to understand yourself with more honesty than that.",
+    type: "time",
+  },
+  {
+    id: "3-pathways",
+    check: () => {
+      try {
+        const pathways = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+        return pathways.filter(p => localStorage.getItem(`mindful-mama-pathway-result-${p}`) !== null).length >= 3
+      } catch { return false }
+    },
+    title: "3 pathways explored",
+    message: "Three dimensions of yourself examined. You're building a map of who you are — not who the world tells you to be.",
+    type: "time",
+  },
+  {
+    id: "all-pathways",
+    check: () => {
+      try {
+        const pathways = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+        return pathways.filter(p => localStorage.getItem(`mindful-mama-pathway-result-${p}`) !== null).length >= 7
+      } catch { return false }
+    },
+    title: "All pathways complete",
+    message: "Every pathway explored. You now have the most complete picture of yourself this tool can offer. That took courage — the willingness to look at all of it, not just the comfortable parts.",
+    type: "time",
+  },
+  // Engagement depth
+  {
+    id: "200-wins",
+    check: () => getAllWins().flatMap(d => d.wins).length >= 200,
+    title: "200 wins",
+    message: "Two hundred. That's a volume of evidence that rewrites the story. You are not the person your worst days say you are.",
+    type: "wins",
+  },
+  {
+    id: "500-wins",
+    check: () => getAllWins().flatMap(d => d.wins).length >= 500,
+    title: "500 wins",
+    message: "Five hundred things you did, noticed, and recorded. This is no longer a list. This is a testament to a life being lived with intention.",
+    type: "wins",
+  },
+  {
+    id: "60-day-streak",
+    check: () => getWinStreak().currentStreak >= 60 || getOneThingStreak().currentStreak >= 60,
+    title: "60-day streak",
+    message: "Two months. The version of you who started this would barely recognize the habits you've built. Not because you changed who you are — because you finally let yourself be seen.",
+    type: "streak",
+  },
 ]
 
 // ---- Core Functions ----

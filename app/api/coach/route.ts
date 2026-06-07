@@ -108,7 +108,21 @@ Your approach:
       "sleep-recovery": "Sleep & Recovery",
       "trauma-nervous-system": "Trauma & Nervous System",
     }
-    prompt += `\n\nShe has completed these deeper pathway reflections: ${Object.values(pathwayResults).map(r => pathwayNames[r.pathwayId] || r.pathwayId).join(", ")}. She's actively working on understanding these areas of her life. Reference these when relevant.`
+    prompt += `\n\nShe has completed these deeper pathway reflections: ${Object.keys(pathwayResults).map(id => pathwayNames[id] || id).join(", ")}.`
+
+    // Include actual pathway answers for deeper personalization
+    prompt += `\n\nHer specific pathway responses (use these to deeply personalize your support — reference them naturally, don't list them back):`
+    for (const [pathwayId, result] of Object.entries(pathwayResults)) {
+      const name = pathwayNames[pathwayId] || pathwayId
+      const answers = (result as { answers?: Record<string, string> }).answers
+      if (answers && Object.keys(answers).length > 0) {
+        prompt += `\n\n${name}:`
+        for (const [questionId, answer] of Object.entries(answers)) {
+          prompt += `\n- ${questionId}: ${answer}`
+        }
+      }
+    }
+    prompt += `\n\nUse this information to provide deeply personalized support. When she mentions a topic covered by her pathway answers, reference what you know without her having to explain it again.`
   }
 
   return prompt

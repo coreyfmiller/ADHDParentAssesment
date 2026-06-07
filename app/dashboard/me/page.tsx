@@ -29,6 +29,7 @@ import { getAllHardThings } from "@/lib/engagement/whats-hard-this-week"
 import { getActivityData, getActivitySummary } from "@/lib/engagement/activity-heatmap"
 import type { Archetype, ArchetypeRecord } from "@/lib/archetypes"
 import type { PatternMap } from "@/lib/assessments/types"
+import { MilestoneHistory } from "@/components/engagement/milestone-history"
 
 const PORTRAIT_KEY = "mindful-mama-deep-portrait"
 
@@ -392,6 +393,9 @@ export default function MePage() {
         </div>
       </section>
 
+      {/* Milestones */}
+      <MilestoneHistory />
+
       {/* Type History */}
       {history.length > 1 && (
         <section className="bg-card rounded-2xl border border-border p-5">
@@ -423,7 +427,7 @@ export default function MePage() {
       )}
 
       {/* Actions */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Link href="/dashboard">
           <Button variant="outline" className="w-full rounded-xl">
             <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
@@ -440,6 +444,12 @@ export default function MePage() {
           <Button variant="outline" className="w-full rounded-xl">
             <Share2 className="w-4 h-4 mr-2" />
             Share my type
+          </Button>
+        </Link>
+        <Link href="/dashboard/share/partner">
+          <Button variant="outline" className="w-full rounded-xl">
+            <Heart className="w-4 h-4 mr-2" />
+            Share with my partner
           </Button>
         </Link>
       </div>
