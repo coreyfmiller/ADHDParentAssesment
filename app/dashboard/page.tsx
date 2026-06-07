@@ -198,6 +198,57 @@ export default function DashboardPage() {
         </Link>
       )}
 
+      {/* Today's Learn — featured editorial banner */}
+      {dailyGuide && (
+        <Link
+          href="/dashboard/micro-guides"
+          className={`block rounded-2xl overflow-hidden transition-all group ${
+            guideRead
+              ? "bg-secondary/30 border border-border/50"
+              : "bg-gradient-to-br from-amber-50/80 to-orange-50/50 border border-amber-200/40 hover:border-amber-300/60 shadow-sm"
+          }`}
+        >
+          <div className="p-5">
+            {guideRead ? (
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-green-600 font-medium">Done — you learned something today</p>
+                  <p className="text-sm text-muted-foreground truncate">{dailyGuide.title}</p>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 mb-2">
+                  <BookOpen className="w-4 h-4 text-amber-600" />
+                  <span className="text-[10px] font-medium text-amber-700 uppercase tracking-wide">Today&apos;s learn</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
+                    {CATEGORY_LABELS[dailyGuide.category]}
+                  </span>
+                </div>
+                <h3 className="text-base font-medium text-foreground group-hover:text-amber-800 transition-colors mb-1">
+                  {dailyGuide.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {dailyGuide.subtitle}
+                </p>
+                <div className="flex items-center gap-2 mt-3">
+                  <span className="text-xs text-amber-700/70 flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {dailyGuide.readTime}
+                  </span>
+                  <span className="text-xs text-amber-700 font-medium ml-auto group-hover:translate-x-0.5 transition-transform">
+                    Read →
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        </Link>
+      )}
+
       {/* Evening Recap — shows after 6pm with day's evidence */}
       <EveningRecap />
 
@@ -222,34 +273,6 @@ export default function DashboardPage() {
         <div className="border-l-[3px] border-primary/25 rounded-r-2xl">
           <WhatsHardThisWeek />
         </div>
-
-        {/* Today's Micro-Guide */}
-        {dailyGuide && (
-          <div className={`transition-all duration-300 border-l-[3px] border-primary/25 rounded-r-2xl ${completedWidgets.has("micro-guide") ? "opacity-60 border-primary/10" : ""}`}>
-            <Link
-              href="/dashboard/micro-guides"
-              className="block bg-card rounded-r-2xl border border-border border-l-0 hover:border-primary/20 transition-all overflow-hidden group"
-            >
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <BookOpen className="w-3.5 h-3.5 text-primary" />
-                  <span className="text-[10px] font-medium text-primary uppercase tracking-wide">{guideRead ? "Done — you learned something today" : "Today\u0027s learn"}</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
-                    {CATEGORY_LABELS[dailyGuide.category]}
-                  </span>
-                  <span className="text-[10px] text-muted-foreground ml-auto flex items-center gap-0.5">
-                    <Clock className="w-2.5 h-2.5" />
-                    {dailyGuide.readTime}
-                  </span>
-                </div>
-                <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                  {dailyGuide.title}
-                </h3>
-                <p className="text-xs text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
-              </div>
-            </Link>
-          </div>
-        )}
       </div>
 
       {/* Proactive Coach Message */}
