@@ -173,7 +173,7 @@ export default function DashboardPage() {
         >
           <div className="aspect-[3.2/1] relative bg-secondary/20">
             <Image
-              src={`/images/Wildflower/wildflower${(new Date().getDate() % 4) + 1}.png`}
+              src={`/images/wildflower/wildflower${(new Date().getDate() % 4) + 1}.png`}
               alt="Your type"
               fill
               className="object-cover object-[center_40%]"
