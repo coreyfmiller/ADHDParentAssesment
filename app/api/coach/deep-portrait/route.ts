@@ -46,19 +46,19 @@ This is not a report. It is a mirror. She should read this and feel SEEN at a le
 
 Generate EXACTLY these sections in this format:
 
-NERVOUS_SYSTEM: [2-3 sentences about her dominant stress response (fight/flight/freeze/fawn), her window of tolerance, and what happens when she exceeds it. Be specific to her data.]
+NERVOUS_SYSTEM: [2-3 sentences ONLY about her dominant stress response (fight/flight/freeze/fawn), her window of tolerance, and what happens when she exceeds it. Be specific to her data. MAX 50 words.]
 
-CAPACITY_RHYTHM: [2-3 sentences about when her capacity is highest/lowest, what depletes her fastest, and how her energy patterns interact with her responsibilities.]
+CAPACITY_RHYTHM: [2-3 sentences ONLY about when her capacity is highest/lowest, what depletes her fastest, and how her energy patterns interact with her responsibilities. MAX 50 words.]
 
-RELATIONAL_PATTERN: [2-3 sentences about how she relates to others under stress — does she withdraw, accommodate, mask, pursue? What does this cost her? How does help-seeking work for her?]
+RELATIONAL_PATTERN: [2-3 sentences ONLY about how she relates to others under stress — does she withdraw, accommodate, mask, pursue? What does this cost her? MAX 50 words.]
 
-IDENTITY_TRUTH: [2-3 sentences about who she is underneath the overwhelm — what threads of self are still alive, what she's grieving, what's trying to come back.]
+IDENTITY_TRUTH: [2-3 sentences ONLY about who she is underneath the overwhelm — what threads of self are still alive, what she's grieving, what's trying to come back. MAX 50 words.]
 
-PARENTING_PATTERN: [2-3 sentences about her parenting triggers, her rupture-repair cycle, and what her children likely experience from her (name this with compassion, not judgment).]
+PARENTING_PATTERN: [2-3 sentences ONLY about her parenting triggers, her rupture-repair cycle, and what her children likely experience from her. MAX 50 words.]
 
-SEASON: [1-2 sentences about what season she's in right now — contraction, expansion, survival, rebuilding — and what that season needs from her.]
+SEASON: [1-2 sentences ONLY about what season she's in right now — contraction, expansion, survival, rebuilding. MAX 30 words.]
 
-FUTURE_LETTER: [3-4 sentences written AS IF from the version of her 6 months from now. Written in first person, to her current self. Warm, specific, grounded. Not toxic positivity — earned hope.]
+FUTURE_LETTER: [3-4 sentences ONLY written AS IF from the version of her 6 months from now. First person, to her current self. Warm, specific, grounded. MAX 60 words.]
 
 CRITICAL RULES:
 - Never diagnose. Say "your nervous system does X" not "you have X disorder."
@@ -125,7 +125,7 @@ CRITICAL RULES:
           contents: [{ role: "user", parts: [{ text: userPrompt }] }],
           generationConfig: {
             temperature: 0.75,
-            maxOutputTokens: 1500,
+            maxOutputTokens: 3000,
           },
         }),
       }
