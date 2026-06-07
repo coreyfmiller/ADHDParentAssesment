@@ -54,6 +54,7 @@ export default function MePage() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [coachMemory, setCoachMemory] = useState({ facts: [] as string[], patterns: [] as string[], strategies: [] as string[] })
   const [stats, setStats] = useState({ daysActive: 0, totalWins: 0, avgEnergy: null as number | null })
+  const [reflectionsCompleted, setReflectionsCompleted] = useState(0)
 
   useEffect(() => {
     let arch: Archetype | null = null
@@ -78,6 +79,11 @@ export default function MePage() {
     // Load coach memory
     const memory = getCoachMemory()
     setCoachMemory(memory)
+
+    // Count completed reflections
+    const allSlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+    const completedReflections = allSlugs.filter(slug => { try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false } }).length
+    setReflectionsCompleted(completedReflections)
 
     // Calculate stats
     const activityData = getActivityData(90)
@@ -195,11 +201,44 @@ export default function MePage() {
         </p>
       </div>
 
-      {/* Archetype card */}
-      <ArchetypeCard archetype={archetype} showFull />
+      {/* Archetype — only shows when all 12 reflections complete */}
+      {reflectionsCompleted >= 12 && archetype ? (
+        <ArchetypeCard archetype={archetype} showFull />
+      ) : (
+        <div className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-base font-medium text-foreground">Your Full Profile</h2>
+              <p className="text-xs text-muted-foreground">Unlocks when all 12 reflections are complete</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-primary/60 rounded-full transition-all duration-500"
+                  style={{ width: `${(reflectionsCompleted / 12) * 100}%` }}
+                />
+              </div>
+              <span className="text-sm font-medium text-foreground">{reflectionsCompleted}/12</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {reflectionsCompleted === 0 && "Complete your reflections to build a deep psychological portrait — your archetype, your patterns, your nervous system profile, and more."}
+              {reflectionsCompleted > 0 && reflectionsCompleted < 6 && `${12 - reflectionsCompleted} more reflections until your full portrait. Each one you complete gives the AI more data to understand you with.`}
+              {reflectionsCompleted >= 6 && reflectionsCompleted < 12 && `You're over halfway. ${12 - reflectionsCompleted} more reflections and your complete psychological portrait unlocks — archetype, nervous system profile, relational patterns, and a letter from your future self.`}
+            </p>
+            <Link href="/assess" className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 font-medium">
+              Continue reflections <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+        </div>
+      )}
 
-      {/* Generate / Refresh Portrait CTA */}
-      {!portrait && patternMap && (
+      {/* Generate / Refresh Portrait CTA — only when all 12 complete */}
+      {!portrait && patternMap && reflectionsCompleted >= 12 && (
         <div className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/15 text-center">
           <Sparkles className="w-8 h-8 text-primary mx-auto mb-3" />
           <h2 className="text-lg font-medium text-foreground mb-2">Generate Your Portrait</h2>
@@ -219,10 +258,8 @@ export default function MePage() {
         </div>
       )}
 
-      {/* ═══════════════════════════════════════════════════════
-          THE PORTRAIT — Her psychological reflection
-         ═══════════════════════════════════════════════════════ */}
-      {portrait && (
+      {/* THE PORTRAIT — only shows when all 12 reflections complete */}
+      {portrait && reflectionsCompleted >= 12 && (
         <div className="space-y-5">
 
           {/* Nervous System Profile */}
@@ -340,6 +377,22 @@ export default function MePage() {
             )
           })()}
         </div>
+      )}
+
+      {/* Mid-point teaser — shows at 6+ reflections but less than 12 */}
+      {reflectionsCompleted >= 6 && reflectionsCompleted < 12 && (
+        <section className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/10">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="w-5 h-5 text-primary" />
+            <h2 className="text-base font-medium text-foreground">What&apos;s emerging so far</h2>
+          </div>
+          <p className="text-sm text-foreground/70 leading-relaxed mb-3">
+            You&apos;ve completed {reflectionsCompleted} reflections. Patterns are starting to become visible — how your dimensions interact, where the stacking happens, what your nervous system defaults to under pressure. {12 - reflectionsCompleted} more reflections and the full picture comes together.
+          </p>
+          <p className="text-sm text-foreground/70 leading-relaxed">
+            Your AI coach is already using everything you&apos;ve shared so far. The full portrait — your archetype, your nervous system profile, your relational patterns — that&apos;s waiting at 12.
+          </p>
+        </section>
       )}
 
       {/* What Your Coach Knows */}

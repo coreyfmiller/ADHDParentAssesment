@@ -181,8 +181,8 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {/* Archetype badge — prominent, tappable */}
-      {archetype && (
+      {/* Archetype badge OR progress toward unlocking it */}
+      {archetype && pathwayProgress.completed >= 12 ? (
         <Link
           href="/dashboard/me"
           className="block bg-card rounded-2xl overflow-hidden border border-primary/15 hover:border-primary/30 transition-all group"
@@ -212,7 +212,43 @@ export default function DashboardPage() {
             </div>
           </div>
         </Link>
-      )}
+      ) : patternMap ? (
+        <Link
+          href="/assess"
+          className="block bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/20 transition-all group"
+        >
+          <div className="aspect-[3.2/1] relative bg-secondary/20">
+            <Image
+              src={`/images/wildflower/wildflower${(new Date().getDate() % 4) + 1}.png`}
+              alt="Your profile is building"
+              fill
+              className="object-cover object-[center_40%]"
+            />
+          </div>
+          <div className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center">
+                <span className="text-base text-muted-foreground">✦</span>
+              </div>
+              <div className="flex-1">
+                <p className="text-xs text-muted-foreground">Your full profile unlocks at 12 reflections</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="flex-1 h-1.5 bg-secondary rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary/60 rounded-full transition-all duration-500"
+                      style={{ width: `${(pathwayProgress.completed / 12) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-xs text-muted-foreground">{pathwayProgress.completed}/12</span>
+                </div>
+              </div>
+              <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                Continue →
+              </span>
+            </div>
+          </div>
+        </Link>
+      ) : null}
 
       {/* Today's Learn — featured editorial banner */}
       {dailyGuide && (
