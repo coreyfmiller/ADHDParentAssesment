@@ -25,6 +25,7 @@ import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
 import { WeeklyRecap } from "@/components/engagement/weekly-recap"
 import { EveningRecap } from "@/components/engagement/evening-recap"
 import { PatternMapFlower } from "@/components/pattern-map-flower"
+import { DimensionExplainerModal } from "@/components/dimension-explainer-modal"
 import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
 import type { DailyAIContent } from "@/lib/engagement/daily-ai"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
@@ -78,6 +79,7 @@ export default function DashboardPage() {
   const [completedWidgets, setCompletedWidgets] = useState<Set<string>>(new Set())
   const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
   const [mapView, setMapView] = useState<"flower" | "bars">("flower")
+  const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
 
   useEffect(() => {
     try {
@@ -358,7 +360,8 @@ export default function DashboardPage() {
               </div>
               {mapView === "flower" ? (
                 <div className="flex justify-center">
-                  <PatternMapFlower dimensions={patternMap.dimensions} size={180} />
+                  <PatternMapFlower dimensions={patternMap.dimensions} size={180} onDimensionTap={(id) => setSelectedDimension(id)} />
+                  <p className="text-[9px] text-muted-foreground/60 absolute bottom-2 right-4">Tap a petal to learn more</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-5 gap-2">
@@ -471,6 +474,15 @@ export default function DashboardPage() {
 
       {/* Milestone celebrations — fixed toast */}
       <MilestoneToast />
+
+      {/* Dimension explainer modal */}
+      {selectedDimension && patternMap && (
+        <DimensionExplainerModal
+          dimensionId={selectedDimension}
+          intensity={patternMap.dimensions.find(d => d.dimension === selectedDimension)?.intensity || "low"}
+          onClose={() => setSelectedDimension(null)}
+        />
+      )}
     </div>
   )
 }

@@ -18,9 +18,10 @@ interface Dimension {
 interface PatternMapFlowerProps {
   dimensions: Dimension[]
   size?: number
+  onDimensionTap?: (dimensionId: string) => void
 }
 
-export function PatternMapFlower({ dimensions, size = 260 }: PatternMapFlowerProps) {
+export function PatternMapFlower({ dimensions, size = 260, onDimensionTap }: PatternMapFlowerProps) {
   const center = size / 2
   const angleStep = (2 * Math.PI) / dimensions.length
   const startAngle = -Math.PI / 2
@@ -71,7 +72,8 @@ export function PatternMapFlower({ dimensions, size = 260 }: PatternMapFlowerPro
               fill={colors.fill}
               stroke={colors.stroke}
               strokeWidth="1.5"
-              className="transition-all duration-700"
+              className={`transition-all duration-700 ${onDimensionTap ? "cursor-pointer hover:opacity-80" : ""}`}
+              onClick={() => onDimensionTap?.(dim.dimension)}
             />
           )
         })}
@@ -86,13 +88,14 @@ export function PatternMapFlower({ dimensions, size = 260 }: PatternMapFlowerPro
         const x = center + labelDist * Math.cos(angle)
         const y = center + labelDist * Math.sin(angle)
         return (
-          <div
+          <button
             key={dim.dimension}
-            className="absolute text-[10px] font-medium text-muted-foreground text-center w-16 -translate-x-1/2 -translate-y-1/2"
+            className={`absolute text-[10px] font-medium text-muted-foreground text-center w-16 -translate-x-1/2 -translate-y-1/2 ${onDimensionTap ? "hover:text-primary cursor-pointer transition-colors" : ""}`}
             style={{ left: x, top: y }}
+            onClick={() => onDimensionTap?.(dim.dimension)}
           >
             {dim.label.split(" ")[0]}
-          </div>
+          </button>
         )
       })}
     </div>
