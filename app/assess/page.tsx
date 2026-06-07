@@ -41,7 +41,7 @@ const pathwayImages: Record<string, string> = {
   "executive-function": "/images/mind2.png",
   "depletion-burnout": "/images/battery.png",
   "sensory-overwhelm": "/images/flowing5.png",
-  "hormonal-patterns": "/images/circle4.png",
+  "hormonal-patterns": "/images/hormonal.png",
   "sleep-recovery": "/images/moon.png",
   "trauma-nervous-system": "/images/nervoussystem2.png",
   "systemic-load": "/images/systemic.png",
