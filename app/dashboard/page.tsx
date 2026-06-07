@@ -321,8 +321,8 @@ export default function DashboardPage() {
             </div>
 
             {mapView === "flower" ? (
-              <div className="flex justify-center py-2">
-                <PatternMapFlower dimensions={patternMap.dimensions} size={240} />
+              <div className="flex justify-center">
+                <PatternMapFlower dimensions={patternMap.dimensions} size={180} />
               </div>
             ) : (
               <div className="grid grid-cols-5 gap-2">
