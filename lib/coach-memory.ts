@@ -158,11 +158,40 @@ export function getPastConversations(): CoachConversation[] {
 
 export function buildMemoryPrompt(): string {
   const memory = getCoachMemory()
-  if (memory.facts.length === 0 && memory.patterns.length === 0 && memory.strategies.length === 0) {
+
+  // Include user basics if available
+  let basicsPrompt = ""
+  try {
+    const basicsData = localStorage.getItem("mindful-mama-user-basics")
+    if (basicsData) {
+      const basics = JSON.parse(basicsData)
+      basicsPrompt = "\n\nBasic facts about this person:"
+      if (basics.kidAges?.length > 0) {
+        const ageLabels: Record<string, string> = { infant: "infant (0-12mo)", toddler: "toddler (1-3)", preschool: "preschooler (3-5)", "school-age": "school-age (5-12)", tween: "tween (10-13)", teen: "teenager (13+)" }
+        basicsPrompt += `\n- Her kids: ${basics.kidAges.map((a: string) => ageLabels[a] || a).join(", ")}`
+      }
+      if (basics.partnerStatus) {
+        const partnerLabels: Record<string, string> = { together: "parenting with a partner in the same home", "coparenting-separate": "co-parenting separately (separated/divorced)", solo: "solo parenting" }
+        basicsPrompt += `\n- Parenting setup: ${partnerLabels[basics.partnerStatus] || basics.partnerStatus}`
+      }
+      if (basics.ageRange) {
+        basicsPrompt += `\n- Her age range: ${basics.ageRange}`
+      }
+      if (basics.extras?.length > 0) {
+        basicsPrompt += `\n- Additional context: ${basics.extras.join(", ")}`
+      }
+    }
+  } catch {}
+
+  if (memory.facts.length === 0 && memory.patterns.length === 0 && memory.strategies.length === 0 && !basicsPrompt) {
     return ""
   }
 
-  let prompt = "\n\nYou have memory of previous conversations with this person:"
+  let prompt = basicsPrompt
+
+  if (memory.facts.length > 0 || memory.patterns.length > 0 || memory.strategies.length > 0) {
+    prompt += "\n\nYou have memory of previous conversations with this person:"
+  }
 
   if (memory.facts.length > 0) {
     prompt += "\n\nThings you know about her life:"

@@ -28,6 +28,8 @@ import { PatternMapFlower } from "@/components/pattern-map-flower"
 import { DimensionExplainerModal } from "@/components/dimension-explainer-modal"
 import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
 import type { DailyAIContent } from "@/lib/engagement/daily-ai"
+import { hasCompletedBasics } from "@/lib/user-basics"
+import { OnboardingBasics } from "@/components/onboarding-basics"
 import { getTodaysGuide, markGuideRead, getReadGuideIds, CATEGORY_LABELS, CATEGORY_COLORS } from "@/lib/micro-guides"
 import type { MicroGuide } from "@/lib/micro-guides"
 
@@ -80,6 +82,7 @@ export default function DashboardPage() {
   const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
   const [mapView, setMapView] = useState<"flower" | "bars">("flower")
   const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
+  const [showOnboarding, setShowOnboarding] = useState(false)
 
   useEffect(() => {
     try {
@@ -98,6 +101,11 @@ export default function DashboardPage() {
           saveArchetype(arch)
         }
         setArchetype(arch)
+
+        // Show onboarding if she has assessment data but hasn't told us basics
+        if (!hasCompletedBasics()) {
+          setShowOnboarding(true)
+        }
       }
 
       // Get today's micro-guide
@@ -482,6 +490,11 @@ export default function DashboardPage() {
           intensity={patternMap.dimensions.find(d => d.dimension === selectedDimension)?.intensity || "low"}
           onClose={() => setSelectedDimension(null)}
         />
+      )}
+
+      {/* Onboarding — shows once after first assessment */}
+      {showOnboarding && (
+        <OnboardingBasics onComplete={() => setShowOnboarding(false)} />
       )}
     </div>
   )
