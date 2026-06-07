@@ -45,11 +45,11 @@ const pathwayImages: Record<string, string> = {
   "sleep-recovery": "/images/moon.png",
   "trauma-nervous-system": "/images/nervoussystem2.png",
   "systemic-load": "/images/buildingblocks2.png",
-  "attachment-relationships": "/images/hearthshape.png",
-  "self-worth-inner-critic": "/images/silhouette2.png",
-  "rage-emotional-dysregulation": "/images/flowing4.png",
-  "matrescence-identity": "/images/mind3.png",
-  "social-connection-isolation": "/images/hands2.png",
+  "attachment-relationships": "/images/attachment.png",
+  "self-worth-inner-critic": "/images/critic.png",
+  "rage-emotional-dysregulation": "/images/rage.png",
+  "matrescence-identity": "/images/butterfly.png",
+  "social-connection-isolation": "/images/social.png",
 }
 
 const STORAGE_KEY = "mindful-mama-pattern-map"
