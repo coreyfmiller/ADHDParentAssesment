@@ -24,7 +24,6 @@ import { ActivityHeatmap } from "@/components/engagement/activity-heatmap"
 import { WhatsHardThisWeek } from "@/components/engagement/whats-hard-this-week"
 import { WeeklyRecap } from "@/components/engagement/weekly-recap"
 import { EveningRecap } from "@/components/engagement/evening-recap"
-import { PatternMapFlower } from "@/components/pattern-map-flower"
 import { DimensionExplainerModal } from "@/components/dimension-explainer-modal"
 import { getDailyAIContent, getCachedDailyContent } from "@/lib/engagement/daily-ai"
 import type { DailyAIContent } from "@/lib/engagement/daily-ai"
@@ -80,7 +79,6 @@ export default function DashboardPage() {
   const [guideRead, setGuideRead] = useState(false)
   const [completedWidgets, setCompletedWidgets] = useState<Set<string>>(new Set())
   const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
-  const [mapView, setMapView] = useState<"flower" | "bars">("flower")
   const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [pathwayProgress, setPathwayProgress] = useState({ completed: 0, total: 7 })
@@ -382,50 +380,40 @@ export default function DashboardPage() {
                     </p>
                   </div>
                 </Link>
-                <div className="flex items-center gap-1 bg-secondary/50 rounded-lg p-0.5">
-                  <button
-                    onClick={() => setMapView("flower")}
-                    className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
-                      mapView === "flower" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    Flower
-                  </button>
-                  <button
-                    onClick={() => setMapView("bars")}
-                    className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
-                      mapView === "bars" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    Bars
-                  </button>
-                </div>
               </div>
-              {mapView === "flower" ? (
-                <div className="flex justify-center">
-                  <PatternMapFlower dimensions={patternMap.dimensions} size={180} onDimensionTap={(id) => setSelectedDimension(id)} />
-                  <p className="text-[9px] text-muted-foreground/60 absolute bottom-2 right-4">Tap a petal to learn more</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-5 gap-2">
-                  {patternMap.dimensions.map((dim) => (
-                    <div key={dim.dimension} className="space-y-1">
-                      <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${
-                            dim.intensity === "critical" ? "bg-red-500" :
-                            dim.intensity === "high" ? "bg-amber-500" :
-                            dim.intensity === "moderate" ? "bg-yellow-500" :
-                            "bg-green-500"
-                          }`}
-                          style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                        />
-                      </div>
-                      <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+              <div className="space-y-3">
+                {patternMap.dimensions.map((dim) => (
+                  <button
+                    key={dim.dimension}
+                    onClick={() => setSelectedDimension(dim.dimension)}
+                    className="w-full text-left space-y-1.5 hover:opacity-80 transition-opacity"
+                  >
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-foreground">{dim.label}</span>
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        dim.intensity === "critical" ? "bg-red-500/10 text-red-600" :
+                        dim.intensity === "high" ? "bg-amber-500/10 text-amber-600" :
+                        dim.intensity === "moderate" ? "bg-yellow-500/10 text-yellow-700" :
+                        "bg-green-500/10 text-green-600"
+                      }`}>
+                        {dim.intensity}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              )}
+                    <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          dim.intensity === "critical" ? "bg-red-500" :
+                          dim.intensity === "high" ? "bg-amber-500" :
+                          dim.intensity === "moderate" ? "bg-yellow-500" :
+                          "bg-green-500"
+                        }`}
+                        style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                      />
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <p className="text-[9px] text-muted-foreground mt-3">Tap any dimension to learn more</p>
             </div>
             <Link
               href="/assess/snapshot"
