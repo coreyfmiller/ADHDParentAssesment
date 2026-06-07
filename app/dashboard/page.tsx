@@ -81,7 +81,7 @@ export default function DashboardPage() {
   const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
   const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
-  const [pathwayProgress, setPathwayProgress] = useState({ completed: 0, total: 7 })
+  const [pathwayProgress, setPathwayProgress] = useState({ completed: 0, total: 12 })
 
   useEffect(() => {
     try {
@@ -107,11 +107,11 @@ export default function DashboardPage() {
         }
 
         // Check pathway progress
-        const pathwaySlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+        const pathwaySlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
         const completedCount = pathwaySlugs.filter(slug => {
           try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false }
         }).length
-        setPathwayProgress({ completed: completedCount, total: 7 })
+        setPathwayProgress({ completed: completedCount, total: 12 })
       }
 
       // Get today's micro-guide
@@ -319,7 +319,7 @@ export default function DashboardPage() {
                   Continue your deep dive
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {pathwayProgress.completed} of {pathwayProgress.total} pathways explored — each one makes your toolkit more personalized
+                  {pathwayProgress.completed} of {pathwayProgress.total} reflections explored — each one makes your toolkit more personalized
                 </p>
               </div>
               <div className="flex-shrink-0">
