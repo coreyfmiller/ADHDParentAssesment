@@ -1,15 +1,28 @@
 "use client"
 
 import Link from "next/link"
-import { BookOpen, MessageCircle, Coffee, FileText, GraduationCap, ArrowRight } from "lucide-react"
+import { BookOpen, MessageCircle, Coffee, FileText, GraduationCap, ArrowRight, Bookmark, Brain } from "lucide-react"
 
 const sections = [
+  {
+    href: "/dashboard/library/reflections",
+    icon: Brain,
+    title: "Your Reflections",
+    description: "Revisit your pathway results — every answer you gave, preserved and accessible.",
+    badge: "Personal",
+  },
+  {
+    href: "/dashboard/saved",
+    icon: Bookmark,
+    title: "Saved",
+    description: "Your bookmarked insights, strategies, and moments that resonated.",
+    badge: "Personal",
+  },
   {
     href: "/dashboard/micro-guides",
     icon: GraduationCap,
     title: "Micro-Guides",
     description: "Daily 2-minute reads on why your brain works the way it does — and what to do about it.",
-    badge: "100 guides",
   },
   {
     href: "/dashboard/scripts",
