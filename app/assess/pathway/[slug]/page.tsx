@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, use } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronLeft, ArrowRight, Brain, Battery, Volume2, Users, Moon, CloudMoon, Shield } from "lucide-react"
+import { ChevronLeft, ArrowRight, Brain, Battery, Volume2, Users, Moon, CloudMoon, Shield, Heart, Zap, Fingerprint } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ProgressBar } from "@/components/assessment/progress-bar"
 import { QuestionCard } from "@/components/assessment/question-card"
@@ -17,6 +17,11 @@ import { SYSTEMIC_LOAD_SECTIONS, SYSTEMIC_LOAD_META } from "@/lib/assessments/pa
 import { HORMONAL_PATTERNS_SECTIONS, HORMONAL_PATTERNS_META } from "@/lib/assessments/pathways/hormonal-patterns"
 import { SLEEP_RECOVERY_SECTIONS, SLEEP_RECOVERY_META } from "@/lib/assessments/pathways/sleep-recovery"
 import { TRAUMA_NERVOUS_SYSTEM_SECTIONS, TRAUMA_NERVOUS_SYSTEM_META } from "@/lib/assessments/pathways/trauma-nervous-system"
+import { ATTACHMENT_RELATIONSHIPS_SECTIONS } from "@/lib/assessments/pathways/attachment-relationships"
+import { SELF_WORTH_INNER_CRITIC_SECTIONS } from "@/lib/assessments/pathways/self-worth-inner-critic"
+import { RAGE_EMOTIONAL_DYSREGULATION_SECTIONS } from "@/lib/assessments/pathways/rage-emotional-dysregulation"
+import { MATRESCENCE_IDENTITY_SECTIONS } from "@/lib/assessments/pathways/matrescence-identity"
+import { SOCIAL_CONNECTION_ISOLATION_SECTIONS } from "@/lib/assessments/pathways/social-connection-isolation"
 import type { AssessmentSection } from "@/lib/assessments/types"
 import { generatePathwayResults, type PathwayInsight } from "@/lib/assessments/pathway-results-generator"
 import { getTransitionCopy, getSectionOpener } from "@/lib/assessments/micro-validations"
@@ -32,6 +37,11 @@ const PATHWAY_REGISTRY: Record<string, { sections: AssessmentSection[]; meta: ty
   "hormonal-patterns": { sections: HORMONAL_PATTERNS_SECTIONS, meta: HORMONAL_PATTERNS_META },
   "sleep-recovery": { sections: SLEEP_RECOVERY_SECTIONS, meta: SLEEP_RECOVERY_META },
   "trauma-nervous-system": { sections: TRAUMA_NERVOUS_SYSTEM_SECTIONS, meta: TRAUMA_NERVOUS_SYSTEM_META },
+  "attachment-relationships": { sections: ATTACHMENT_RELATIONSHIPS_SECTIONS, meta: { id: "attachment-relationships", title: "Attachment & Relationships", subtitle: "How you connect — and disconnect — under pressure", description: "Explore your patterns in partnership, vulnerability, trust, and how secure the bonds in your life actually feel from the inside.", estimatedMinutes: 6, questionCount: 10, icon: "Heart", color: "bg-pink-500/10 text-pink-600" } },
+  "self-worth-inner-critic": { sections: SELF_WORTH_INNER_CRITIC_SECTIONS, meta: { id: "self-worth-inner-critic", title: "Self-Worth & Inner Critic", subtitle: "The voice in your head that says you're not enough", description: "Map your relationship with perfectionism, shame, self-compassion, and the running commentary that shapes how you feel about everything you do.", estimatedMinutes: 6, questionCount: 11, icon: "Shield", color: "bg-violet-500/10 text-violet-600" } },
+  "rage-emotional-dysregulation": { sections: RAGE_EMOTIONAL_DYSREGULATION_SECTIONS, meta: { id: "rage-emotional-dysregulation", title: "Rage & Emotional Dysregulation", subtitle: "The explosion you can't always stop", description: "Name the rage pattern without shame. Understand its triggers, its aftermath, and what it's actually trying to tell you about your life.", estimatedMinutes: 5, questionCount: 9, icon: "Zap", color: "bg-red-500/10 text-red-600" } },
+  "matrescence-identity": { sections: MATRESCENCE_IDENTITY_SECTIONS, meta: { id: "matrescence-identity", title: "Matrescence & Identity", subtitle: "The earthquake of becoming a mother", description: "Explore the grief of your old self, the taboo feelings nobody talks about, and the slow work of rebuilding identity within — not despite — motherhood.", estimatedMinutes: 5, questionCount: 9, icon: "Fingerprint", color: "bg-indigo-500/10 text-indigo-600" } },
+  "social-connection-isolation": { sections: SOCIAL_CONNECTION_ISOLATION_SECTIONS, meta: { id: "social-connection-isolation", title: "Social Connection & Isolation", subtitle: "Needed by everyone, known by no one", description: "Map your loneliness, your friendships, and the energy it costs to appear okay in a world that doesn't ask how you really are.", estimatedMinutes: 5, questionCount: 9, icon: "Users", color: "bg-cyan-500/10 text-cyan-600" } },
 }
 
 const iconMap: Record<string, React.ElementType> = {
@@ -42,6 +52,9 @@ const iconMap: Record<string, React.ElementType> = {
   Moon,
   CloudMoon,
   Shield,
+  Heart,
+  Zap,
+  Fingerprint,
 }
 
 export default function PathwayPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -58,6 +71,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
   const [transitionReady, setTransitionReady] = useState(false)
   const [hasRestoredProgress, setHasRestoredProgress] = useState(false)
   const [insight, setInsight] = useState<PathwayInsight | null>(null)
+  const [showRetakeConfirm, setShowRetakeConfirm] = useState(false)
 
   const STORAGE_KEY = `mindful-mama-pathway-${slug}`
   const RESULT_KEY = `mindful-mama-pathway-result-${slug}`
@@ -577,11 +591,54 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
               </Link>
             </div>
 
-            <Link href="/assess" className="block">
-              <Button variant="ghost" className="w-full rounded-xl text-muted-foreground">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={() => setShowRetakeConfirm(true)}
+                className="flex-1 text-sm text-muted-foreground hover:text-foreground py-2 transition-colors text-center"
+              >
+                Retake this reflection
+              </button>
+              <Link href="/assess" className="flex-1 text-sm text-muted-foreground hover:text-foreground py-2 transition-colors text-center">
                 Back to Reflections
-              </Button>
-            </Link>
+              </Link>
+            </div>
+
+            {/* Retake confirmation */}
+            {showRetakeConfirm && (
+              <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setShowRetakeConfirm(false)}>
+                <div className="bg-card rounded-2xl p-6 max-w-sm w-full shadow-xl border border-border animate-in slide-in-from-bottom-4 duration-300" onClick={(e) => e.stopPropagation()}>
+                  <h3 className="text-base font-medium text-foreground mb-2">Retake this reflection?</h3>
+                  <p className="text-sm text-muted-foreground mb-5">
+                    Your previous answers will be replaced with new ones. This can&apos;t be undone. Your current results will be lost.
+                  </p>
+                  <div className="flex gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => setShowRetakeConfirm(false)}
+                      className="flex-1 rounded-xl"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        try {
+                          localStorage.removeItem(RESULT_KEY)
+                          localStorage.removeItem(STORAGE_KEY)
+                        } catch {}
+                        setAnswers({})
+                        setCurrentStep(1)
+                        setInsight(null)
+                        setShowRetakeConfirm(false)
+                        setAssessmentStep("intro")
+                      }}
+                      className="flex-1 rounded-xl"
+                    >
+                      Yes, retake
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
