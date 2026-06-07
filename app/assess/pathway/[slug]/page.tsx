@@ -69,7 +69,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
           <h1 className="text-2xl font-medium text-foreground">Pathway not found</h1>
           <p className="text-muted-foreground">This pathway isn&apos;t available yet.</p>
           <Link href="/assess">
-            <Button className="rounded-xl">Back to Assessments</Button>
+            <Button className="rounded-xl">Back to Reflections</Button>
           </Link>
         </div>
       </main>
@@ -424,9 +424,33 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
                 <ChevronLeft className="w-4 h-4 mr-1" />
                 Back
               </Button>
-              <span className="text-xs text-muted-foreground">
-                {hasAnsweredCurrent ? "Tap an answer to continue" : ""}
-              </span>
+              <button
+                onClick={() => {
+                  if (currentStep === totalSteps) {
+                    // Skip last question — complete without it
+                    try {
+                      localStorage.setItem(RESULT_KEY, JSON.stringify({
+                        pathwayId: meta.id,
+                        completedAt: Date.now(),
+                        answers,
+                      }))
+                      localStorage.removeItem(STORAGE_KEY)
+                    } catch {}
+                    const generatedInsight = generatePathwayResults(meta.id, answers)
+                    if (generatedInsight) setInsight(generatedInsight)
+                    setAssessmentStep("complete")
+                  } else {
+                    setIsTransitioning(true)
+                    setTimeout(() => {
+                      setCurrentStep((prev) => prev + 1)
+                      setIsTransitioning(false)
+                    }, 300)
+                  }
+                }}
+                className="text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
+              >
+                Skip this question
+              </button>
             </div>
           </>
         )}
@@ -555,7 +579,7 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
 
             <Link href="/assess" className="block">
               <Button variant="ghost" className="w-full rounded-xl text-muted-foreground">
-                Back to All Pathways
+                Back to Reflections
               </Button>
             </Link>
           </div>
