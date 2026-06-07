@@ -189,16 +189,8 @@ export default function MePage() {
         </p>
       </div>
 
-      {/* Archetype + Pattern Map side by side on larger screens */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-start">
-        <ArchetypeCard archetype={archetype} showFull />
-        {patternMap && (
-          <div className="bg-card rounded-2xl border border-border p-4 flex flex-col items-center justify-center">
-            <p className="text-xs text-muted-foreground mb-1">Your pattern shape</p>
-            <PatternMapFlower dimensions={patternMap.dimensions} size={100} />
-          </div>
-        )}
-      </div>
+      {/* Archetype card */}
+      <ArchetypeCard archetype={archetype} showFull />
 
       {/* Generate / Refresh Portrait CTA */}
       {!portrait && patternMap && (
