@@ -201,182 +201,196 @@ export default function DashboardPage() {
       {/* Evening Recap — shows after 6pm with day's evidence */}
       <EveningRecap />
 
-      {/* One Thing Today — the daily anchor action */}
-      <div className={`transition-all duration-300 ${completedWidgets.has("one-thing") ? "opacity-60" : ""} ${firstIncomplete === "one-thing" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
-        {firstIncomplete === "one-thing" && (
-          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
-            <ArrowRight className="w-3 h-3" /> Start here
-          </p>
+      {/* ═══════════════════════════════════════════════════════
+          TIER 1 — "Right Now" (active prompts, daily actions)
+          Styled: left accent border, slightly larger, prominent
+         ═══════════════════════════════════════════════════════ */}
+      <div className="space-y-3">
+        <h2 className="text-[11px] font-medium text-primary uppercase tracking-widest px-1">→ Today</h2>
+
+        {/* One Thing Today */}
+        <div className={`transition-all duration-300 border-l-[3px] border-primary/40 rounded-r-2xl ${completedWidgets.has("one-thing") ? "opacity-60 border-primary/15" : ""}`}>
+          {firstIncomplete === "one-thing" && (
+            <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-3">
+              <ArrowRight className="w-3 h-3" /> Start here
+            </p>
+          )}
+          <OneThingInteractive patternMap={patternMap} aiOneThing={aiContent?.oneThing} />
+        </div>
+
+        {/* What's Hard This Week */}
+        <div className="border-l-[3px] border-primary/25 rounded-r-2xl">
+          <WhatsHardThisWeek />
+        </div>
+
+        {/* Today's Micro-Guide */}
+        {dailyGuide && (
+          <div className={`transition-all duration-300 border-l-[3px] border-primary/25 rounded-r-2xl ${completedWidgets.has("micro-guide") ? "opacity-60 border-primary/10" : ""}`}>
+            <Link
+              href="/dashboard/micro-guides"
+              className="block bg-card rounded-r-2xl border border-border border-l-0 hover:border-primary/20 transition-all overflow-hidden group"
+            >
+              <div className="p-4">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-[10px] font-medium text-primary uppercase tracking-wide">{guideRead ? "Done — you learned something today" : "Today\u0027s learn"}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
+                    {CATEGORY_LABELS[dailyGuide.category]}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground ml-auto flex items-center gap-0.5">
+                    <Clock className="w-2.5 h-2.5" />
+                    {dailyGuide.readTime}
+                  </span>
+                </div>
+                <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  {dailyGuide.title}
+                </h3>
+                <p className="text-xs text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
+              </div>
+            </Link>
+          </div>
         )}
-        <OneThingInteractive patternMap={patternMap} aiOneThing={aiContent?.oneThing} />
       </div>
 
-      {/* What's Hard This Week — anticipatory support */}
-      <WhatsHardThisWeek />
-
-      {/* Proactive Coach Message — the coach reaches out first */}
+      {/* Proactive Coach Message */}
       <ProactiveCoachMessage patternMap={patternMap} archetype={archetype} />
 
       {/* Weekly Recap — AI-generated summary, shows Sun/Mon only */}
       <WeeklyRecap />
 
-      {/* Today's Micro-Guide */}
-      {dailyGuide && (
-        <div className={`transition-all duration-300 ${completedWidgets.has("micro-guide") ? "opacity-60" : ""} ${firstIncomplete === "micro-guide" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
-          {firstIncomplete === "micro-guide" && (
-            <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
-              <ArrowRight className="w-3 h-3" /> Up next
-            </p>
-          )}
-          <Link
-            href="/dashboard/micro-guides"
-            className="block bg-card rounded-2xl border border-border hover:border-primary/20 transition-all overflow-hidden group"
-          >
-            <div className="p-4">
-              <div className="flex items-center gap-2 mb-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-primary" />
-                <span className="text-[10px] font-medium text-primary uppercase tracking-wide">{guideRead ? "Done — you learned something today" : "Today\u0027s learn"}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${CATEGORY_COLORS[dailyGuide.category]}`}>
-                  {CATEGORY_LABELS[dailyGuide.category]}
-                </span>
-                <span className="text-[10px] text-muted-foreground ml-auto flex items-center gap-0.5">
-                  <Clock className="w-2.5 h-2.5" />
-                  {dailyGuide.readTime}
-                </span>
-              </div>
-              <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                {dailyGuide.title}
-              </h3>
-              <p className="text-xs text-muted-foreground mt-0.5">{dailyGuide.subtitle}</p>
-            </div>
-          </Link>
+      {/* ═══════════════════════════════════════════════════════
+          TIER 2 — "Your Tools" (interactive, use when ready)
+          Styled: standard cards, slightly smaller, quieter
+         ═══════════════════════════════════════════════════════ */}
+      <div className="space-y-2.5 pt-2">
+        <h2 className="text-[11px] font-medium text-muted-foreground uppercase tracking-widest px-1">→ Your Tools</h2>
+
+        {/* Daily Identity Anchor */}
+        <IdentityAnchorCard patternMap={patternMap} aiAnchor={aiContent?.anchor} />
+
+        {/* Pulse Check-In */}
+        <div className={`transition-all duration-300 ${completedWidgets.has("pulse") ? "opacity-60" : ""}`}>
+          <PulseCheckin patternMap={patternMap} />
         </div>
-      )}
 
-      {/* Daily Identity Anchor — first thing she sees */}
-      <IdentityAnchorCard patternMap={patternMap} aiAnchor={aiContent?.anchor} />
+        {/* Micro-Win Logger */}
+        <MicroWinLogger patternMap={patternMap} />
 
-      {/* Pulse Check-In — contextual based on time of day */}
-      <div className={`transition-all duration-300 ${completedWidgets.has("pulse") ? "opacity-60" : ""} ${firstIncomplete === "pulse" ? "ring-2 ring-primary/20 rounded-2xl" : ""}`}>
-        {firstIncomplete === "pulse" && (
-          <p className="text-[10px] font-medium text-primary uppercase tracking-wide mb-1 flex items-center gap-1 px-1">
-            <ArrowRight className="w-3 h-3" /> Up next
-          </p>
-        )}
-        <PulseCheckin patternMap={patternMap} />
+        {/* What's Heavy */}
+        <WhatsHeavy patternMap={patternMap} />
+
+        {/* Time Capsule */}
+        <TimeCapsuleWidget />
+
+        {/* What Worked */}
+        <WhatWorkedTracker />
       </div>
 
-      {/* Micro-Win Logger — always accessible */}
-      <MicroWinLogger patternMap={patternMap} />
+      {/* ═══════════════════════════════════════════════════════
+          TIER 3 — "Your Progress" (reflective, data, review)
+          Styled: compact, muted backgrounds, grouped
+         ═══════════════════════════════════════════════════════ */}
+      <div className="space-y-3 pt-2">
+        <h2 className="text-[11px] font-medium text-muted-foreground uppercase tracking-widest px-1">→ Your Progress</h2>
 
-      {/* What's Heavy — emotional release valve */}
-      <WhatsHeavy patternMap={patternMap} />
+        {/* Activity Heatmap */}
+        <ActivityHeatmap />
 
-      {/* Time Capsule — letter to future self */}
-      <TimeCapsuleWidget />
-
-      {/* What Worked — personal strategy playbook */}
-      <WhatWorkedTracker />
-
-      {/* Activity Heatmap — visual proof of showing up */}
-      <ActivityHeatmap />
-
-      {/* Pattern Map Summary or CTA */}
-      {patternMap ? (
-        <div className="space-y-3">
-          <div className="bg-card rounded-2xl p-6 border border-primary/20">
-            <div className="flex items-center justify-between mb-4">
-              <Link href="/assess" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                    Your Pattern Map
-                  </h2>
-                  <p className="text-xs text-muted-foreground">
-                    {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
-                  </p>
-                </div>
-              </Link>
-              {/* View toggle */}
-              <div className="flex items-center gap-1 bg-secondary/50 rounded-lg p-0.5">
-                <button
-                  onClick={() => setMapView("flower")}
-                  className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
-                    mapView === "flower" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Flower
-                </button>
-                <button
-                  onClick={() => setMapView("bars")}
-                  className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
-                    mapView === "bars" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Bars
-                </button>
-              </div>
-            </div>
-
-            {mapView === "flower" ? (
-              <div className="flex justify-center">
-                <PatternMapFlower dimensions={patternMap.dimensions} size={180} />
-              </div>
-            ) : (
-              <div className="grid grid-cols-5 gap-2">
-                {patternMap.dimensions.map((dim) => (
-                  <div key={dim.dimension} className="space-y-1">
-                    <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${
-                          dim.intensity === "critical" ? "bg-red-500" :
-                          dim.intensity === "high" ? "bg-amber-500" :
-                          dim.intensity === "moderate" ? "bg-yellow-500" :
-                          "bg-green-500"
-                        }`}
-                        style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                      />
-                    </div>
-                    <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+        {/* Pattern Map */}
+        {patternMap ? (
+          <div className="space-y-3">
+            <div className="bg-card rounded-2xl p-6 border border-primary/20">
+              <div className="flex items-center justify-between mb-4">
+                <Link href="/assess" className="flex items-center gap-3 group">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Compass className="w-5 h-5 text-primary" />
                   </div>
-                ))}
+                  <div>
+                    <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                      Your Pattern Map
+                    </h2>
+                    <p className="text-xs text-muted-foreground">
+                      {patternMap.recommendedPathways.length} pathway{patternMap.recommendedPathways.length !== 1 ? "s" : ""} recommended
+                    </p>
+                  </div>
+                </Link>
+                <div className="flex items-center gap-1 bg-secondary/50 rounded-lg p-0.5">
+                  <button
+                    onClick={() => setMapView("flower")}
+                    className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
+                      mapView === "flower" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Flower
+                  </button>
+                  <button
+                    onClick={() => setMapView("bars")}
+                    className={`px-2 py-1 rounded-md text-[10px] font-medium transition-colors ${
+                      mapView === "bars" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Bars
+                  </button>
+                </div>
               </div>
-            )}
-          </div>
-          <Link
-            href="/assess/snapshot"
-            className="block bg-secondary/20 rounded-xl p-4 border border-border/50 hover:border-primary/20 transition-all text-center"
-          >
-            <p className="text-sm text-muted-foreground">
-              Patterns shift with seasons and life changes. <span className="text-primary font-medium">Check in again →</span>
-            </p>
-          </Link>
-        </div>
-      ) : (
-        <Link
-          href="/assess"
-          className="block bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Compass className="w-5 h-5 text-primary" />
+              {mapView === "flower" ? (
+                <div className="flex justify-center">
+                  <PatternMapFlower dimensions={patternMap.dimensions} size={180} />
+                </div>
+              ) : (
+                <div className="grid grid-cols-5 gap-2">
+                  {patternMap.dimensions.map((dim) => (
+                    <div key={dim.dimension} className="space-y-1">
+                      <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full ${
+                            dim.intensity === "critical" ? "bg-red-500" :
+                            dim.intensity === "high" ? "bg-amber-500" :
+                            dim.intensity === "moderate" ? "bg-yellow-500" :
+                            "bg-green-500"
+                          }`}
+                          style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                        />
+                      </div>
+                      <p className="text-[10px] text-muted-foreground truncate">{dim.label}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <div>
-              <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-                Check In With Yourself
-              </h2>
+            <Link
+              href="/assess/snapshot"
+              className="block bg-secondary/20 rounded-xl p-4 border border-border/50 hover:border-primary/20 transition-all text-center"
+            >
               <p className="text-sm text-muted-foreground">
-                5 minutes to understand where your energy is going — and what to do about it.
+                Patterns shift with seasons and life changes. <span className="text-primary font-medium">Check in again →</span>
               </p>
-            </div>
+            </Link>
           </div>
-        </Link>
-      )}
+        ) : (
+          <Link
+            href="/assess"
+            className="block bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Compass className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
+                  Check In With Yourself
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  5 minutes to understand where your energy is going — and what to do about it.
+                </p>
+              </div>
+            </div>
+          </Link>
+        )}
 
-      {/* Evidence Journal — weekly summary */}
-      <EvidenceJournalCard patternMap={patternMap} />
+        {/* Evidence Journal */}
+        <EvidenceJournalCard patternMap={patternMap} />
+      </div>
 
       {/* Personalized Recommendations */}
       {contentRecs.length > 0 && (
