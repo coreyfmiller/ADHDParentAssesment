@@ -44,7 +44,7 @@ const pathwayImages: Record<string, string> = {
   "hormonal-patterns": "/images/circle4.png",
   "sleep-recovery": "/images/moon.png",
   "trauma-nervous-system": "/images/nervoussystem2.png",
-  "systemic-load": "/images/buildingblocks2.png",
+  "systemic-load": "/images/systemic.png",
   "attachment-relationships": "/images/attachment.png",
   "self-worth-inner-critic": "/images/critic.png",
   "rage-emotional-dysregulation": "/images/rage.png",
