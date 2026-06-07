@@ -77,71 +77,58 @@ export default function AssessHub() {
           <Link href="/" className="flex items-center gap-2">
             <Image src="/logo2.png" alt="Mindful Mama" width={120} height={32} className="h-8 w-auto" priority />
           </Link>
-          {hasCompletedSnapshot && (
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-            >
-              My Toolkit
-            </Link>
-          )}
-          {!hasCompletedSnapshot && (
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-            >
-              My Toolkit
-            </Link>
-          )}
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+          >
+            My Toolkit
+          </Link>
         </div>
       </header>
 
       <div className="max-w-3xl mx-auto px-4 py-8 md:py-12 space-y-8">
-        {/* Hero */}
+        {/* Hero — adapts based on whether she's done the check-in */}
         <div className="text-center space-y-4">
           <h1 className="text-3xl md:text-4xl font-medium text-foreground text-balance leading-tight">
-            Understand what&apos;s actually going on
+            {hasCompletedSnapshot ? "Your Pattern Map" : "Understand what\u0027s actually going on"}
           </h1>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            It&apos;s rarely just one thing. These self-reflection tools help you see where your energy is going, what&apos;s stacking up, and what to do about it.
+            {hasCompletedSnapshot
+              ? "Here\u0027s what your check-in revealed. Explore the pathways that are most relevant to you."
+              : "It\u0027s rarely just one thing. These self-reflection tools help you see where your energy is going, what\u0027s stacking up, and what to do about it."
+            }
           </p>
         </div>
 
-        {/* Check-In — Entry Point */}
-        <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <Sparkles className="w-6 h-6 text-primary" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-xl font-medium text-foreground">Check In With Yourself</h2>
-                {hasCompletedSnapshot && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/10 text-green-600 text-xs font-medium">
-                    <CheckCircle2 className="w-3 h-3" />
-                    Completed
-                  </span>
-                )}
+        {/* Check-In CTA — only shows if NOT completed */}
+        {!hasCompletedSnapshot && (
+          <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-muted-foreground mb-4">
-                Start here. A 5-minute check-in that maps your current state across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity. This tells you which deeper pathways will be most useful for you.
-              </p>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-                <span>5 minutes</span>
-                <span>·</span>
-                <span>15 questions</span>
-                <span>·</span>
-                <span>Zero judgment</span>
+              <div className="flex-1">
+                <h2 className="text-xl font-medium text-foreground mb-1">Check In With Yourself</h2>
+                <p className="text-muted-foreground mb-4">
+                  Start here. A 5-minute check-in that maps your current state across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity. This tells you which deeper pathways will be most useful for you.
+                </p>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+                  <span>5 minutes</span>
+                  <span>·</span>
+                  <span>15 questions</span>
+                  <span>·</span>
+                  <span>Zero judgment</span>
+                </div>
+                <Link href="/assess/snapshot">
+                  <Button className="rounded-xl">
+                    Start My Check-In
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
               </div>
-              <Link href="/assess/snapshot">
-                <Button className="rounded-xl">
-                  {hasCompletedSnapshot ? "Check In Again" : "Start My Check-In"}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Pattern Map Results (if completed) */}
         {hasCompletedSnapshot && patternMap && (
