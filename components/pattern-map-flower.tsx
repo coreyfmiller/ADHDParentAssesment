@@ -27,11 +27,11 @@ export function PatternMapFlower({ dimensions, size = 260 }: PatternMapFlowerPro
 
   const getColor = (score: number, maxScore: number) => {
     const ratio = score / maxScore
-    // Blue (hue 220) → Deep Rose (hue 340)
-    // As intensity increases: cool blue → purple → rose → deep rose
-    const hue = 220 + ratio * 120 // 220 → 340
-    const sat = 45 + ratio * 40 // 45% → 85%
-    const light = 72 - ratio * 28 // 72% (light blue) → 44% (deep rose)
+    // Peach palette: soft peach (hue 25) → deeper coral/terracotta (hue 15)
+    // Matches the warm sunset wildflower header
+    const hue = 25 - ratio * 10 // 25 (peach) → 15 (coral)
+    const sat = 55 + ratio * 35 // 55% → 90%
+    const light = 78 - ratio * 28 // 78% (soft peach) → 50% (deep terracotta)
     const opacity = 0.3 + ratio * 0.5
     return {
       fill: `hsla(${hue}, ${sat}%, ${light}%, ${opacity})`,
@@ -76,8 +76,8 @@ export function PatternMapFlower({ dimensions, size = 260 }: PatternMapFlowerPro
           )
         })}
         {/* Center dot */}
-        <circle cx={center} cy={center} r={size * 0.045} fill="hsla(280, 40%, 65%, 0.15)" />
-        <circle cx={center} cy={center} r={size * 0.022} fill="hsla(280, 50%, 55%, 0.4)" />
+        <circle cx={center} cy={center} r={size * 0.045} fill="hsla(20, 50%, 65%, 0.15)" />
+        <circle cx={center} cy={center} r={size * 0.022} fill="hsla(18, 60%, 55%, 0.4)" />
       </svg>
 
       {/* Labels */}
