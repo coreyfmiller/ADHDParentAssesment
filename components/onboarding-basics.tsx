@@ -68,7 +68,7 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
         {step === 0 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-lg font-medium text-foreground mb-1">How old are your kids?</h2>
+              <h2 className="text-lg font-medium text-foreground mb-1">How old are your children?</h2>
               <p className="text-sm text-muted-foreground">Select all that apply. This helps us personalize everything for your life stage.</p>
             </div>
             <div className="grid grid-cols-2 gap-2">

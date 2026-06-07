@@ -3,14 +3,14 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Brain, Zap, BookOpen, Sparkles, User } from "lucide-react"
+import { Brain, Zap, Compass, Sparkles, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
   { href: "/dashboard", label: "Home", icon: Brain },
   { href: "/dashboard/coach", label: "Coach", icon: Sparkles },
+  { href: "/assess", label: "Assess", icon: Compass },
   { href: "/dashboard/toolkit", label: "Toolkit", icon: Zap },
-  { href: "/dashboard/library", label: "Library", icon: BookOpen },
   { href: "/dashboard/me", label: "Me", icon: User },
 ]
 
@@ -26,6 +26,7 @@ export default function DashboardLayout({
 
   function isNavActive(href: string): boolean {
     if (href === "/dashboard") return pathname === "/dashboard"
+    if (href === "/assess") return pathname.startsWith("/assess")
     if (href === "/dashboard/library") return libraryPaths.some(p => pathname.startsWith(p))
     if (href === "/dashboard/me") return mePaths.some(p => pathname.startsWith(p))
     return pathname.startsWith(href)

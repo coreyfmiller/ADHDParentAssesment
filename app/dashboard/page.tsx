@@ -83,6 +83,7 @@ export default function DashboardPage() {
   const [mapView, setMapView] = useState<"flower" | "bars">("flower")
   const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [pathwayProgress, setPathwayProgress] = useState({ completed: 0, total: 7 })
 
   useEffect(() => {
     try {
@@ -106,6 +107,13 @@ export default function DashboardPage() {
         if (!hasCompletedBasics()) {
           setShowOnboarding(true)
         }
+
+        // Check pathway progress
+        const pathwaySlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+        const completedCount = pathwaySlugs.filter(slug => {
+          try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false }
+        }).length
+        setPathwayProgress({ completed: completedCount, total: 7 })
       }
 
       // Get today's micro-guide
@@ -297,6 +305,33 @@ export default function DashboardPage() {
          ═══════════════════════════════════════════════════════ */}
       <div className="space-y-2.5 pt-2">
         <h2 className="text-[11px] font-medium text-muted-foreground uppercase tracking-widest px-1">→ Your Tools</h2>
+
+        {/* Pathway Progress Nudge — shows when pathways are incomplete */}
+        {patternMap && pathwayProgress.completed < pathwayProgress.total && (
+          <Link
+            href="/assess"
+            className="block bg-gradient-to-r from-primary/5 to-indigo-500/5 rounded-2xl p-4 border border-primary/10 hover:border-primary/20 transition-all group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Compass className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  Continue your deep dive
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {pathwayProgress.completed} of {pathwayProgress.total} pathways explored — each one makes your toolkit more personalized
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 rounded-full border-2 border-primary/20 flex items-center justify-center">
+                  <span className="text-xs font-medium text-primary">{pathwayProgress.completed}/{pathwayProgress.total}</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        )}
 
         {/* Daily Identity Anchor */}
         <IdentityAnchorCard patternMap={patternMap} aiAnchor={aiContent?.anchor} />

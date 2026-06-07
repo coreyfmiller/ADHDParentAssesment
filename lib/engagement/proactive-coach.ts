@@ -78,6 +78,7 @@ interface UserContext {
   coachStrategies: string[]
   workedStrategies: string[]
   dayOfWeek: number // 0=Sun, 1=Mon...
+  pathwaysCompleted: number
   timeOfDay: "morning" | "afternoon" | "evening"
   isMonday: boolean
   isFriday: boolean
@@ -175,6 +176,10 @@ function gatherContext(patternMap: PatternMap | null, archetype: Archetype | nul
     isFriday: dayOfWeek === 5,
     hardThingText: hardThing?.text || null,
     hardThingTags: hardThing?.tags || [],
+    pathwaysCompleted: (() => {
+      const slugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load"]
+      try { return slugs.filter(s => localStorage.getItem(`mindful-mama-pathway-result-${s}`) !== null).length } catch { return 0 }
+    })(),
   }
 }
 
@@ -202,6 +207,16 @@ function selectMessage(ctx: UserContext): ProactiveMessage | null {
   }
   if (ctx.energyTrend === "up" && ctx.recentEnergy.length >= 3) {
     return selectEnergyUpMessage(ctx)
+  }
+
+  // Priority 3.5: Pathway nudge (once she's settled in, gently suggest deeper exploration)
+  if (ctx.pathwaysCompleted < 3 && ctx.oneThingStreak >= 3 && ctx.dayOfWeek === 3) {
+    return {
+      message: `You've been showing up consistently — ${ctx.oneThingStreak} days of doing your One Thing. When you have a quiet 10 minutes, the deeper pathways can give you insights that change how you understand yourself. Not today if today is full. But they're there when you're ready.`,
+      followUp: "Tap Assess in the menu to explore them.",
+      type: "suggestion",
+      generatedAt: Date.now(),
+    }
   }
 
   // Priority 4: Streak celebration
