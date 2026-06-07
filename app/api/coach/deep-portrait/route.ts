@@ -150,11 +150,28 @@ function parsePortrait(text: string): Record<string, string> {
   const sections: Record<string, string> = {}
   const keys = ["NERVOUS_SYSTEM", "CAPACITY_RHYTHM", "RELATIONAL_PATTERN", "IDENTITY_TRUTH", "PARENTING_PATTERN", "SEASON", "FUTURE_LETTER"]
 
-  for (const key of keys) {
-    const regex = new RegExp(`${key}:\\s*([\\s\\S]*?)(?=${keys.filter(k => k !== key).map(k => `\\n${k}:`).join("|")}|$)`, "i")
-    const match = text.match(regex)
-    if (match) {
-      sections[key.toLowerCase().replace(/_/g, "")] = match[1].trim()
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const startPattern = new RegExp(`${key}\\s*:`, "i")
+    const startMatch = text.match(startPattern)
+    if (!startMatch || startMatch.index === undefined) continue
+
+    const contentStart = startMatch.index + startMatch[0].length
+
+    // Find where this section ends (start of next key, or end of text)
+    let contentEnd = text.length
+    for (let j = i + 1; j < keys.length; j++) {
+      const nextPattern = new RegExp(`\\n\\s*${keys[j]}\\s*:`, "i")
+      const nextMatch = text.slice(contentStart).match(nextPattern)
+      if (nextMatch && nextMatch.index !== undefined) {
+        contentEnd = contentStart + nextMatch.index
+        break
+      }
+    }
+
+    const content = text.slice(contentStart, contentEnd).replace(/^[\s\-—]+/, "").trim()
+    if (content.length > 10) {
+      sections[key.toLowerCase().replace(/_/g, "")] = content
     }
   }
 
