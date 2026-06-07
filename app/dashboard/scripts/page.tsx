@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { MessageCircle, Search } from "lucide-react"
+import Link from "next/link"
+import { MessageCircle, Search, Sparkles, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type Script = {
@@ -76,6 +77,27 @@ export default function ScriptsPage() {
           Ready-to-use words for when your brain can&apos;t find them. Tap any script to expand it.
         </p>
       </div>
+
+      {/* AI Script Generator CTA */}
+      <Link
+        href="/dashboard/scripts/generate"
+        className="block bg-gradient-to-br from-primary/5 to-amber-500/5 rounded-2xl p-5 border border-primary/15 hover:border-primary/30 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Sparkles className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1">
+            <h2 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+              Need words for YOUR specific situation?
+            </h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Describe what&apos;s happening and I&apos;ll write you a custom script.
+            </p>
+          </div>
+          <ArrowRight className="w-4 h-4 text-primary opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+        </div>
+      </Link>
 
       {/* Search */}
       <div className="relative">
