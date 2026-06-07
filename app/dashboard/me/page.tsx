@@ -98,6 +98,10 @@ export default function MePage() {
   const generatePortrait = async () => {
     if (!patternMap) return
     setIsGenerating(true)
+    setPortrait(null) // Clear current portrait
+
+    // Clear cache so we get fresh data
+    try { localStorage.removeItem(PORTRAIT_KEY) } catch {}
 
     try {
       const allWins = getAllWins()
