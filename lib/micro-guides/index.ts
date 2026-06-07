@@ -10,6 +10,8 @@ import { MICRO_GUIDES_BATCH5 } from "./guides-batch5"
 import type { MicroGuide } from "./types"
 import type { PatternMap } from "../assessments/types"
 import type { Archetype } from "../archetypes"
+import { getUserContentTags } from "../user-basics"
+import type { ContentTag } from "../user-basics"
 
 export * from "./types"
 
@@ -82,7 +84,18 @@ function selectGuide(
   const unread = MICRO_GUIDES.filter(g => !readIds.includes(g.id))
 
   // If all read, cycle back through
-  const pool = unread.length > 0 ? unread : MICRO_GUIDES
+  let pool = unread.length > 0 ? unread : MICRO_GUIDES
+
+  // FIRST: Filter by content relevance tags
+  // Only show content that matches the user's identified conditions/context
+  const userTags = getUserContentTags()
+  const relevant = pool.filter(g => {
+    // Guides without tags or with empty tags array are treated as universal
+    if (!g.tags || g.tags.length === 0) return true
+    // If guide has tags, at least one must match user's tags
+    return g.tags.some(tag => userTags.includes(tag as ContentTag))
+  })
+  if (relevant.length > 0) pool = relevant
 
   // If we have archetype info, prioritize matching guides
   if (archetype) {

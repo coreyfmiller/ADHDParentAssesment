@@ -10,6 +10,7 @@ export interface MicroGuide {
   category: MicroGuideCategory
   archetypes: string[] // which archetypes this is most relevant for
   dimensions: string[] // which dimensions this relates to
+  tags: string[] // content relevance tags — filters who sees this
   readTime: string // "2 min" or "3 min"
   body: string[] // paragraphs
   tryThis: string // one actionable takeaway

@@ -3,8 +3,8 @@
 import { useState } from "react"
 import { ArrowRight, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { saveUserBasics, KID_AGE_LABELS, PARTNER_LABELS, AGE_LABELS } from "@/lib/user-basics"
-import type { KidAge, PartnerStatus, AgeRange } from "@/lib/user-basics"
+import { saveUserBasics, KID_AGE_LABELS, PARTNER_LABELS, AGE_LABELS, CONDITION_LABELS } from "@/lib/user-basics"
+import type { KidAge, PartnerStatus, AgeRange, Condition } from "@/lib/user-basics"
 
 interface OnboardingBasicsProps {
   onComplete: () => void
@@ -15,6 +15,7 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
   const [kidAges, setKidAges] = useState<KidAge[]>([])
   const [partnerStatus, setPartnerStatus] = useState<PartnerStatus>("")
   const [ageRange, setAgeRange] = useState<AgeRange>("")
+  const [conditions, setConditions] = useState<Condition[]>([])
   const [extraInput, setExtraInput] = useState("")
   const [extras, setExtras] = useState<string[]>([])
 
@@ -22,6 +23,14 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
     setKidAges((prev) =>
       prev.includes(age) ? prev.filter((a) => a !== age) : [...prev, age]
     )
+  }
+
+  const handleConditionToggle = (condition: Condition) => {
+    setConditions((prev) => {
+      if (condition === "none-unsure") return ["none-unsure"]
+      const without = prev.filter((c) => c !== "none-unsure")
+      return without.includes(condition) ? without.filter((c) => c !== condition) : [...without, condition]
+    })
   }
 
   const handleAddExtra = () => {
@@ -36,8 +45,10 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
       kidAges,
       partnerStatus,
       ageRange,
+      conditions,
       extras,
       completedAt: Date.now(),
+      lastUpdated: Date.now(),
     })
     onComplete()
   }
@@ -46,15 +57,18 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
     if (step === 0) return kidAges.length > 0
     if (step === 1) return partnerStatus !== ""
     if (step === 2) return ageRange !== ""
+    if (step === 3) return conditions.length > 0
     return true
   }
 
+  const totalSteps = 5
+
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-background/95 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-card rounded-3xl p-6 md:p-8 max-w-md w-full shadow-xl border border-border animate-in slide-in-from-bottom-4 duration-300">
+      <div className="bg-card rounded-3xl p-6 md:p-8 max-w-md w-full shadow-xl border border-border animate-in slide-in-from-bottom-4 duration-300 max-h-[90vh] overflow-y-auto">
         {/* Progress dots */}
         <div className="flex items-center justify-center gap-1.5 mb-6">
-          {[0, 1, 2, 3].map((i) => (
+          {Array.from({ length: totalSteps }, (_, i) => (
             <div
               key={i}
               className={`w-2 h-2 rounded-full transition-all ${
@@ -122,7 +136,7 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
           <div className="space-y-4">
             <div>
               <h2 className="text-lg font-medium text-foreground mb-1">Your age range</h2>
-              <p className="text-sm text-muted-foreground">Helps us understand your life stage — perimenopause, postpartum, and hormonal content adapts to this.</p>
+              <p className="text-sm text-muted-foreground">Helps us show you content relevant to your life stage — hormonal, physical, and developmental.</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {(Object.entries(AGE_LABELS) as [string, string][]).map(([id, label]) => (
@@ -142,12 +156,43 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
           </div>
         )}
 
-        {/* Step 3: Extras */}
+        {/* Step 3: Conditions */}
         {step === 3 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-lg font-medium text-foreground mb-1">Anything else we should know?</h2>
-              <p className="text-sm text-muted-foreground">Optional. Things like &quot;I have ADHD,&quot; &quot;I&apos;m postpartum,&quot; &quot;going through a divorce&quot; — anything that shapes your experience.</p>
+              <h2 className="text-lg font-medium text-foreground mb-1">What resonates with you?</h2>
+              <p className="text-sm text-muted-foreground">This ensures we only show you content that&apos;s actually relevant to your experience. Select all that apply.</p>
+            </div>
+            <div className="space-y-2">
+              {(Object.entries(CONDITION_LABELS) as [Condition, string][]).map(([id, label]) => (
+                <button
+                  key={id}
+                  onClick={() => handleConditionToggle(id)}
+                  className={`w-full p-3.5 rounded-xl border text-left text-sm transition-all ${
+                    conditions.includes(id)
+                      ? "border-primary bg-primary/5 text-foreground"
+                      : "border-border hover:border-primary/30 text-muted-foreground"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    {conditions.includes(id) && <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />}
+                    <span>{label}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] text-muted-foreground/60">
+              This is not a diagnosis. It&apos;s about showing you content that fits YOUR experience.
+            </p>
+          </div>
+        )}
+
+        {/* Step 4: Extras */}
+        {step === 4 && (
+          <div className="space-y-4">
+            <div>
+              <h2 className="text-lg font-medium text-foreground mb-1">Anything else?</h2>
+              <p className="text-sm text-muted-foreground">Optional. Things like &quot;going through a divorce,&quot; &quot;recently diagnosed,&quot; &quot;single income stress&quot; — anything that shapes your daily experience.</p>
             </div>
             <div className="flex gap-2">
               <input
@@ -197,7 +242,7 @@ export function OnboardingBasics({ onComplete }: OnboardingBasicsProps) {
             </button>
           )}
 
-          {step < 3 ? (
+          {step < totalSteps - 1 ? (
             <Button
               onClick={() => setStep(step + 1)}
               disabled={!canProgress()}
