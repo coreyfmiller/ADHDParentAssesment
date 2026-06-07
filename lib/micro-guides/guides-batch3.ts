@@ -13,6 +13,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "quiet-volcano", "the-disappeared"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You need to make a phone call. It would take 3 minutes. You've been avoiding it for 6 weeks. It's not that you're lazy or don't care. It's that between you and the task, there's an invisible wall built from every previous failure, every time you were criticized for being late, every shame spiral attached to this type of task.",
@@ -30,6 +31,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "storm-weatherer", "running-on-empty"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Alone, you can't start. But the moment someone else is in the room — even if they're doing something completely different — suddenly you can function. You can clean, organize, make calls, do paperwork. It's like their presence flips a switch in your brain. This isn't weird. It's called body doubling.",
@@ -47,6 +49,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["the-disappeared", "running-on-empty", "invisible-architect"],
     dimensions: ["cognitive-load", "identity-erosion", "physical-depletion"],
+    tags: ["adhd", "universal"],
     readTime: "2 min",
     body: [
       "It's 11pm. You're exhausted. You should be asleep. Instead, you're scrolling, watching, reading — anything to extend this quiet window where no one needs you. You know you'll pay for it tomorrow. You do it anyway. Every night.",
@@ -64,6 +67,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "burning-engine", "storm-weatherer"],
     dimensions: ["cognitive-load", "physical-depletion"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "The deadline is tomorrow. Suddenly, after weeks of paralysis, you're a machine. Focused, productive, unstoppable. You produce your best work in the final hours. Then you crash. And the cycle repeats.",
@@ -81,6 +85,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "quiet-volcano", "the-disappeared"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You're not procrastinating because you're lazy. You're not procrastinating because you don't care. You're procrastinating because the task is attached to a feeling you don't want to feel — and your brain is protecting you from that feeling by avoiding the task.",
@@ -100,6 +105,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "When you're in it — the rage, the despair, the overwhelm — it feels like it will never end. Like this is your permanent state. Like you've always felt this way and always will. This isn't dramatic. It's a feature of how ADHD brains process emotions.",
@@ -117,6 +123,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "plate-spinner"],
     dimensions: ["emotional-bandwidth", "identity-erosion", "cognitive-load"],
+    tags: ["adhd", "universal"],
     readTime: "3 min",
     body: [
       "You forgot something important. Instead of just fixing it, your brain launches a full investigation: 'Why am I like this? What's wrong with me? Everyone else can manage this. I'm fundamentally broken.' The shame spiral has begun — and ironically, it's now preventing you from addressing the original problem.",
@@ -134,6 +141,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "burning-engine"],
     dimensions: ["emotional-bandwidth"],
+    tags: ["universal", "adhd"],
     readTime: "2 min",
     body: [
       "You're furious. You need to have a serious conversation. You open your mouth and — tears. Not sad tears. Rage tears. Frustration tears. And now you look like you're upset instead of angry, and no one takes you seriously, and you're even MORE frustrated.",
@@ -151,6 +159,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "identity-erosion", "physical-depletion"],
+    tags: ["universal", "adhd", "autism"],
     readTime: "2 min",
     body: [
       "'How are you?' 'Fine!' You say it automatically. At pickup. At work. To your partner. To your mother. You perform 'fine' so convincingly that no one checks further. And the performance is killing you.",
@@ -170,6 +179,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["quiet-volcano", "burning-engine", "storm-weatherer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "There's a nerve that runs from your brainstem through your face, throat, heart, lungs, and gut. It's called the vagus nerve, and it's the master switch between your stress response (sympathetic) and your rest response (parasympathetic). Stimulating it is the fastest way to shift from activated to calm.",
@@ -187,6 +197,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["invisible-architect", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "system-friction"],
+    tags: ["universal", "trauma"],
     readTime: "2 min",
     body: [
       "The kids are at grandma's. The house is quiet. You have 3 hours to yourself. And you can't relax. You're restless, anxious, making lists in your head, feeling guilty, or just... vibrating. The opportunity for rest is here but your body won't take it.",
@@ -204,6 +215,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "plate-spinner", "the-disappeared"],
     dimensions: ["physical-depletion", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Every piece of advice says 'exercise helps ADHD.' And it does — research shows 20 minutes of moderate exercise can improve executive function for 2-4 hours afterward. It's essentially free medication. There's just one problem: starting exercise requires the exact executive function that exercise is supposed to improve. It's a cruel catch-22.",
@@ -223,6 +235,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "the-disappeared", "weight-bearer"],
     dimensions: ["system-friction", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "'Mom, where are my shoes?' 'Mom, what's for dinner?' 'Mom, can I have a playdate?' Even when your partner is sitting right there. Even when they're perfectly capable of answering. The question comes to you. Because you're the default.",
@@ -240,6 +253,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "relationships",
     archetypes: ["the-disappeared", "running-on-empty", "invisible-architect"],
     dimensions: ["identity-erosion", "system-friction"],
+    tags: ["universal", "adhd"],
     readTime: "2 min",
     body: [
       "You used to have friends. Close ones. Now you have people you occasionally text back three days late with 'Sorry, just saw this!' You miss them. You feel guilty. You wonder if you're a bad friend or if they've given up on you.",
@@ -257,6 +271,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "relationships",
     archetypes: ["quiet-volcano", "the-disappeared", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal", "trauma"],
     readTime: "3 min",
     body: [
       "You open your mouth and your mother comes out. Her words. Her tone. Her criticism. Maybe directed at your children. Maybe directed at yourself. The voice in your head that says 'you're not doing this right' — whose voice is it really? Often, it's hers.",
@@ -278,6 +293,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "running-on-empty"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Sometimes you fantasize about a different life. One without the constant demands, the noise, the weight. Then the guilt hits: 'What kind of mother thinks this?' The answer: a normal one. A human one. An honest one.",
@@ -295,6 +311,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "identity",
     archetypes: ["invisible-architect", "plate-spinner", "running-on-empty"],
     dimensions: ["identity-erosion", "cognitive-load"],
+    tags: ["universal", "adhd"],
     readTime: "2 min",
     body: [
       "You feel worthless on days you 'didn't do anything.' You feel guilty resting because you haven't 'earned' it. Your internal value system runs on output: tasks completed, meals made, problems solved, people served. On days the list is short, you are less.",
@@ -314,6 +331,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["system-friction", "cognitive-load"],
+    tags: ["universal", "adhd"],
     readTime: "2 min",
     body: [
       "Monday morning hits and you're already behind. The week feels chaotic before it starts. You're reactive all week because you never got ahead of it. The Sunday Reset changes this — and it takes 15 minutes, not an hour.",
@@ -331,6 +349,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "invisible-architect"],
     dimensions: ["system-friction", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Every morning is a scavenger hunt. Keys? Where are the keys? Backpack? Which room? Permission slip? Was it on the counter? Shoes? WHY ARE THERE NEVER MATCHING SHOES? The problem isn't your family. It's that there's no designated 'leaving the house' zone.",
@@ -348,6 +367,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["weight-bearer", "burning-engine", "storm-weatherer"],
     dimensions: ["system-friction", "physical-depletion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Some days, everything falls apart. You're sick, or the kids are sick, or something happened, or you just woke up and there's nothing in the tank. On these days, you need a plan that requires zero executive function to execute. You need your emergency protocol.",
@@ -367,6 +387,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["universal", "adhd"],
     readTime: "3 min",
     body: [
       "You've read the books. You know you're supposed to validate feelings, offer choices, stay calm, narrate emotions, hold space. And on your good days, you can. But on your bad days — which are most days — you don't have the bandwidth for gentle parenting. And the gap between the ideal and your reality is crushing you.",
@@ -384,6 +405,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal", "trauma"],
     readTime: "3 min",
     body: [
       "Your child whines and something inside you snaps — not proportionate to the whining, but to something older. Your child defies you and you feel a rage that belongs to a different time. Your child cries and you feel nothing — numb, disconnected, gone. These disproportionate reactions aren't about your child. They're about your childhood.",
@@ -403,6 +425,7 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     category: "parenting",
     archetypes: ["plate-spinner", "quiet-volcano", "invisible-architect"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
+    tags: ["adhd"],
     readTime: "3 min",
     body: [
       "Your child can't sit still. Or they melt down over transitions. Or they forget everything. Or they're intensely emotional. And you see yourself in them — the struggles you had, the things no one understood, the ways you were punished for a brain that worked differently. It's painful and clarifying at the same time.",

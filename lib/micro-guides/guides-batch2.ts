@@ -13,6 +13,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "storm-weatherer", "invisible-architect"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "The bill you forgot to pay wasn't laziness. The friend you haven't texted back in three weeks isn't because you don't care. The food rotting in the back of the fridge isn't neglect. It's object permanence — or rather, the lack of it.",
@@ -30,6 +31,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "the-disappeared", "invisible-architect"],
     dimensions: ["cognitive-load", "identity-erosion"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You sat down to 'quickly check' something and three hours disappeared. The kids were on screens the whole time. Dinner didn't happen. You feel guilty and confused — how can you have ADHD if you can focus THAT intensely?",
@@ -47,6 +49,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "storm-weatherer", "burning-engine"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Getting out the door. Stopping one activity to start another. Shifting from work-brain to mom-brain. Every transition feels like dragging yourself through wet concrete. It's not resistance — it's neurology.",
@@ -64,6 +67,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "weight-bearer"],
     dimensions: ["cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Working memory is the brain's scratchpad — the space where you hold information you're actively using. Most people can hold 4-7 items. ADHD brains? Often 2-3. And motherhood asks you to hold 40.",
@@ -83,6 +87,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "burning-engine"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["adhd"],
     readTime: "3 min",
     body: [
       "Someone made an offhand comment — maybe your partner, maybe another mom at pickup, maybe your own mother. It wasn't even that bad. But it landed like a punch to the chest and you've been replaying it for hours. You can't let it go. You feel humiliated, furious, or devastated — and the intensity of your reaction scares you.",
@@ -101,6 +106,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "running-on-empty"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "The meltdown was yesterday. The argument was last night. But today you feel like you've been hit by a truck — foggy, exhausted, fragile, unable to function at your normal level. Everyone else seems to have moved on. You haven't.",
@@ -118,6 +124,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You're angry. At your partner, at your kids, at the mess, at your life. The anger feels ugly and wrong — good mothers aren't angry. So you push it down, or it explodes, and either way you feel ashamed.",
@@ -135,6 +142,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer", "storm-weatherer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["universal", "trauma"],
     readTime: "3 min",
     body: [
       "Sometimes you explode (fight). Sometimes you flee to the bathroom (flight). Sometimes you go completely blank and can't move or speak (freeze). Sometimes you over-apologize and people-please your way through (fawn). None of these are choices. They're autonomic nervous system responses.",
@@ -156,6 +164,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You slept 8 hours. You're still exhausted. People say 'but you got enough sleep!' and you want to scream. Because the hours aren't the problem. The architecture is.",
@@ -173,6 +182,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "plate-spinner", "the-disappeared"],
     dimensions: ["physical-depletion", "cognitive-load"],
+    tags: ["adhd", "autism"],
     readTime: "2 min",
     body: [
       "It's 3pm and you realize you haven't eaten. Or you suddenly notice you desperately need to pee — and have for hours. Or you're shaking and irritable and only then realize you're hungry. This isn't just being busy. It's impaired interoception.",
@@ -190,6 +200,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["burning-engine", "running-on-empty", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You're getting things done. You're functioning. People look at you and see a capable person. But inside, you know the truth: you're not running on energy. You're running on adrenaline and cortisol — your body's emergency fuel system.",
@@ -209,6 +220,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["plate-spinner", "running-on-empty", "burning-engine"],
     dimensions: ["cognitive-load", "physical-depletion", "emotional-bandwidth"],
+    tags: ["perimenopause", "adhd"],
     readTime: "3 min",
     body: [
       "You managed fine for years. Maybe not perfectly, but you had systems, workarounds, compensatory strategies that kept life running. Then, somewhere in your late 30s or 40s, everything fell apart. The strategies stopped working. The brain fog descended. The emotional reactivity intensified. You thought you were losing your mind.",
@@ -227,6 +239,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["quiet-volcano", "plate-spinner", "burning-engine"],
     dimensions: ["emotional-bandwidth", "cognitive-load", "physical-depletion"],
+    tags: ["hormonal", "adhd"],
     readTime: "2 min",
     body: [
       "The week before your period, you become a different person. More reactive. More scattered. More overwhelmed. More likely to yell, cry, or shut down. You blame yourself — 'Why can't I hold it together?' — but this isn't a willpower failure. It's a predictable neurochemical event.",
@@ -244,6 +257,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["running-on-empty", "burning-engine", "plate-spinner"],
     dimensions: ["physical-depletion", "cognitive-load"],
+    tags: ["postpartum", "adhd"],
     readTime: "2 min",
     body: [
       "You're breastfeeding and you can't think straight. You forget words mid-sentence. You feel foggy, emotional, and drained in a way that goes beyond sleep deprivation. People say 'mom brain' like it's cute. It's not cute. It's real, and it has a mechanism.",
@@ -263,6 +277,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "the-disappeared", "quiet-volcano"],
     dimensions: ["system-friction", "identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "He loads the dishwasher 'wrong.' He 'doesn't know' which clothes the kids need for school. He 'can't find' the thing that's in the same place it's been for three years. So you do it yourself. Again. Because it's faster. Because it's easier. Because at least it gets done right.",
@@ -281,6 +296,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "relationships",
     archetypes: ["the-disappeared", "quiet-volcano", "weight-bearer"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "She's at pickup with her hair done, her kids in matching outfits, a homemade snack in hand. You're in yesterday's clothes with a screaming toddler and goldfish crackers from the car floor. The comparison is instant and devastating: she's managing. You're not.",
@@ -298,6 +314,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "relationships",
     archetypes: ["quiet-volcano", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You finally set a boundary — said no to something, asked for space, declined an invitation — and now you feel guilty. Or the other person is upset. And you're wondering if you were wrong. If you were selfish. If boundaries are just a fancy word for being difficult.",
@@ -317,6 +334,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "weight-bearer"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "The 'good mom' is patient. She's present. She makes homemade meals and does crafts and never yells and always has energy for one more story at bedtime. She doesn't resent her children. She doesn't miss her old life. She doesn't scroll her phone while they play. She is, in every way, a fiction.",
@@ -334,6 +352,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "invisible-architect", "running-on-empty"],
     dimensions: ["identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "When was the last time someone asked what you want — and you could answer? Not what your kids need. Not what would make your partner happy. Not what the house requires. What YOU want. If you drew a blank, that's not because you're selfless. It's because your desire has been systematically suppressed.",
@@ -351,6 +370,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "running-on-empty"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You chose this. You wanted children. Maybe you fought for them. And now you're grieving — the freedom, the spontaneity, the body, the career, the relationship, the person you were. And the guilt of grieving something you chose is its own special torture.",
@@ -370,6 +390,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "invisible-architect"],
     dimensions: ["system-friction", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You keep losing your keys. You forget to take your medication. The kids' shoes are never by the door when you need them. You blame yourself — 'Why can't I just remember?' But the question isn't why you can't remember. It's why your environment isn't remembering for you.",
@@ -387,6 +408,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "invisible-architect", "running-on-empty"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Steve Jobs wore the same outfit every day. Obama limited his suits to two colors. These aren't quirks — they're decision elimination strategies. Every choice you remove from your day is cognitive fuel saved for choices that actually matter.",
@@ -404,6 +426,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["system-friction", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You've tried every planner, every app, every organizational system. They work for a week, then collapse. So you conclude you're 'not an organized person.' But the problem isn't you — it's that you keep choosing systems designed for neurotypical brains operating at 100% consistency.",
@@ -423,6 +446,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "parenting",
     archetypes: ["burning-engine", "running-on-empty", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Your kids are on screens right now. Maybe they've been on screens for two hours. And the guilt is eating you alive — because every article, every expert, every other mom seems to say that screens are destroying your children's brains.",
@@ -440,6 +464,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "parenting",
     archetypes: ["burning-engine", "running-on-empty", "storm-weatherer"],
     dimensions: ["physical-depletion", "emotional-bandwidth", "system-friction"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "It's 7pm. You have nothing left. And now you have to navigate the most demanding hour of the day: bedtime. The negotiations, the 'one more story,' the getting out of bed, the sudden thirst, the existential fears that only emerge at 8:47pm. You're running on fumes and they need you at your most patient.",
@@ -457,6 +482,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "plate-spinner"],
     dimensions: ["emotional-bandwidth", "cognitive-load"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "They're fighting again. The screaming, the 'she hit me,' the 'it's not fair.' Every fiber of your being wants to either solve it or scream. But here's what developmental psychology tells us: not every sibling conflict requires your intervention.",
@@ -474,6 +500,7 @@ export const MICRO_GUIDES_BATCH2: MicroGuide[] = [
     category: "parenting",
     archetypes: ["weight-bearer", "the-disappeared", "quiet-volcano"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "In 1953, pediatrician and psychoanalyst Donald Winnicott introduced a concept that should be on every mother's mirror: the 'good enough mother.' Not the perfect mother. Not the always-present mother. The good enough one. And he argued — with decades of clinical evidence — that good enough is actually optimal.",

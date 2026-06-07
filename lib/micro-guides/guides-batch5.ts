@@ -13,6 +13,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "the-disappeared", "storm-weatherer"],
     dimensions: ["cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "The closet reorganization you started in March. The craft project from last summer. The online course you signed up for. The garden that got planted but never maintained. You have a trail of 80%-done projects behind you and the shame of each one weighs on you.",
@@ -30,6 +31,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["invisible-architect", "quiet-volcano", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You manage the emotional temperature of your entire household. You notice when your partner is stressed and adjust. You anticipate your child's meltdown and prevent it. You smooth over conflicts. You remember to ask about the thing that was worrying them. You hold everyone's emotional state in your awareness — constantly.",
@@ -47,6 +49,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You're anxious and your stomach hurts. Or you're stressed and you can't eat. Or you're overwhelmed and your digestion is a mess. This isn't coincidence — your gut and brain are in constant bidirectional communication through the vagus nerve and the enteric nervous system.",
@@ -64,6 +67,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["hormonal"],
     readTime: "2 min",
     body: [
       "PMS is uncomfortable. PMDD (Premenstrual Dysphoric Disorder) is disabling. If the week before your period involves: suicidal thoughts, rage so intense you scare yourself, complete inability to function, feeling like a different person, or relationship-destroying emotional episodes — that's not 'just hormones.' That's PMDD.",
@@ -82,6 +86,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "quiet-volcano", "the-disappeared"],
     dimensions: ["system-friction", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "You need to talk to your partner about the mental load. You've tried before — it turned into a fight, or they got defensive, or nothing changed. The conversation feels impossible. But it's necessary. Here's a framework that actually works.",
@@ -100,6 +105,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "invisible-architect"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "'No, I can't, because...' and then you give three reasons, an apology, an alternative suggestion, and a promise to make it up to them. You can't just say no. You have to justify it. Explain it. Earn the right to decline. Why?",
@@ -117,6 +123,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "invisible-architect"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "The two-minute rule is simple: if a task takes less than 2 minutes to complete, do it immediately instead of adding it to your mental list. Hang up the coat. Reply to the text. Put the dish in the dishwasher. Wipe the counter. Sign the form. Done.",
@@ -134,6 +141,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "parenting",
     archetypes: ["plate-spinner", "burning-engine", "quiet-volcano"],
     dimensions: ["cognitive-load", "emotional-bandwidth"],
+    tags: ["adhd"],
     readTime: "3 min",
     body: [
       "It's 4pm. Homework needs to happen. Your child can't start. You can't make them start. You're both dysregulated within 5 minutes. The yelling begins. The crying begins. Everyone ends up worse than before. This is not a parenting failure — it's two depleted brains colliding over a task that requires executive function neither of you has left.",
@@ -151,6 +159,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "weight-bearer", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Your child is screaming in the grocery store. Or hitting their sibling. Or refusing to get dressed. And the voice in your head says: 'If I were a better mother, this wouldn't be happening. Other kids don't do this. I'm failing them.'",
@@ -168,6 +177,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["the-disappeared", "running-on-empty", "quiet-volcano"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
+    tags: ["adhd", "autism"],
     readTime: "2 min",
     body: [
       "You went to the birthday party. You smiled, chatted, performed 'normal mom.' And now you're wrecked — not just tired, but completely emptied. You need 24 hours to recover from 2 hours of socializing. People say 'you're just introverted.' It's more than that.",
@@ -185,6 +195,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["storm-weatherer", "running-on-empty", "weight-bearer"],
     dimensions: ["system-friction", "physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "When everything is chaos, you don't need 10 new habits. You need one. One anchor point that happens every day regardless of how bad things get. One thing that your body does on autopilot even when your brain is offline. That's your anchor habit.",
@@ -202,6 +213,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "storm-weatherer", "plate-spinner"],
     dimensions: ["system-friction", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Two ADHD brains in one household means: double the forgotten appointments, double the unfinished projects, double the emotional intensity — and no one playing the 'neurotypical anchor' role that many ADHD adults unconsciously rely on their partner to fill.",
@@ -219,6 +231,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "the-disappeared", "weight-bearer"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal", "trauma"],
     readTime: "2 min",
     body: [
       "You know how you DON'T want to parent — because you lived it. You won't hit. You won't use shame. You won't withdraw love as punishment. You won't dismiss their feelings. But knowing what you don't want to do doesn't tell you what TO do. And in the heat of the moment, when you have no script, the old patterns are the only ones your nervous system knows.",

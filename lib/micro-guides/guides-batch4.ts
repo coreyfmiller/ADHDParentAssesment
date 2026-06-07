@@ -13,6 +13,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "burning-engine"],
     dimensions: ["cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You were finally in flow — writing that email, cleaning the kitchen, having a thought — and then: 'Mom!' By the time you've handled the interruption (30 seconds), you've lost the thread entirely. It takes 23 minutes to fully re-engage with a task after an interruption. Twenty-three minutes. For a 30-second disruption.",
@@ -30,6 +31,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "The thought arrives: 'I need to buy milk.' 'I should call the dentist.' 'That permission slip is due Friday.' You think: 'I'll remember.' You won't. Not because you're careless. Because your working memory has a 30-second shelf life for non-urgent information.",
@@ -49,6 +51,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["plate-spinner", "the-disappeared", "invisible-architect"],
     dimensions: ["emotional-bandwidth", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You can't start because it won't be perfect. You can't finish because it's not good enough. You can't delegate because they won't do it right. Perfectionism looks like high standards from the outside. From the inside, it's paralysis.",
@@ -66,6 +69,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["the-disappeared", "quiet-volcano", "running-on-empty"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Someone says 'You're such a good mom' and instead of feeling good, you feel: uncomfortable, fraudulent, anxious, or angry. You deflect, minimize, or change the subject. Compliments don't land — they bounce off. Why?",
@@ -85,6 +89,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Your shoulders are concrete. Your jaw aches. Your back is always tight. You carry tension you don't notice until someone touches you and you flinch. This isn't 'just stress.' There's a documented connection between ADHD, chronic pain, and the nervous system.",
@@ -102,6 +107,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["plate-spinner", "burning-engine", "storm-weatherer"],
     dimensions: ["physical-depletion", "cognitive-load"],
+    tags: ["adhd", "autism"],
     readTime: "2 min",
     body: [
       "You pick at your skin. You crave spicy food. You blast music. You scroll endlessly for something that hits. You start arguments for the adrenaline. You take on too much because boredom is physically painful. This isn't self-destructive — it's sensory seeking.",
@@ -121,6 +127,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["quiet-volcano", "burning-engine", "running-on-empty"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["postpartum"],
     readTime: "2 min",
     body: [
       "Everyone warns about postpartum depression — the sadness, the withdrawal, the inability to bond. Nobody warns about postpartum rage — the white-hot fury that comes from nowhere, directed at your partner, your older children, the world. It's terrifying. And it's far more common than anyone acknowledges.",
@@ -139,6 +146,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["running-on-empty", "plate-spinner", "weight-bearer"],
     dimensions: ["physical-depletion", "cognitive-load"],
+    tags: ["adhd", "postpartum"],
     readTime: "2 min",
     body: [
       "Brain fog. Fatigue. Inability to concentrate. Memory problems. Weight changes. Mood swings. These are ADHD symptoms — but they're also thyroid symptoms. And thyroid disorders are 5-8 times more common in women, especially postpartum.",
@@ -159,6 +167,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "relationships",
     archetypes: ["running-on-empty", "quiet-volcano", "the-disappeared"],
     dimensions: ["physical-depletion", "emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "Your partner wants physical closeness. You want to not be touched by another human being for the next 72 hours. The guilt is immediate: 'I should want this. What's wrong with me? Am I broken? Is my relationship dying?'",
@@ -177,6 +186,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "relationships",
     archetypes: ["plate-spinner", "weight-bearer", "the-disappeared"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "'Have you tried a planner?' 'Just set an alarm.' 'You just need to be more organized.' 'Other moms manage.' The advice comes from people who mean well but fundamentally don't understand that your brain works differently. And each suggestion — however well-intentioned — lands as: 'The problem is you. Try harder.'",
@@ -196,6 +206,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "running-on-empty", "invisible-architect"],
     dimensions: ["identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You don't have time for yourself. Not an hour. Not even 30 minutes. The advice to 'take time for you' feels like a cruel joke when you can barely shower alone. So you conclude: identity rebuilding will have to wait until the kids are older. It won't. It can happen in 5 minutes.",
@@ -213,6 +224,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "identity",
     archetypes: ["running-on-empty", "the-disappeared", "invisible-architect"],
     dimensions: ["identity-erosion", "physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "The internet says self-care is: bubble baths, face masks, journaling, yoga, meditation. You try these things and feel... nothing. Or worse — guilty for 'wasting time.' Self-care has become another item on the to-do list. Another thing you're failing at.",
@@ -232,6 +244,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "invisible-architect", "storm-weatherer"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You make one phone call, then switch to email, then start laundry, then remember the other phone call, then check the email again. Each switch costs cognitive resources. By the end of the day, you've done 20 things but finished 3. The rest are half-done, scattered across your attention.",
@@ -249,6 +262,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "burning-engine"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "Time is invisible. For ADHD brains that can't feel time passing internally, invisible time might as well not exist. This is why 'you have 10 minutes' means nothing — you can't see 10 minutes. You can't feel them shrinking. Until suddenly they're gone and you're late again.",
@@ -268,6 +282,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "parenting",
     archetypes: ["plate-spinner", "storm-weatherer", "burning-engine"],
     dimensions: ["system-friction", "cognitive-load", "emotional-bandwidth"],
+    tags: ["universal", "adhd"],
     readTime: "2 min",
     body: [
       "Every morning is a disaster. You're yelling by 7:30. Someone can't find their shoes. Someone won't eat. Someone is melting down about socks. You leave late, frazzled, and already depleted before the day has started. You've tried everything. Nothing sticks.",
@@ -286,6 +301,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "parenting",
     archetypes: ["the-disappeared", "quiet-volcano", "weight-bearer"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "Before kids, you had a vision. Patient. Creative. Present. Fun. The kind of mom who does art projects and bakes cookies and never raises her voice. The kind of mom your kids would describe as 'warm' and 'always there.' That mom doesn't exist. And the gap between her and you is a source of daily grief.",
@@ -305,6 +321,7 @@ export const MICRO_GUIDES_BATCH4: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["weight-bearer", "burning-engine", "quiet-volcano", "running-on-empty", "the-disappeared", "plate-spinner", "invisible-architect", "storm-weatherer", "steady-ground"],
     dimensions: ["emotional-bandwidth", "physical-depletion", "identity-erosion"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "This app is a tool. A good one, hopefully. But it has limits — and knowing those limits is part of taking care of yourself. There are situations where self-reflection, psychoeducation, and coping strategies aren't enough. Where you need a human professional who can hold space for what an app cannot.",

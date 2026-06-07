@@ -15,6 +15,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "running-on-empty", "weight-bearer"],
     dimensions: ["cognitive-load"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You're staring at the dishes. You know they need doing. You want them done. But your body won't move. It's not laziness. It's not a character flaw. It's a neurological gap between intention and action called task initiation failure.",
@@ -32,6 +33,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "storm-weatherer"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "You genuinely believed you had 20 minutes. You had 5. This isn't poor planning — it's time blindness, a well-documented feature of ADHD brains. Your internal clock doesn't tick at the same rate as the external one.",
@@ -49,6 +51,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "executive-function",
     archetypes: ["plate-spinner", "invisible-architect", "weight-bearer"],
     dimensions: ["cognitive-load", "system-friction"],
+    tags: ["adhd"],
     readTime: "2 min",
     body: [
       "It's 4pm. Someone asks what's for dinner. Your brain goes completely blank. Not because you don't know how to cook. Because you've already made 400 decisions today and your prefrontal cortex is out of fuel.",
@@ -68,6 +71,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "You love your children more than anything. And sometimes you scream at them with a fury that terrifies you. These two things are not contradictory — they're connected.",
@@ -86,6 +90,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "the-disappeared", "burning-engine"],
     dimensions: ["emotional-bandwidth", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You forgot the school thing. Or you yelled. Or you served cereal for dinner. And now the guilt is telling you a story: 'You're a bad mother. Everyone else manages this. Your kids deserve better.'",
@@ -103,6 +108,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "emotional-regulation",
     archetypes: ["quiet-volcano", "burning-engine", "storm-weatherer"],
     dimensions: ["emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "One minute you're fine. The next minute you're crying in the pantry because the bread is stale. It's not about the bread. It's never about the bread.",
@@ -122,6 +128,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Every afternoon around 2-4pm, you hit a wall. Energy drops. Brain fog rolls in. Patience evaporates. You think it's because you're weak or undisciplined. It's actually your cortisol curve doing exactly what it's supposed to do.",
@@ -139,6 +146,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["quiet-volcano", "burning-engine", "running-on-empty"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
+    tags: ["universal", "adhd", "autism"],
     readTime: "2 min",
     body: [
       "Your child reaches for you and your skin crawls. You love them. You don't want to be touched. Both are true at the same time, and the guilt of that contradiction is crushing.",
@@ -156,6 +164,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "You're exhausted. Nothing brings joy. You can't concentrate. You feel empty. Is this depression? Or is this burnout? The symptoms overlap almost completely — but the cause and the fix are different.",
@@ -177,6 +186,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["quiet-volcano", "running-on-empty", "plate-spinner"],
     dimensions: ["cognitive-load", "emotional-bandwidth", "physical-depletion"],
+    tags: ["hormonal", "adhd"],
     readTime: "3 min",
     body: [
       "Some weeks you can handle everything. Other weeks you can barely get out of bed. You think it's random. It's not. It's estrogen.",
@@ -195,6 +205,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "hormonal",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "cognitive-load"],
+    tags: ["postpartum"],
     readTime: "2 min",
     body: [
       "Your youngest is 3. Or 5. Or 7. And you're still exhausted in a way that sleep doesn't fix. People say 'but the baby stage is over!' as if your body should have bounced back by now. For many women, it hasn't. And there's a reason.",
@@ -214,6 +225,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "weight-bearer", "the-disappeared"],
     dimensions: ["system-friction", "identity-erosion"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "You're not just doing tasks. You're carrying the cognitive weight of an entire household: remembering, anticipating, planning, monitoring, adjusting, and worrying — constantly, invisibly, without acknowledgment.",
@@ -232,6 +244,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "the-disappeared", "weight-bearer"],
     dimensions: ["system-friction", "identity-erosion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You know you need help. You can't ask for it. This isn't stubbornness — it's a deeply wired pattern with real psychological roots.",
@@ -249,6 +262,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "relationships",
     archetypes: ["invisible-architect", "storm-weatherer", "quiet-volcano"],
     dimensions: ["system-friction", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "'I need more help around here.' You've said it. Maybe yelled it. And nothing changed. Not because your partner doesn't care — but because that sentence is unactionable.",
@@ -268,6 +282,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "quiet-volcano", "invisible-architect"],
     dimensions: ["identity-erosion"],
+    tags: ["universal"],
     readTime: "3 min",
     body: [
       "Nobody tells you that becoming a mother involves a death. Not a physical one — an identity one. The person you were doesn't disappear in a dramatic moment. She erodes. Slowly. One cancelled plan at a time. One abandoned hobby at a time. One 'I'll do that later' that never comes.",
@@ -285,6 +300,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "identity",
     archetypes: ["the-disappeared", "invisible-architect", "quiet-volcano"],
     dimensions: ["identity-erosion", "emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You resent your partner. Maybe your kids. Maybe your entire life. And then you feel guilty for the resentment, which makes you resent everything more. The cycle is exhausting.",
@@ -304,6 +320,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["plate-spinner", "storm-weatherer", "running-on-empty"],
     dimensions: ["system-friction", "cognitive-load"],
+    tags: ["adhd"],
     readTime: "3 min",
     body: [
       "You've tried routines. Morning routines, evening routines, cleaning routines. They work for 3 days and then collapse. You conclude: 'I'm just not a routine person.' But the problem isn't you — it's how the routines were designed.",
@@ -321,6 +338,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "systems-structure",
     archetypes: ["invisible-architect", "plate-spinner", "weight-bearer"],
     dimensions: ["system-friction", "cognitive-load", "physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You're trying to maintain standards that require more resources than you have. The house should be clean. Meals should be homemade. Kids should have enriching activities. You should exercise. You should have a social life. You should be present and patient. All of this. Every day. On a depleted brain and body.",
@@ -340,6 +358,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "weight-bearer"],
     dimensions: ["emotional-bandwidth"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "You yelled. You slammed a door. You said something you regret. And now you're spiraling: 'I've damaged them. I'm repeating my parents' patterns. They'll remember this forever.'",
@@ -357,6 +376,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     category: "parenting",
     archetypes: ["quiet-volcano", "burning-engine", "storm-weatherer"],
     dimensions: ["emotional-bandwidth", "physical-depletion"],
+    tags: ["universal"],
     readTime: "2 min",
     body: [
       "Your child is melting down. Every parenting book says: 'Stay calm. Be their anchor. Co-regulate.' And you want to scream: 'WITH WHAT? I have nothing left to regulate WITH.'",
