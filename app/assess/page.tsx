@@ -15,6 +15,9 @@ import {
   CheckCircle2,
   Lock,
   Sparkles,
+  Heart,
+  Zap,
+  Fingerprint,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PATHWAYS } from "@/lib/assessments/types"
@@ -29,6 +32,9 @@ const iconMap: Record<string, React.ElementType> = {
   CloudMoon,
   Shield,
   Users,
+  Heart,
+  Zap,
+  Fingerprint,
 }
 
 const pathwayImages: Record<string, string> = {
@@ -39,6 +45,11 @@ const pathwayImages: Record<string, string> = {
   "sleep-recovery": "/images/moon.png",
   "trauma-nervous-system": "/images/nervoussystem2.png",
   "systemic-load": "/images/buildingblocks2.png",
+  "attachment-relationships": "/images/hearthshape.png",
+  "self-worth-inner-critic": "/images/silhouette2.png",
+  "rage-emotional-dysregulation": "/images/flowing4.png",
+  "matrescence-identity": "/images/mind3.png",
+  "social-connection-isolation": "/images/hands2.png",
 }
 
 const STORAGE_KEY = "mindful-mama-pattern-map"
