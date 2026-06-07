@@ -16,6 +16,9 @@ import {
 } from "@/lib/coach-memory"
 import { buildWhatWorkedPrompt } from "@/lib/engagement/what-worked"
 import { buildHardThingPrompt } from "@/lib/engagement/whats-hard-this-week"
+import { detectCrisis } from "@/lib/crisis-detection"
+import { CrisisAlert } from "@/components/crisis-alert"
+import type { CrisisDetectionResult } from "@/lib/crisis-detection"
 import type { CoachConversation } from "@/lib/coach-memory"
 
 interface Message {
@@ -37,6 +40,7 @@ export default function CoachPage() {
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [crisisResult, setCrisisResult] = useState<CrisisDetectionResult | null>(null)
   const [profile, setProfile] = useState<Record<string, string> | null>(null)
   const [patternMap, setPatternMap] = useState<Record<string, unknown> | null>(null)
   const [pathwayResults, setPathwayResults] = useState<Record<string, unknown> | null>(null)
@@ -166,6 +170,17 @@ export default function CoachPage() {
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return
 
+    // Crisis detection — runs BEFORE sending to AI
+    const crisis = detectCrisis(content)
+    if (crisis.isCrisis) {
+      setCrisisResult(crisis)
+      // Still add the message to the conversation so it's visible
+      const userMessage: Message = { role: "user", content: content.trim() }
+      setMessages([...messages, userMessage])
+      setInput("")
+      return // Don't send to AI — show crisis resources instead
+    }
+
     // Client-side daily limit (20 messages per day)
     const today = new Date().toDateString()
     const limitKey = `mindful-mama-coach-limit-${today}`
@@ -226,6 +241,10 @@ export default function CoachPage() {
   }
 
   return (
+    <>
+      {crisisResult?.isCrisis && (
+        <CrisisAlert result={crisisResult} onDismiss={() => setCrisisResult(null)} />
+      )}
     <div className="flex flex-col h-[calc(100dvh-8rem)]">
       {!hasAccess ? (
         <UpgradeGate context="coach" />
@@ -353,5 +372,6 @@ export default function CoachPage() {
       </>
       )}
     </div>
+    </>
   )
 }

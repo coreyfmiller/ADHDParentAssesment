@@ -5,7 +5,10 @@ import Link from "next/link"
 import { CloudRain, Send, ArrowRight, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { logHeavyThing, getRepairSuggestion } from "@/lib/engagement/whats-heavy"
+import { detectCrisis } from "@/lib/crisis-detection"
+import { CrisisAlert } from "@/components/crisis-alert"
 import type { HeavyEntry, HeavyCategory } from "@/lib/engagement/whats-heavy"
+import type { CrisisDetectionResult } from "@/lib/crisis-detection"
 import type { PatternMap } from "@/lib/assessments/types"
 
 interface WhatsHeavyProps {
@@ -19,6 +22,7 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
   const [repairLink, setRepairLink] = useState<{ href: string; label: string } | null>(null)
   const [aiWitness, setAiWitness] = useState<string | null>(null)
   const [isLoadingAI, setIsLoadingAI] = useState(false)
+  const [crisisResult, setCrisisResult] = useState<CrisisDetectionResult | null>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -31,6 +35,13 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
     e.preventDefault()
     if (!input.trim()) return
 
+    // Crisis detection — runs BEFORE anything else
+    const crisis = detectCrisis(input)
+    if (crisis.isCrisis) {
+      setCrisisResult(crisis)
+      // Still log it (for their record) but show crisis resources first
+    }
+
     const entry = logHeavyThing(input, patternMap)
     setLastEntry(entry)
     setInput("")
@@ -38,9 +49,11 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
     const repair = getRepairSuggestion(entry.category)
     setRepairLink(repair)
 
-    // Call AI for personalized witnessing (non-blocking, enhances the pre-written response)
-    setIsLoadingAI(true)
-    fetchAIWitness(entry.text, entry.category, patternMap)
+    // Only call AI if NOT a crisis (crisis gets resources, not a witty response)
+    if (!crisis.isCrisis) {
+      setIsLoadingAI(true)
+      fetchAIWitness(entry.text, entry.category, patternMap)
+    }
   }
 
   const fetchAIWitness = async (text: string, category: string, pm: PatternMap | null) => {
@@ -88,6 +101,15 @@ export function WhatsHeavy({ patternMap }: WhatsHeavyProps) {
     setLastEntry(null)
     setRepairLink(null)
     setAiWitness(null)
+  }
+
+  // Crisis alert — overlays everything
+  if (crisisResult?.isCrisis) {
+    return (
+      <>
+        <CrisisAlert result={crisisResult} onDismiss={() => setCrisisResult(null)} />
+      </>
+    )
   }
 
   // Collapsed state — just a subtle entry point
