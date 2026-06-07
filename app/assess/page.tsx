@@ -203,11 +203,28 @@ export default function AssessHub() {
           </div>
         )}
 
+        {/* Retake option — for returning users */}
+        {hasCompletedSnapshot && (
+          <div className="flex items-center justify-between bg-secondary/20 rounded-xl p-4 border border-border/50">
+            <p className="text-sm text-muted-foreground">
+              Patterns shift with seasons, hormones, and life changes.
+            </p>
+            <Link href="/assess/snapshot">
+              <Button variant="outline" size="sm" className="rounded-xl flex-shrink-0 ml-3">
+                <ArrowRight className="w-3 h-3 mr-1" /> Retake check-in
+              </Button>
+            </Link>
+          </div>
+        )}
+
         {/* Pathway Grid */}
         <div>
           <h2 className="text-xl font-medium text-foreground mb-2">Deeper Pathways</h2>
           <p className="text-muted-foreground text-sm mb-6">
-            Each pathway explores a specific dimension of your experience. Start with the check-in to see which ones are most relevant for you — or explore any that resonate.
+            {hasCompletedSnapshot
+              ? "Explore any pathway — retake them anytime as your patterns shift. Your previous answers are replaced with fresh ones."
+              : "Each pathway explores a specific dimension of your experience. Start with the check-in to see which ones are most relevant for you — or explore any that resonate."
+            }
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
