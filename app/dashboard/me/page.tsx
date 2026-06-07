@@ -69,10 +69,7 @@ export default function MePage() {
     } catch {}
 
     arch = getCurrentArchetype()
-    if (!arch && map) {
-      arch = determineArchetype(map)
-      saveArchetype(arch)
-    }
+    // Don't calculate from snapshot alone — requires all 12 reflections
     setArchetype(arch)
     setHistory(getArchetypeHistory())
 

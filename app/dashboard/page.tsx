@@ -95,10 +95,7 @@ export default function DashboardPage() {
         setContentRecs(getContentRecommendations(map))
 
         arch = getCurrentArchetype()
-        if (!arch) {
-          arch = determineArchetype(map)
-          saveArchetype(arch)
-        }
+        // Don't calculate archetype from snapshot alone — it requires all 12 reflections
         setArchetype(arch)
 
         // Show onboarding if she has assessment data but hasn't told us basics

@@ -158,10 +158,14 @@ export default function SnapshotPage() {
         const map = calculatePatternMap(updatedAnswers)
         setPatternMap(map)
 
-        // Determine and save archetype
-        const arch = determineArchetype(map)
-        setArchetype(arch)
-        saveArchetype(arch)
+        // Only determine archetype if all 12 reflections are already complete
+        const allSlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+        const completedCount = allSlugs.filter(slug => { try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false } }).length
+        if (completedCount >= 12) {
+          const arch = determineArchetype(map)
+          setArchetype(arch)
+          saveArchetype(arch)
+        }
 
         // Save to localStorage
         try {
@@ -434,9 +438,14 @@ export default function SnapshotPage() {
                 if (currentStep === totalSteps) {
                   const map = calculatePatternMap(answers)
                   setPatternMap(map)
-                  const arch = determineArchetype(map)
-                  setArchetype(arch)
-                  saveArchetype(arch)
+                  // Only determine archetype if all 12 reflections complete
+                  const allSlugs2 = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+                  const completedCount2 = allSlugs2.filter(slug => { try { return localStorage.getItem(`mindful-mama-pathway-result-${slug}`) !== null } catch { return false } }).length
+                  if (completedCount2 >= 12) {
+                    const arch = determineArchetype(map)
+                    setArchetype(arch)
+                    saveArchetype(arch)
+                  }
                   try { localStorage.setItem(RESULT_KEY, JSON.stringify(map)); saveSnapshotToHistory(map) } catch {}
                   clearProgress()
                   setAssessmentStep("results")
