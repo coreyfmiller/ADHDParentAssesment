@@ -92,7 +92,7 @@ export const MICRO_GUIDES_UNIVERSAL: MicroGuide[] = [
     readTime: "2 min",
     body: [
       "You sat down to 'quickly check' something and three hours disappeared. The kids were on screens the whole time. Dinner didn't happen. You feel guilty and confused — how can you be so distractible AND so locked in at the same time?",
-      "Intense focus isn't actually about attention control. It's about disengagement failure — your brain's inability to pull away once it's locked onto something stimulating. When something novel, interesting, or emotionally activating captures your attention, your brain floods with dopamine and holds on. It's not choosing to focus. It's being captured.",
+      "Intense focus isn't actually about attention control. It's about disengagement failure — your brain's inability to pull away once it's locked onto something stimulating. When something novel, interesting, or emotionally activating captures your attention, your brain locks onto the reward signal and can't generate the interruption needed to pull away. It's not choosing to focus. It's being captured.",
       "This happens more when you're depleted. A resourced brain can notice 'I've been doing this too long' and disengage. A depleted brain can't generate that interruption signal. The more exhausted you are, the more likely you are to get captured — because your brain is desperately seeking the stimulation hit it's been missing all day.",
       "This is why the capture often lands on the 'wrong' things — reorganising a cupboard instead of paying bills, scrolling instead of sleeping. Your brain doesn't prioritise by importance. It prioritises by stimulation. And when you're running on empty, anything that provides a hit becomes a trap.",
     ],
@@ -164,7 +164,7 @@ export const MICRO_GUIDES_UNIVERSAL: MicroGuide[] = [
     tags: ["universal"],
     readTime: "2 min",
     body: [
-      "Alone, you can't start. But the moment someone else is in the room — even if they're doing something completely different — suddenly you can function. You can clean, organise, make calls, do paperwork. It's like their presence flips a switch. This isn't weird. It's called body doubling, and it works.",
+      "Alone, you can't start. But the moment someone else is in the room — even if they're doing something completely different — suddenly you can function. You can clean, organise, make calls, do paperwork. It's like their presence flips a switch in your brain. If this sounds familiar, there's a name for it: body doubling. And it's more common than you'd think.",
       "Body doubling works because depleted brains struggle with internal motivation but respond well to external cues. Another person's presence provides: a subtle sense of accountability, a mirror for 'normal' behaviour, reduced isolation (which worsens executive dysfunction), and a grounding anchor that keeps your brain from floating away into avoidance.",
       "This is why you could study in coffee shops but not at home. Why you clean before guests arrive but not for yourself. Why work feels easier alongside someone else. Your brain needs external structure that it can't generate internally when it's depleted.",
       "Body doubling doesn't require the other person to help, supervise, or even know what you're doing. They just need to exist in your space. A friend on FaceTime while you fold laundry. A YouTube 'work with me' video. Your partner reading in the same room while you do admin. The presence is the mechanism.",
@@ -201,12 +201,12 @@ export const MICRO_GUIDES_UNIVERSAL: MicroGuide[] = [
     readTime: "2 min",
     body: [
       "The deadline is tomorrow. Suddenly, after weeks of paralysis, you're a machine. Focused, productive, unstoppable. You produce your best work in the final hours. Then you crash. And the cycle repeats.",
-      "This isn't procrastination in the traditional sense. It's urgency dependency — your brain's reliance on adrenaline to compensate for insufficient activation. When a deadline creates urgency, your body releases adrenaline and norepinephrine, which temporarily boost the neurotransmitters needed for focus and action. Urgency is self-medication for a depleted brain.",
+      "This isn't procrastination in the traditional sense. It's urgency dependency — your brain's reliance on adrenaline to compensate for insufficient activation. When a deadline creates urgency, your body releases adrenaline and norepinephrine, which temporarily boost the neurotransmitters needed for focus and action. Urgency becomes the only thing that wakes your brain up.",
       "The problem: this works short-term but destroys you long-term. The adrenaline crash is real. The chronic stress of last-minute functioning damages your health. And the pattern reinforces itself — your brain learns it only needs to activate under threat, so it stops activating any other time.",
       "Breaking urgency dependency doesn't mean eliminating deadlines. It means creating artificial urgency for non-urgent tasks: shorter timers, accountability partners, public commitments, or breaking large tasks into small ones with immediate deadlines. Give your brain the urgency signal without the actual emergency.",
     ],
     tryThis: "Next time you have a distant deadline: set a 25-minute timer and tell yourself 'I'm only doing this for 25 minutes.' The time constraint creates artificial urgency. Your brain doesn't know the difference between real and manufactured pressure.",
-    remember: "You're not lazy until the last minute — you're under-activated until adrenaline compensates. Create artificial urgency instead of waiting for real emergencies.",
+    remember: "You're not lazy until the last minute — your brain doesn't activate without urgency. Create artificial pressure instead of waiting for real emergencies.",
   },
   {
     id: "univ-procrastination-emotion",
@@ -547,8 +547,8 @@ export const MICRO_GUIDES_UNIVERSAL: MicroGuide[] = [
     readTime: "2 min",
     body: [
       "The closet reorganisation you started in March. The craft project from last summer. The online course you signed up for. You have a trail of 80%-done projects behind you and the shame of each one weighs on you.",
-      "This is the novelty-completion gap. Starting new things floods your brain with dopamine — the neurochemical of interest and reward. The beginning is exciting. The middle is monotonous. And monotonous tasks don't generate enough brain activation to sustain your attention when you're already running on empty. So you start the next new thing, chasing the spark of beginning.",
-      "It's not that you can't finish things. It's that finishing requires sustained effort on something that's no longer stimulating — and your depleted brain can't produce the neurochemistry to support that. The last 20% of any project is the hardest because all the novelty is gone and only discipline remains — discipline that requires resources you don't have.",
+      "This is the novelty-completion gap. Starting new things gives your brain a hit of engagement — the neurochemistry of interest and reward. The beginning is exciting. The middle is monotonous. And monotonous tasks don't generate enough brain activation to sustain your attention when you're already running on empty. So you start the next new thing, chasing the spark of beginning.",
+      "It's not that you can't finish things. It's that finishing requires sustained effort on something that's no longer stimulating — and your depleted brain can't sustain interest without novelty. The last 20% of any project is the hardest because all the newness is gone and only persistence remains — persistence that requires resources you don't have.",
       "The workaround: make the ending novel. Change your environment for the final push. Add a reward at completion. Set a deadline with accountability. Or — radical acceptance — decide that some projects don't need finishing. Not everything started needs to be completed. Some things served their purpose in the starting.",
     ],
     tryThis: "Look at your unfinished projects. For each one ask: 'Does this actually need finishing, or did I get what I needed from starting it?' Give yourself permission to officially abandon the ones that don't matter. Close the loop mentally.",
