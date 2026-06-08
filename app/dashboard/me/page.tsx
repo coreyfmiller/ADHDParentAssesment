@@ -242,16 +242,16 @@ export default function MePage() {
         <ProgressiveInsight reflectionsCompleted={reflectionsCompleted} patternMap={patternMap} />
       )}
 
-      {/* Generate / Refresh Portrait CTA — only when all 12 complete */}
+      {/* Generate Full Analysis CTA — only when all 12 complete */}
       {!portrait && patternMap && reflectionsCompleted >= 12 && (
         <div className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/15 text-center">
           <Sparkles className="w-8 h-8 text-primary mx-auto mb-3" />
-          <h2 className="text-lg font-medium text-foreground mb-2">Generate Your Portrait</h2>
+          <h2 className="text-lg font-medium text-foreground mb-2">Generate Your Full Analysis</h2>
           <p className="text-sm text-muted-foreground mb-4 max-w-md mx-auto">
-            Based on your assessment, daily interactions, and coach conversations — a personalized psychological portrait that shows you who you are underneath the overwhelm.
+            Based on all 12 reflections, your daily interactions, and everything your coach has noticed — a comprehensive psychological profile that shows you who you are underneath the overwhelm.
           </p>
           <Button onClick={generatePortrait} disabled={isGenerating} className="rounded-xl">
-            {isGenerating ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</> : <><Sparkles className="w-4 h-4 mr-2" /> Build My Portrait</>}
+            {isGenerating ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</> : <><Sparkles className="w-4 h-4 mr-2" /> Build My Full Analysis</>}
           </Button>
         </div>
       )}
@@ -376,12 +376,17 @@ export default function MePage() {
                   disabled={isGenerating}
                   className="text-xs text-primary hover:text-primary/80 transition-colors"
                 >
-                  {isGenerating ? "Generating..." : "✦ New data available — refresh your portrait"}
+                  {isGenerating ? "Generating..." : "✦ New data available — refresh your analysis"}
                 </button>
               </div>
             )
           })()}
         </div>
+      )}
+
+      {/* FULL ANALYSIS — comprehensive AI-generated insights after 12 reflections */}
+      {reflectionsCompleted >= 12 && patternMap && (
+        <FullAnalysisSection patternMap={patternMap} archetype={archetype} />
       )}
 
       {/* What Your Coach Knows */}
@@ -518,6 +523,265 @@ export default function MePage() {
       <p className="text-[10px] text-muted-foreground/60 text-center leading-relaxed max-w-md mx-auto">
         This portrait is generated from your self-reflection responses for educational purposes only. It is not a clinical assessment, diagnosis, or treatment plan. If you need professional support, please reach out to a qualified healthcare provider.
       </p>
+    </div>
+  )
+}
+
+function FullAnalysisSection({ patternMap, archetype }: { patternMap: PatternMap; archetype: Archetype | null }) {
+  const ANALYSIS_KEY = "mindful-mama-full-analysis"
+  const [analysis, setAnalysis] = useState<any>(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    try {
+      const cached = localStorage.getItem(ANALYSIS_KEY)
+      if (cached) {
+        setAnalysis(JSON.parse(cached))
+      }
+    } catch {}
+  }, [])
+
+  const generate = async () => {
+    setLoading(true)
+    try {
+      const allSlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+      const pathwayAnswers: Record<string, any> = {}
+      for (const slug of allSlugs) {
+        try {
+          const answers = localStorage.getItem(`mindful-mama-pathway-answers-${slug}`)
+          if (answers) pathwayAnswers[slug] = JSON.parse(answers)
+        } catch {}
+      }
+
+      const coachMem = getCoachMemory()
+      const allWins = getAllWins()
+      const recentWins = allWins.slice(-7).flatMap(d => d.wins.map(w => w.text)).slice(-10)
+      const allHeavy = getAllHeavy()
+      const recentHeavy = allHeavy.slice(-5).map((e: { text: string }) => e.text)
+      const hardThings = getAllHardThings().slice(-4).map(h => h.text)
+
+      let userBasics = null
+      try {
+        const basicsData = localStorage.getItem("mindful-mama-user-basics")
+        if (basicsData) userBasics = JSON.parse(basicsData)
+      } catch {}
+
+      const response = await fetch("/api/coach/full-analysis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dimensions: patternMap.dimensions.map(d => ({ label: d.label, intensity: d.intensity, score: d.score, maxScore: d.maxScore })),
+          pathwayAnswers,
+          coachMemory: coachMem,
+          recentWins,
+          recentHeavy,
+          hardThings,
+          archetypeName: archetype?.name || null,
+          userBasics,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setAnalysis(data)
+        try { localStorage.setItem(ANALYSIS_KEY, JSON.stringify(data)) } catch {}
+      }
+    } catch {}
+    setLoading(false)
+  }
+
+  if (!analysis && !loading) {
+    return (
+      <div className="bg-gradient-to-br from-violet-500/5 to-primary/5 rounded-2xl p-6 border border-violet-500/15 text-center">
+        <Brain className="w-8 h-8 text-violet-600 mx-auto mb-3" />
+        <h2 className="text-lg font-medium text-foreground mb-2">Your Full Psychological Analysis</h2>
+        <p className="text-sm text-muted-foreground mb-4 max-w-md mx-auto">
+          Based on everything you&apos;ve shared across 12 reflections — cross-pattern insights, strengths, your growth edge, and more.
+        </p>
+        <Button onClick={generate} className="rounded-xl">
+          <Sparkles className="w-4 h-4 mr-2" /> Generate Full Analysis
+        </Button>
+      </div>
+    )
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-card rounded-2xl p-8 border border-border text-center">
+        <Loader2 className="w-6 h-6 text-primary mx-auto mb-3 animate-spin" />
+        <p className="text-sm font-medium text-foreground mb-1">Building your comprehensive analysis...</p>
+        <p className="text-xs text-muted-foreground">This uses all 12 reflections. It takes a moment.</p>
+      </div>
+    )
+  }
+
+  if (!analysis) return null
+
+  return (
+    <div className="space-y-5">
+      {/* Cross-Pattern Insights */}
+      {analysis.crossPatterns && analysis.crossPatterns.length > 0 && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-violet-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">How Your Patterns Interact</h2>
+          </div>
+          <div className="space-y-4">
+            {analysis.crossPatterns.map((cp: any, i: number) => (
+              <div key={i} className="border-l-2 border-violet-300/50 pl-4">
+                <p className="text-sm font-medium text-foreground mb-1">{cp.title}</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">{cp.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Strengths */}
+      {analysis.strengths && analysis.strengths.length > 0 && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+              <Heart className="w-4 h-4 text-emerald-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Your Strengths (From the Data)</h2>
+          </div>
+          <div className="space-y-3">
+            {analysis.strengths.map((s: any, i: number) => (
+              <div key={i} className="bg-emerald-500/[0.03] rounded-xl p-4 border border-emerald-500/10">
+                <p className="text-sm font-medium text-foreground mb-1">{s.title}</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">{s.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Nervous System Profile */}
+      {analysis.nervousSystemProfile && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center">
+              <Shield className="w-4 h-4 text-rose-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Your Nervous System</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.nervousSystemProfile}</p>
+        </section>
+      )}
+
+      {/* Capacity Map */}
+      {analysis.capacityMap && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+              <Battery className="w-4 h-4 text-amber-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Your Capacity Rhythm</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.capacityMap}</p>
+        </section>
+      )}
+
+      {/* Relational Signature */}
+      {analysis.relationalSignature && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center">
+              <Users className="w-4 h-4 text-pink-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">How You Relate Under Stress</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.relationalSignature}</p>
+        </section>
+      )}
+
+      {/* Identity Core */}
+      {analysis.identityCore && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+              <Fingerprint className="w-4 h-4 text-indigo-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Who You Are Underneath</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.identityCore}</p>
+        </section>
+      )}
+
+      {/* Parenting Wisdom */}
+      {analysis.parentingWisdom && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center">
+              <Heart className="w-4 h-4 text-rose-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Your Parenting Under Pressure</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.parentingWisdom}</p>
+        </section>
+      )}
+
+      {/* Growth Edge */}
+      {analysis.growthEdge && (
+        <section className="bg-gradient-to-br from-primary/5 to-violet-500/5 rounded-2xl p-6 border border-primary/15">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Your Growth Edge</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.growthEdge}</p>
+        </section>
+      )}
+
+      {/* Season Summary */}
+      {analysis.seasonSummary && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center">
+              <Moon className="w-4 h-4 text-teal-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">Your Current Season</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed">{analysis.seasonSummary}</p>
+        </section>
+      )}
+
+      {/* Reflection Insights */}
+      {analysis.reflectionInsights && analysis.reflectionInsights.length > 0 && (
+        <section className="bg-card rounded-2xl p-6 border border-border">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+              <Brain className="w-4 h-4 text-blue-600" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">What Each Reflection Revealed</h2>
+          </div>
+          <div className="space-y-3">
+            {analysis.reflectionInsights.map((ri: any, i: number) => (
+              <div key={i} className="bg-secondary/30 rounded-xl p-4">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">{ri.pathway}</p>
+                <p className="text-sm text-foreground/80 leading-relaxed">{ri.insight}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Letter From Future Self */}
+      {analysis.letterToHer && (
+        <section className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/15">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Mail className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-base font-medium text-foreground">A Letter From Future You</h2>
+          </div>
+          <p className="text-sm text-foreground/80 leading-relaxed italic">{analysis.letterToHer}</p>
+        </section>
+      )}
     </div>
   )
 }
