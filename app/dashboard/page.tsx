@@ -77,6 +77,7 @@ export default function DashboardPage() {
   const [archetype, setArchetype] = useState<Archetype | null>(null)
   const [dailyGuide, setDailyGuide] = useState<MicroGuide | null>(null)
   const [guideRead, setGuideRead] = useState(false)
+  const [guideExpanded, setGuideExpanded] = useState(false)
   const [completedWidgets, setCompletedWidgets] = useState<Set<string>>(new Set())
   const [aiContent, setAiContent] = useState<DailyAIContent | null>(null)
   const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
@@ -249,16 +250,28 @@ export default function DashboardPage() {
 
       {/* Today's Learn — featured editorial banner */}
       {dailyGuide && (
-        <Link
-          href="/dashboard/micro-guides"
-          className={`block rounded-2xl overflow-hidden transition-all group ${
-            guideRead
+        <div
+          onClick={() => {
+            if (!guideRead) {
+              setGuideExpanded(!guideExpanded)
+              if (!guideExpanded) {
+                markGuideRead(dailyGuide.id)
+                setGuideRead(true)
+              }
+            } else {
+              setGuideExpanded(!guideExpanded)
+            }
+          }}
+          className={`block rounded-2xl overflow-hidden transition-all cursor-pointer ${
+            guideRead && !guideExpanded
               ? "bg-secondary/30 border border-border/50"
-              : "bg-gradient-to-br from-amber-50/80 to-orange-50/50 border border-amber-200/40 hover:border-amber-300/60 shadow-sm"
+              : guideExpanded
+                ? "bg-card border border-amber-200/60 shadow-sm"
+                : "bg-gradient-to-br from-amber-50/80 to-orange-50/50 border border-amber-200/40 hover:border-amber-300/60 shadow-sm"
           }`}
         >
           <div className="p-5">
-            {guideRead ? (
+            {guideRead && !guideExpanded ? (
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
                   <Check className="w-4 h-4 text-green-600" />
@@ -267,6 +280,7 @@ export default function DashboardPage() {
                   <p className="text-xs text-green-600 font-medium">Done — you learned something today</p>
                   <p className="text-sm text-muted-foreground truncate">{dailyGuide.title}</p>
                 </div>
+                <span className="text-xs text-muted-foreground">Tap to re-read</span>
               </div>
             ) : (
               <>
@@ -277,25 +291,49 @@ export default function DashboardPage() {
                     {CATEGORY_LABELS[dailyGuide.category]}
                   </span>
                 </div>
-                <h3 className="text-base font-medium text-foreground group-hover:text-amber-800 transition-colors mb-1">
+                <h3 className="text-base font-medium text-foreground mb-1">
                   {dailyGuide.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {dailyGuide.subtitle}
                 </p>
-                <div className="flex items-center gap-2 mt-3">
-                  <span className="text-xs text-amber-700/70 flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {dailyGuide.readTime}
-                  </span>
-                  <span className="text-xs text-amber-700 font-medium ml-auto group-hover:translate-x-0.5 transition-transform">
-                    Read →
-                  </span>
-                </div>
+                {!guideExpanded && (
+                  <div className="flex items-center gap-2 mt-3">
+                    <span className="text-xs text-amber-700/70 flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {dailyGuide.readTime}
+                    </span>
+                    <span className="text-xs text-amber-700 font-medium ml-auto">
+                      Tap to read →
+                    </span>
+                  </div>
+                )}
               </>
             )}
           </div>
-        </Link>
+
+          {/* Expanded guide content */}
+          {guideExpanded && (
+            <div className="px-5 pb-5 space-y-3 border-t border-border/50 pt-4">
+              {dailyGuide.body.map((paragraph, i) => (
+                <p key={i} className="text-sm text-foreground/80 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+              <div className="bg-primary/5 rounded-lg p-3 mt-3">
+                <p className="text-xs font-medium text-primary mb-1">Try this</p>
+                <p className="text-sm text-foreground">{dailyGuide.tryThis}</p>
+              </div>
+              <div className="bg-secondary/50 rounded-lg p-3">
+                <p className="text-xs font-medium text-muted-foreground mb-1">Remember</p>
+                <p className="text-sm text-foreground italic">{dailyGuide.remember}</p>
+              </div>
+              {dailyGuide.caveat && (
+                <p className="text-xs text-muted-foreground italic border-l-2 border-border pl-3">{dailyGuide.caveat}</p>
+              )}
+            </div>
+          )}
+        </div>
       )}
 
       {/* Evening Recap — shows after 6pm with day's evidence */}
