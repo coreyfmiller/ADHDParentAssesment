@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { BookOpen, ArrowRight, Clock, ChevronDown } from "lucide-react"
@@ -47,7 +48,9 @@ const deepDives = [
 ]
 
 export default function GuidesPage() {
-  const [activeTab, setActiveTab] = useState<"deep-dives" | "quick-reads">("deep-dives")
+  const searchParams = useSearchParams()
+  const tabParam = searchParams.get("tab")
+  const [activeTab, setActiveTab] = useState<"deep-dives" | "quick-reads">(tabParam === "quick-reads" ? "quick-reads" : "deep-dives")
   const [categoryFilter, setCategoryFilter] = useState<MicroGuideCategory | "all">("all")
   const [expandedGuide, setExpandedGuide] = useState<string | null>(null)
   const [filteredGuides, setFilteredGuides] = useState<MicroGuide[]>([])

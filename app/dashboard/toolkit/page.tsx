@@ -295,43 +295,97 @@ export default function ToolkitPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Header */}
       <div>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-red-600" />
-          </div>
-          <h1 className="text-2xl md:text-3xl font-medium text-foreground">Emergency Toolkit</h1>
-        </div>
+        <h1 className="text-2xl md:text-3xl font-medium text-foreground mb-1">Your Toolkit</h1>
         <p className="text-muted-foreground">
-          Tap the one that matches right now. Each card gives you a step-by-step intervention you can use in under 2 minutes.
+          Everything in one place. Scripts, reads, interventions — use what you need, when you need it.
         </p>
       </div>
 
-      {/* Card grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {toolkitCards.map((card) => (
-          <button
-            key={card.id}
-            onClick={() => setActiveCard(card.id)}
-            className={cn(
-              "text-left rounded-2xl p-6 border-2 transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
-              card.color.split(" ").slice(0, 1).join(" "),
-              "border-border hover:border-current"
-            )}
+      {/* Scripts Section */}
+      <section className="space-y-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Scripts</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a
+            href="/dashboard/scripts"
+            className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
           >
-            <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center mb-3", card.color.split(" ").slice(0, 2).join(" "))}>
-              {card.icon}
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3">
+              <Play className="w-4 h-4 text-emerald-600" />
             </div>
-            <h2 className="text-lg font-medium text-foreground mb-1">{card.title}</h2>
-            <p className="text-sm text-muted-foreground line-clamp-2">{card.subtitle}</p>
-          </button>
-        ))}
-      </div>
+            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Script Library</h3>
+            <p className="text-xs text-muted-foreground mt-1">Ready-made words for hard conversations</p>
+          </a>
+          <a
+            href="/dashboard/scripts/generate"
+            className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center mb-3">
+              <Brain className="w-4 h-4 text-violet-600" />
+            </div>
+            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">AI Script Generator</h3>
+            <p className="text-xs text-muted-foreground mt-1">Describe your situation, get a personalised script</p>
+          </a>
+        </div>
+      </section>
 
-      <div className="text-center pt-4">
+      {/* Guides Section */}
+      <section className="space-y-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Guides</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a
+            href="/dashboard/guides"
+            className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 flex items-center justify-center mb-3">
+              <Hand className="w-4 h-4 text-blue-600" />
+            </div>
+            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Deep Dives</h3>
+            <p className="text-xs text-muted-foreground mt-1">6 comprehensive guides for when you have capacity</p>
+          </a>
+          <a
+            href="/dashboard/guides?tab=quick-reads"
+            className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center mb-3">
+              <Zap className="w-4 h-4 text-amber-600" />
+            </div>
+            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Quick Reads</h3>
+            <p className="text-xs text-muted-foreground mt-1">135 bite-size insights — 2 minutes each</p>
+          </a>
+        </div>
+      </section>
+
+      {/* Emergency Section */}
+      <section className="space-y-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">In the Moment</h2>
+        <p className="text-xs text-muted-foreground -mt-1">Tap the one that matches right now. Step-by-step interventions in under 2 minutes.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {toolkitCards.map((card) => (
+            <button
+              key={card.id}
+              onClick={() => setActiveCard(card.id)}
+              className={cn(
+                "text-left rounded-2xl p-5 border transition-all hover:shadow-sm hover:scale-[1.01] active:scale-[0.99]",
+                "bg-card border-border hover:border-primary/20"
+              )}
+            >
+              <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center mb-2", card.color.split(" ").slice(0, 2).join(" "))}>
+                {card.icon}
+              </div>
+              <h3 className="text-sm font-medium text-foreground mb-0.5">{card.title}</h3>
+              <p className="text-xs text-muted-foreground line-clamp-2">{card.subtitle}</p>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <div className="text-center pt-2">
         <p className="text-xs text-muted-foreground">
-          These tools are for self-regulation support, not a substitute for professional care.
+          These tools are for self-regulation and educational purposes, not a substitute for professional care.
           If you are in crisis, contact 988 or your local emergency services.
         </p>
       </div>
