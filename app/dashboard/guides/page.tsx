@@ -71,7 +71,7 @@ const deepDives = [
   },
   {
     slug: "back-to-work",
-    image: "/images/backtowork.png",
+    image: "/images/work.png",
     title: "The First Year Back at Work",
     description: "The guilt, the identity split, the impossible logistics — and how to survive re-entry.",
   },
