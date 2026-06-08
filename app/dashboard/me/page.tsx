@@ -519,10 +519,94 @@ export default function MePage() {
         </Link>
       </div>
 
+      {/* Reset Profile */}
+      <ResetProfileSection />
+
       {/* Disclaimer */}
       <p className="text-[10px] text-muted-foreground/60 text-center leading-relaxed max-w-md mx-auto">
         This portrait is generated from your self-reflection responses for educational purposes only. It is not a clinical assessment, diagnosis, or treatment plan. If you need professional support, please reach out to a qualified healthcare provider.
       </p>
     </div>
+  )
+}
+
+function ResetProfileSection() {
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [confirmText, setConfirmText] = useState("")
+  const [isResetting, setIsResetting] = useState(false)
+
+  const handleReset = () => {
+    if (confirmText.toLowerCase() !== "mindful") return
+
+    setIsResetting(true)
+
+    // Clear all localStorage keys that belong to this app
+    const keysToRemove: string[] = []
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key && key.startsWith("mindful-mama")) {
+        keysToRemove.push(key)
+      }
+    }
+    keysToRemove.forEach(key => localStorage.removeItem(key))
+
+    // Reload the page
+    setTimeout(() => {
+      window.location.href = "/"
+    }, 500)
+  }
+
+  return (
+    <section className="border-t border-border pt-6 mt-6">
+      <div className="space-y-3">
+        <h3 className="text-sm font-medium text-muted-foreground">Danger Zone</h3>
+
+        {!showConfirm ? (
+          <button
+            onClick={() => setShowConfirm(true)}
+            className="text-sm text-red-500/70 hover:text-red-500 transition-colors"
+          >
+            Reset my profile and start over
+          </button>
+        ) : (
+          <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 space-y-3">
+            <div>
+              <p className="text-sm font-medium text-red-600">Are you sure?</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                This will permanently delete all your data — reflections, wins, coach conversations, your portrait, everything. This cannot be undone.
+              </p>
+            </div>
+            <div>
+              <label className="text-xs text-muted-foreground block mb-1.5">
+                Type <span className="font-mono font-medium text-foreground">mindful</span> to confirm
+              </label>
+              <input
+                type="text"
+                value={confirmText}
+                onChange={(e) => setConfirmText(e.target.value)}
+                placeholder="mindful"
+                className="w-full px-3 py-2 text-sm bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500/30 focus:border-red-500/50"
+                autoComplete="off"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={handleReset}
+                disabled={confirmText.toLowerCase() !== "mindful" || isResetting}
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-red-500 text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-red-600 transition-colors"
+              >
+                {isResetting ? "Resetting..." : "Delete everything"}
+              </button>
+              <button
+                onClick={() => { setShowConfirm(false); setConfirmText("") }}
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-secondary text-foreground hover:bg-secondary/80 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
   )
 }
