@@ -208,7 +208,7 @@ export default function MePage() {
               <Sparkles className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <h2 className="text-base font-medium text-foreground">Your Full Profile</h2>
+              <h2 className="text-base font-medium text-foreground">Your Archetype</h2>
               <p className="text-xs text-muted-foreground">Unlocks when all 12 reflections are complete</p>
             </div>
           </div>
@@ -224,14 +224,20 @@ export default function MePage() {
             </div>
             <p className="text-sm text-muted-foreground">
               {reflectionsCompleted === 0 && "Complete your reflections to build a deep psychological portrait — your archetype, your patterns, your nervous system profile, and more."}
-              {reflectionsCompleted > 0 && reflectionsCompleted < 6 && `${12 - reflectionsCompleted} more reflections until your full portrait. Each one you complete gives the AI more data to understand you with.`}
-              {reflectionsCompleted >= 6 && reflectionsCompleted < 12 && `You're over halfway. ${12 - reflectionsCompleted} more reflections and your complete psychological portrait unlocks — archetype, nervous system profile, relational patterns, and a letter from your future self.`}
+              {reflectionsCompleted > 0 && reflectionsCompleted < 3 && `${3 - reflectionsCompleted} more reflections until your first insight. Each one you complete gives the AI more data to understand you with.`}
+              {reflectionsCompleted >= 3 && reflectionsCompleted < 6 && `${6 - reflectionsCompleted} more reflections until your mid-point synthesis. Your portrait is deepening.`}
+              {reflectionsCompleted >= 6 && reflectionsCompleted < 12 && `${12 - reflectionsCompleted} more reflections until your full portrait + archetype unlock.`}
             </p>
             <Link href="/assess" className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 font-medium">
               Continue reflections <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
         </div>
+      )}
+
+      {/* Progressive Insight — at 3+ reflections, before full portrait */}
+      {reflectionsCompleted >= 3 && reflectionsCompleted < 12 && (
+        <ProgressiveInsight reflectionsCompleted={reflectionsCompleted} patternMap={patternMap} />
       )}
 
       {/* Generate / Refresh Portrait CTA — only when all 12 complete */}
@@ -376,22 +382,6 @@ export default function MePage() {
         </div>
       )}
 
-      {/* Mid-point teaser — shows at 6+ reflections but less than 12 */}
-      {reflectionsCompleted >= 6 && reflectionsCompleted < 12 && (
-        <section className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/10">
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <h2 className="text-base font-medium text-foreground">What&apos;s emerging so far</h2>
-          </div>
-          <p className="text-sm text-foreground/70 leading-relaxed mb-3">
-            You&apos;ve completed {reflectionsCompleted} reflections. Patterns are starting to become visible — how your dimensions interact, where the stacking happens, what your nervous system defaults to under pressure. {12 - reflectionsCompleted} more reflections and the full picture comes together.
-          </p>
-          <p className="text-sm text-foreground/70 leading-relaxed">
-            Your AI coach is already using everything you&apos;ve shared so far. The full portrait — your archetype, your nervous system profile, your relational patterns — that&apos;s waiting at 12.
-          </p>
-        </section>
-      )}
-
       {/* What Your Coach Knows */}
       {(coachMemory.facts.length > 0 || coachMemory.patterns.length > 0) && (
         <section className="bg-card rounded-2xl p-6 border border-border">
@@ -528,6 +518,141 @@ export default function MePage() {
       </p>
     </div>
   )
+}
+
+function ProgressiveInsight({ reflectionsCompleted, patternMap }: { reflectionsCompleted: number; patternMap: PatternMap | null }) {
+  const [insight, setInsight] = useState<any>(null)
+  const [loading, setLoading] = useState(false)
+  const tier = reflectionsCompleted >= 6 ? 6 : 3
+  const cacheKey = `mindful-mama-progressive-insight-${tier}`
+
+  useEffect(() => {
+    // Check cache
+    try {
+      const cached = localStorage.getItem(cacheKey)
+      if (cached) {
+        const parsed = JSON.parse(cached)
+        // Only use cache if it was generated at the same tier
+        if (parsed.tier === tier && parsed.reflectionCount === reflectionsCompleted) {
+          setInsight(parsed.data)
+          return
+        }
+      }
+    } catch {}
+
+    // Generate
+    if (!patternMap) return
+    generateInsight()
+  }, [tier, reflectionsCompleted])
+
+  const generateInsight = async () => {
+    if (!patternMap) return
+    setLoading(true)
+    try {
+      const allSlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+      const completedPathways: string[] = []
+      const pathwayAnswers: Record<string, any> = {}
+
+      for (const slug of allSlugs) {
+        try {
+          const result = localStorage.getItem(`mindful-mama-pathway-result-${slug}`)
+          if (result) {
+            completedPathways.push(slug)
+            const answers = localStorage.getItem(`mindful-mama-pathway-answers-${slug}`)
+            if (answers) pathwayAnswers[slug] = JSON.parse(answers)
+          }
+        } catch {}
+      }
+
+      const response = await fetch("/api/coach/progressive-insight", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tier,
+          dimensions: patternMap.dimensions.map(d => ({ label: d.label, intensity: d.intensity, score: d.score, maxScore: d.maxScore })),
+          completedPathways,
+          pathwayAnswers,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setInsight(data)
+        try {
+          localStorage.setItem(cacheKey, JSON.stringify({ tier, reflectionCount: reflectionsCompleted, data, generatedAt: Date.now() }))
+        } catch {}
+      }
+    } catch {}
+    setLoading(false)
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/10 text-center">
+        <Loader2 className="w-5 h-5 text-primary mx-auto mb-2 animate-spin" />
+        <p className="text-sm text-muted-foreground">Building your insight...</p>
+      </div>
+    )
+  }
+
+  if (!insight) return null
+
+  // Tier 3: brief insight
+  if (tier === 3 && insight.insight) {
+    return (
+      <section className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/10">
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="w-5 h-5 text-primary" />
+          <h2 className="text-base font-medium text-foreground">What&apos;s Emerging</h2>
+          <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full ml-auto">3 reflections</span>
+        </div>
+        <p className="text-sm text-foreground/80 leading-relaxed">{insight.insight}</p>
+        <p className="text-xs text-muted-foreground mt-3">
+          Complete 3 more reflections for a deeper synthesis →
+        </p>
+      </section>
+    )
+  }
+
+  // Tier 6: mini-portrait
+  if (tier === 6) {
+    return (
+      <section className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-primary" />
+          <h2 className="text-base font-medium text-foreground">Your Mid-Point Portrait</h2>
+          <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full ml-auto">6 reflections</span>
+        </div>
+
+        {insight.dominant && (
+          <div className="bg-card rounded-2xl p-5 border border-border">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">What&apos;s Showing Up Most</p>
+            <p className="text-sm text-foreground/80 leading-relaxed">{insight.dominant}</p>
+          </div>
+        )}
+
+        {insight.nervous && (
+          <div className="bg-card rounded-2xl p-5 border border-border">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">Your Nervous System</p>
+            <p className="text-sm text-foreground/80 leading-relaxed">{insight.nervous}</p>
+          </div>
+        )}
+
+        {insight.insight && (
+          <div className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-5 border border-primary/10">
+            <p className="text-xs font-medium text-primary uppercase tracking-wide mb-2">A Pattern You Might Not Have Seen</p>
+            <p className="text-sm text-foreground/80 leading-relaxed italic">{insight.insight}</p>
+          </div>
+        )}
+
+        <p className="text-xs text-muted-foreground text-center">
+          {12 - reflectionsCompleted} more reflections until your full portrait + archetype unlock
+        </p>
+      </section>
+    )
+  }
+
+  return null
 }
 
 function ResetProfileSection() {
