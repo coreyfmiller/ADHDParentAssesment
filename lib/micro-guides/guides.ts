@@ -11,7 +11,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "ef-task-initiation",
     title: "Why You Can't 'Just Start'",
-    subtitle: "It's not laziness. Your brain's starter motor is broken.",
+    subtitle: "It's not laziness. Your brain's starter motor needs a workaround.",
     category: "executive-function",
     archetypes: ["plate-spinner", "running-on-empty", "weight-bearer"],
     dimensions: ["cognitive-load"],
@@ -24,7 +24,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
       "The most effective workaround is called 'body-first initiation.' Instead of waiting for your brain to send the start signal, you move your body toward the task physically. Stand up. Walk to the sink. Touch the first dish. Don't commit to finishing — just commit to touching. The movement often triggers the brain to engage.",
     ],
     tryThis: "Next time you're stuck: stand up, walk to the task, and touch one object related to it. Don't commit to doing it. Just touch it. See what happens.",
-    remember: "You're not lazy. Your starter motor is weak. Move your body first — your brain will follow.",
+    remember: "You're not lazy. Your starter motor needs a workaround. Move your body first — your brain will follow.",
   },
   {
     id: "ef-time-blindness",
@@ -133,7 +133,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
     body: [
       "Every afternoon around 2-4pm, you hit a wall. Energy drops. Brain fog rolls in. Patience evaporates. You think it's because you're weak or undisciplined. It's actually your cortisol curve doing exactly what it's supposed to do.",
       "Cortisol — your alertness hormone — follows a natural daily rhythm. It peaks in the morning (that's what wakes you up) and gradually declines throughout the day. The steepest drop happens mid-afternoon. For everyone. It's biology, not failure.",
-      "But here's what makes it worse for depleted mothers: if your morning cortisol is already low (because you're chronically stressed and your adrenals are fatigued), the afternoon drop takes you from 'barely functioning' to 'can't function at all.' You don't have the buffer that rested people have.",
+      "But here's what makes it worse for depleted mothers: if your morning cortisol is already low (because chronic stress has disrupted your HPA axis rhythm), the afternoon drop takes you from 'barely functioning' to 'can't function at all.' You don't have the buffer that rested people have.",
       "This is why the 'witching hour' (3-6pm) is universally the hardest time for mothers. Your cortisol is at its lowest, your kids' behavior is at its worst (they're tired too), and dinner needs to happen. It's a perfect storm of biology and circumstance.",
     ],
     tryThis: "Plan your hardest tasks for morning (when cortisol is highest). Protect 2-4pm as a low-demand window. If possible: protein snack at 2pm, 5 minutes of sunlight, and lower your expectations for that window entirely.",
@@ -160,7 +160,7 @@ export const MICRO_GUIDES: MicroGuide[] = [
   {
     id: "pns-burnout-vs-depression",
     title: "Burnout and Depression Look the Same",
-    subtitle: "One is fixed by rest. The other isn't. Here's how to tell.",
+    subtitle: "One responds to rest. The other often doesn't. Here's how to reflect on what you're experiencing.",
     category: "physical-nervous-system",
     archetypes: ["running-on-empty", "burning-engine", "weight-bearer"],
     dimensions: ["physical-depletion", "emotional-bandwidth"],
@@ -169,12 +169,12 @@ export const MICRO_GUIDES: MicroGuide[] = [
     body: [
       "You're exhausted. Nothing brings joy. You can't concentrate. You feel empty. Is this depression? Or is this burnout? The symptoms overlap almost completely — but the cause and the fix are different.",
       "Depression is a neurochemical state — serotonin, dopamine, and norepinephrine are dysregulated. It can happen regardless of circumstances. Burnout is a resource depletion state — you've been outputting more than you're inputting for too long. It happens BECAUSE of circumstances.",
-      "The key differentiator: if you imagine being given a week alone in a quiet cabin with no responsibilities, how do you feel? If the answer is 'relieved, I'd sleep and recover' — that's more likely burnout. If the answer is 'I'd still feel empty and hopeless even there' — that may be depression. (Both can coexist.)",
-      "Why it matters: burnout responds to rest, reduced load, and structural change. Depression often needs clinical intervention — therapy, medication, or both. Treating burnout with antidepressants alone won't fix it if the structural cause remains. Treating depression with 'just rest more' won't fix it if the neurochemistry is off.",
+      "One question some people find clarifying: if you imagine being given a week alone in a quiet cabin with no responsibilities, how do you feel? If the answer is 'relieved, I'd sleep and recover' — that leans more toward burnout. If the answer is 'I'd still feel empty and hopeless even there' — that may point toward depression. (Both can coexist, and only a professional can assess this properly.)",
+      "Why it matters: burnout often responds to rest, reduced load, and structural change. Depression often needs clinical intervention — therapy, and sometimes medication. Treating burnout without addressing the structural cause won't resolve it. Treating depression with 'just rest more' won't fix it if the neurochemistry needs attention.",
       "If you're unsure: please talk to a healthcare provider. There's no shame in either. But knowing which one you're dealing with changes what will actually help.",
     ],
-    tryThis: "Ask yourself the cabin question honestly. Then ask: 'If my circumstances changed dramatically (more support, less load), would I feel better?' If yes — the structure is the problem, not your brain chemistry. If no — consider talking to a professional.",
-    remember: "Burnout and depression look identical from the outside. The difference is whether rest would fix it. If you're not sure, ask for help. That's not weakness — it's intelligence.",
+    tryThis: "Ask yourself the cabin question as a reflection point — not a diagnostic test. Then ask: 'If my circumstances changed dramatically (more support, less load), would I feel better?' If yes — the structure may be a key factor. If no — it's worth exploring this with a professional who can look at the full picture.",
+    remember: "Burnout and depression can look identical from the outside. The difference often lies in whether rest and structural change would help. If you're not sure, talking to a professional is the smart move.",
     caveat: "This guide helps you reflect on what you might be experiencing — it cannot diagnose. Burnout and depression can coexist, and both deserve professional support. If you're unsure, please speak with a healthcare provider who can assess you properly.",
   },
 

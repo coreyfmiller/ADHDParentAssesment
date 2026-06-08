@@ -71,12 +71,12 @@ export const MICRO_GUIDES_BATCH3: MicroGuide[] = [
     readTime: "2 min",
     body: [
       "The deadline is tomorrow. Suddenly, after weeks of paralysis, you're a machine. Focused, productive, unstoppable. You produce your best work in the final hours. Then you crash. And the cycle repeats.",
-      "This isn't procrastination in the traditional sense. It's urgency dependency — your brain's reliance on adrenaline to compensate for insufficient dopamine. When a deadline creates urgency, your body releases adrenaline and norepinephrine, which temporarily boost the same neurotransmitters that ADHD brains lack. Urgency is self-medication.",
+      "This isn't procrastination in the traditional sense. It's urgency dependency — your brain's reliance on adrenaline to compensate for insufficient dopamine. When a deadline creates urgency, your body releases adrenaline and norepinephrine, which temporarily boost the neurotransmitter availability that ADHD brains struggle to maintain. Urgency is self-medication.",
       "The problem: this works in the short term but destroys you long-term. The adrenaline crash after the deadline is real. The chronic stress of last-minute functioning damages your health. And the pattern reinforces itself — your brain learns that it only needs to activate under threat, so it stops activating any other time.",
       "Breaking urgency dependency doesn't mean eliminating deadlines. It means creating artificial urgency for non-urgent tasks: shorter timers, accountability partners, public commitments, or breaking large tasks into small ones with immediate deadlines. Give your brain the urgency signal without the actual emergency.",
     ],
     tryThis: "Next time you have a task with a distant deadline: set a 25-minute timer and tell yourself 'I'm only doing this for 25 minutes.' The time constraint creates artificial urgency. Your brain doesn't know the difference between real and manufactured pressure — it just needs the signal.",
-    remember: "You're not lazy until the last minute — you're dopamine-deficient until adrenaline compensates. Create artificial urgency instead of waiting for real emergencies.",
+    remember: "You're not lazy until the last minute — your brain needs a stronger dopamine signal than urgency provides on its own. Create artificial urgency instead of waiting for real emergencies.",
   },
   {
     id: "ef-procrastination-emotion",

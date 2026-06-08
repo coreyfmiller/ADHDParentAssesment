@@ -18,7 +18,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     body: [
       "The closet reorganization you started in March. The craft project from last summer. The online course you signed up for. The garden that got planted but never maintained. You have a trail of 80%-done projects behind you and the shame of each one weighs on you.",
       "This is the novelty-completion gap. ADHD brains are fueled by novelty — new things flood the brain with dopamine. Starting is exciting. The middle is boring. And boring tasks don't generate enough dopamine to sustain attention. So you start the next new thing, chasing the dopamine hit of beginning.",
-      "It's not that you can't finish things. It's that finishing requires sustained effort on something that's no longer novel — and your brain literally doesn't produce the neurochemistry to support that. The last 20% of any project is the hardest 20% for an ADHD brain because all the novelty is gone.",
+      "It's not that you can't finish things. It's that finishing requires sustained effort on something that's no longer novel — and your brain struggles to produce the neurochemistry to support that. The last 20% of any project is the hardest 20% for an ADHD brain because all the novelty is gone.",
       "The workaround: make the ending novel. Change your environment for the final push. Add a reward at completion. Set a deadline with external accountability. Or — radical acceptance — decide that some projects don't need finishing. Not everything started needs to be completed. Some things served their purpose in the starting.",
     ],
     tryThis: "Look at your unfinished projects. For each one ask: 'Does this actually need finishing, or did I get what I needed from starting it?' Give yourself permission to officially abandon the ones that don't matter. Close the loop mentally even if you don't close it physically.",
@@ -53,12 +53,12 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     readTime: "2 min",
     body: [
       "You're anxious and your stomach hurts. Or you're stressed and you can't eat. Or you're overwhelmed and your digestion is a mess. This isn't coincidence — your gut and brain are in constant bidirectional communication through the vagus nerve and the enteric nervous system.",
-      "Your gut produces approximately 90% of your body's serotonin and 50% of its dopamine. When your gut is inflamed, malnourished, or disrupted (from stress, poor diet, or irregular eating), neurotransmitter production drops. Less serotonin = more anxiety and depression. Less dopamine = worse ADHD symptoms.",
+      "Your gut produces a significant portion of your body's serotonin and dopamine. When your gut is inflamed, malnourished, or disrupted (from stress, poor diet, or irregular eating), neurotransmitter production can be affected. This may contribute to mood changes and worsened executive function symptoms.",
       "The stress-gut loop: stress disrupts digestion → disrupted digestion reduces neurotransmitter production → reduced neurotransmitters worsen mood and executive function → worsened function increases stress → more digestive disruption. It's a cycle that can be interrupted at any point.",
       "For overwhelmed mothers who skip meals, eat standing up, rely on coffee and adrenaline, and never sit down for a proper meal — the gut-brain axis is almost certainly compromised. This isn't about 'clean eating' or wellness culture. It's about basic fuel for basic brain function.",
     ],
     tryThis: "This week: eat one meal per day sitting down, without multitasking, chewing slowly. Just one. Notice if your digestion and your mood shift even slightly. Your gut needs calm to function — and your brain needs your gut to function.",
-    remember: "Your gut makes most of your serotonin and dopamine. When you skip meals, eat in chaos, or run on coffee — your brain chemistry suffers directly. Feed your gut and you feed your brain.",
+    remember: "Your gut plays a significant role in neurotransmitter production. When you skip meals, eat in chaos, or run on coffee — your brain chemistry can suffer. Feed your gut and you feed your brain.",
   },
   {
     id: "horm-pmdd",
@@ -70,9 +70,9 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     tags: ["hormonal"],
     readTime: "2 min",
     body: [
-      "PMS is uncomfortable. PMDD (Premenstrual Dysphoric Disorder) is disabling. If the week before your period involves: suicidal thoughts, rage so intense you scare yourself, complete inability to function, feeling like a different person, or relationship-destroying emotional episodes — that's not 'just hormones.' That's PMDD.",
-      "PMDD affects 3-8% of menstruating women and is significantly more common in women with ADHD. It's caused by an abnormal sensitivity to normal hormonal fluctuations — your hormone levels may be 'normal' on blood tests, but your brain's response to them is amplified.",
-      "The distinction matters because PMDD is treatable — with SSRIs (which can be taken only during the luteal phase), hormonal interventions, or other targeted approaches. But it's chronically underdiagnosed because: women minimize their symptoms ('it's just PMS'), providers dismiss them ('that's normal'), and the cyclical nature means you feel fine for 3 weeks and forget how bad the fourth week was.",
+      "PMS is uncomfortable. PMDD (Premenstrual Dysphoric Disorder) is disabling. If the week before your period involves: suicidal thoughts, rage so intense you scare yourself, complete inability to function, feeling like a different person, or relationship-destroying emotional episodes — that's not 'just hormones.' That may be PMDD, and it's worth discussing with your doctor.",
+      "PMDD affects 3-8% of menstruating women and emerging research suggests it may be more common in women with ADHD. It's caused by an abnormal sensitivity to normal hormonal fluctuations — your hormone levels may be 'normal' on blood tests, but your brain's response to them is amplified.",
+      "The distinction matters because PMDD is treatable — with various medical approaches that your doctor can discuss with you. But it's chronically underdiagnosed because: women minimize their symptoms ('it's just PMS'), providers dismiss them ('that's normal'), and the cyclical nature means you feel fine for 3 weeks and forget how bad the fourth week was.",
       "If you lose 1-2 weeks of functional capacity every month to premenstrual symptoms — that's not something to push through. That's a medical condition that deserves treatment.",
     ],
     tryThis: "Track your worst symptoms against your cycle for 2-3 months. If they consistently cluster in the 7-10 days before your period AND resolve within a few days of bleeding starting — bring this data to your doctor and ask specifically about PMDD.",
@@ -145,7 +145,7 @@ export const MICRO_GUIDES_BATCH5: MicroGuide[] = [
     readTime: "3 min",
     body: [
       "It's 4pm. Homework needs to happen. Your child can't start. You can't make them start. You're both dysregulated within 5 minutes. The yelling begins. The crying begins. Everyone ends up worse than before. This is not a parenting failure — it's two depleted brains colliding over a task that requires executive function neither of you has left.",
-      "Why homework is uniquely terrible: it happens at the worst time of day (afternoon, when cortisol and dopamine are lowest), it requires task initiation (the hardest executive function skill), it's boring (no dopamine reward), and it involves a parent-child power dynamic that activates everyone's worst patterns.",
+      "Why homework is uniquely terrible: it happens at the worst time of day (afternoon, when energy and focus are naturally declining), it requires task initiation (the hardest executive function skill), it's boring (no dopamine reward), and it involves a parent-child power dynamic that activates everyone's worst patterns.",
       "If your child has ADHD (diagnosed or suspected): they literally cannot 'just sit down and do it.' Their brain needs: a transition buffer (10 minutes of decompression after school before starting), a body break (movement before sitting), a snack (fuel for cognitive work), reduced choice ('start with math' not 'what do you want to do first?'), and your calm presence (body doubling).",
       "If YOU have ADHD: you're being asked to supervise a boring task while depleted, which is your personal hell. Strategies: set a timer (external structure for both of you), do your own 'homework' alongside them (body doubling works both ways), keep it short (20 minutes max, then break), and lower your standard (done > perfect).",
     ],
