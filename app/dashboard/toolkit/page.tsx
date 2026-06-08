@@ -309,16 +309,6 @@ export default function ToolkitPage() {
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">Scripts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <a
-            href="/dashboard/scripts"
-            className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
-          >
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3">
-              <Play className="w-4 h-4 text-emerald-600" />
-            </div>
-            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Script Library</h3>
-            <p className="text-xs text-muted-foreground mt-1">Ready-made words for hard conversations</p>
-          </a>
-          <a
             href="/dashboard/scripts/generate"
             className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
           >
@@ -327,6 +317,16 @@ export default function ToolkitPage() {
             </div>
             <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">AI Script Generator</h3>
             <p className="text-xs text-muted-foreground mt-1">Describe your situation, get a personalised script</p>
+          </a>
+          <a
+            href="/dashboard/scripts"
+            className="bg-card rounded-2xl p-5 border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3">
+              <Play className="w-4 h-4 text-emerald-600" />
+            </div>
+            <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Script Library</h3>
+            <p className="text-xs text-muted-foreground mt-1">Browse ready-made scripts for common situations</p>
           </a>
         </div>
       </section>
