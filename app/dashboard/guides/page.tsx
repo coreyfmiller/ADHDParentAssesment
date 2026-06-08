@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -132,6 +132,14 @@ const deepDives = [
 ]
 
 export default function GuidesPage() {
+  return (
+    <Suspense fallback={<div className="py-12 text-center text-sm text-muted-foreground">Loading guides...</div>}>
+      <GuidesContent />
+    </Suspense>
+  )
+}
+
+function GuidesContent() {
   const searchParams = useSearchParams()
   const tabParam = searchParams.get("tab")
   const [activeTab, setActiveTab] = useState<"deep-dives" | "quick-reads">(tabParam === "quick-reads" ? "quick-reads" : "deep-dives")
