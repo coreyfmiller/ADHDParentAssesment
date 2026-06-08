@@ -343,7 +343,7 @@ export default function ToolkitPage() {
               <Hand className="w-4 h-4 text-blue-600" />
             </div>
             <h3 className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Deep Dives</h3>
-            <p className="text-xs text-muted-foreground mt-1">6 comprehensive guides for when you have capacity</p>
+            <p className="text-xs text-muted-foreground mt-1">20 comprehensive guides for when you have capacity</p>
           </a>
           <a
             href="/dashboard/guides?tab=quick-reads"
