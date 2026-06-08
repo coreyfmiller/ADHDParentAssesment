@@ -13,7 +13,7 @@ import {
   Users,
   ArrowRight,
   CheckCircle2,
-  Lock,
+  Circle,
   Sparkles,
   Heart,
   Zap,
@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { PATHWAYS } from "@/lib/assessments/types"
 import type { PatternMap } from "@/lib/assessments/types"
-import { PathwayInsightBadge } from "@/components/engagement/pathway-insight-badge"
+import { DimensionExplainerModal } from "@/components/dimension-explainer-modal"
 
 const iconMap: Record<string, React.ElementType> = {
   Brain,
@@ -57,6 +57,7 @@ const STORAGE_KEY = "mindful-mama-pattern-map"
 export default function AssessHub() {
   const [patternMap, setPatternMap] = useState<PatternMap | null>(null)
   const [completedSlugs, setCompletedSlugs] = useState<Set<string>>(new Set())
+  const [selectedDimension, setSelectedDimension] = useState<string | null>(null)
 
   useEffect(() => {
     try {
@@ -66,7 +67,6 @@ export default function AssessHub() {
       }
     } catch {}
 
-    // Check which pathways are completed
     const completed = new Set<string>()
     for (const p of PATHWAYS) {
       try {
@@ -79,6 +79,18 @@ export default function AssessHub() {
   }, [])
 
   const hasCompletedSnapshot = patternMap !== null
+  const completedCount = completedSlugs.size
+  const nextMilestone = completedCount < 3 ? 3 : completedCount < 6 ? 6 : 12
+  const nextMilestoneLabel = nextMilestone === 3 ? "First Insight" : nextMilestone === 6 ? "Mid-Point Portrait" : "Full Portrait + Archetype"
+
+  // Find the most relevant uncompleted reflection
+  const nextRecommended = patternMap?.recommendedPathways?.find(
+    r => {
+      const pathway = PATHWAYS.find(p => p.id === r.pathwayId)
+      return pathway && !completedSlugs.has(pathway.slug)
+    }
+  )
+  const nextRecommendedPathway = nextRecommended ? PATHWAYS.find(p => p.id === nextRecommended.pathwayId) : null
 
   return (
     <main className="min-h-screen bg-background">
@@ -98,15 +110,15 @@ export default function AssessHub() {
       </header>
 
       <div className="max-w-3xl mx-auto px-4 py-8 md:py-12 space-y-8">
-        {/* Hero — adapts based on whether she's done the check-in */}
-        <div className="text-center space-y-4">
+        {/* Hero */}
+        <div className="text-center space-y-3">
           <h1 className="text-3xl md:text-4xl font-medium text-foreground text-balance leading-tight">
-            {hasCompletedSnapshot ? "Your Pattern Map" : "Understand what\u0027s actually going on"}
+            {hasCompletedSnapshot ? "Your Reflections" : "Understand what\u0027s actually going on"}
           </h1>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             {hasCompletedSnapshot
-              ? "Here\u0027s what your check-in revealed. Explore the pathways that are most relevant to you."
-              : "It\u0027s rarely just one thing. These self-reflection tools help you see where your energy is going, what\u0027s stacking up, and what to do about it."
+              ? "Each reflection deepens the picture. At 3, 6, and 12 — new insights unlock."
+              : "A 5-minute check-in maps your current state. Then go deeper through reflections that build toward your full portrait."
             }
           </p>
         </div>
@@ -121,7 +133,7 @@ export default function AssessHub() {
               <div className="flex-1">
                 <h2 className="text-xl font-medium text-foreground mb-1">Check In With Yourself</h2>
                 <p className="text-muted-foreground mb-4">
-                  Start here. A 5-minute check-in that maps your current state across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity. This tells you which deeper pathways will be most useful for you.
+                  A 5-minute check-in that maps your current state across five dimensions — cognitive load, emotional bandwidth, physical depletion, system friction, and identity. This tells you where to go deeper.
                 </p>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                   <span>5 minutes</span>
@@ -141,27 +153,22 @@ export default function AssessHub() {
           </div>
         )}
 
-        {/* Pattern Map Results (if completed) */}
+        {/* Pattern Map (if completed) */}
         {hasCompletedSnapshot && patternMap && (
-          <div className="bg-card rounded-3xl p-8 shadow-sm border border-primary/20">
+          <div className="bg-card rounded-2xl p-6 border border-border">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-foreground">Your Pattern Map</h3>
-              <Link
-                href="/assess/summary"
-                className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
-              >
-                View Full Picture →
-              </Link>
-              <Link
-                href="/assess/profile"
-                className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
-              >
-                My Profile →
+              <h3 className="text-base font-medium text-foreground">Your Pattern Map</h3>
+              <Link href="/assess/snapshot" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                Retake →
               </Link>
             </div>
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-4">
               {patternMap.dimensions.map((dim) => (
-                <div key={dim.dimension} className="space-y-1.5">
+                <button
+                  key={dim.dimension}
+                  onClick={() => setSelectedDimension(dim.dimension)}
+                  className="w-full space-y-1.5 text-left hover:bg-secondary/30 rounded-lg p-2 -mx-2 transition-colors"
+                >
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-foreground">{dim.label}</span>
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
@@ -184,156 +191,150 @@ export default function AssessHub() {
                       style={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
                     />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
+            <p className="text-xs text-muted-foreground">Tap any dimension to learn what it means and what helps.</p>
+          </div>
+        )}
 
-            {/* Recommended Pathways */}
-            {patternMap.recommendedPathways.length > 0 && (
-              <div>
-                <h4 className="text-sm font-medium text-primary uppercase tracking-wide mb-3">
-                  Recommended for you
-                </h4>
-                <div className="space-y-2">
-                  {patternMap.recommendedPathways.map((rec) => (
-                    <div key={rec.pathwayId} className="bg-primary/5 rounded-xl p-4 border border-primary/10">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-medium text-foreground">{rec.title}</span>
-                        {rec.priority === "high" && (
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-red-500/10 text-red-600 font-medium">
-                            Priority
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground">{rec.reason}</p>
-                    </div>
-                  ))}
-                </div>
+        {/* Progress + Next Step */}
+        {hasCompletedSnapshot && (
+          <div className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-6 border border-primary/10">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-base font-medium text-foreground">Progress</h3>
+              <span className="text-sm font-medium text-primary">{completedCount}/12 reflections</span>
+            </div>
+            <div className="h-2 bg-secondary rounded-full overflow-hidden mb-3">
+              <div
+                className="h-full bg-primary/70 rounded-full transition-all duration-500"
+                style={{ width: `${(completedCount / 12) * 100}%` }}
+              />
+            </div>
+            {/* Milestones */}
+            <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+              <span className={completedCount >= 3 ? "text-primary font-medium" : ""}>3 — First Insight</span>
+              <span className={completedCount >= 6 ? "text-primary font-medium" : ""}>6 — Mid-Portrait</span>
+              <span className={completedCount >= 12 ? "text-primary font-medium" : ""}>12 — Full Unlock</span>
+            </div>
+            {/* Next action */}
+            {completedCount < 12 && (
+              <div className="bg-card/50 rounded-xl p-4 border border-border/50">
+                <p className="text-xs text-muted-foreground mb-1">Next unlock: <span className="font-medium text-foreground">{nextMilestoneLabel}</span> ({nextMilestone - completedCount} more)</p>
+                {nextRecommendedPathway ? (
+                  <Link
+                    href={`/assess/pathway/${nextRecommendedPathway.slug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 mt-1"
+                  >
+                    Start: {nextRecommendedPathway.title} <ArrowRight className="w-3 h-3" />
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/assess/pathway/${PATHWAYS.find(p => !completedSlugs.has(p.slug))?.slug || "executive-function"}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 mt-1"
+                  >
+                    Continue reflections <ArrowRight className="w-3 h-3" />
+                  </Link>
+                )}
+              </div>
+            )}
+            {completedCount >= 12 && (
+              <div className="bg-card/50 rounded-xl p-4 border border-primary/20 text-center">
+                <Sparkles className="w-5 h-5 text-primary mx-auto mb-1" />
+                <p className="text-sm font-medium text-foreground">All reflections complete</p>
+                <Link href="/dashboard/me" className="text-xs text-primary hover:text-primary/80 mt-1 inline-block">
+                  View your full portrait + archetype →
+                </Link>
               </div>
             )}
           </div>
         )}
 
-        {/* Retake option — for returning users */}
+        {/* All 12 Reflections — shows completed AND remaining */}
         {hasCompletedSnapshot && (
-          <div className="flex items-center justify-between bg-secondary/20 rounded-xl p-4 border border-border/50">
-            <p className="text-sm text-muted-foreground">
-              Patterns shift with seasons, hormones, and life changes.
+          <div>
+            <h2 className="text-xl font-medium text-foreground mb-2">All Reflections</h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              Each one deepens your portrait. Complete them in any order — retake anytime as your patterns shift.
             </p>
-            <Link href="/assess/snapshot">
-              <Button variant="outline" size="sm" className="rounded-xl flex-shrink-0 ml-3">
-                <ArrowRight className="w-3 h-3 mr-1" /> Retake check-in
-              </Button>
-            </Link>
+
+            <div className="space-y-3">
+              {PATHWAYS.map((pathway) => {
+                const isCompleted = completedSlugs.has(pathway.slug)
+                const isRecommended = patternMap?.recommendedPathways.some(r => r.pathwayId === pathway.id) && !isCompleted
+                const Icon = iconMap[pathway.icon] || Brain
+
+                return (
+                  <Link
+                    key={pathway.id}
+                    href={`/assess/pathway/${pathway.slug}`}
+                    className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${
+                      isCompleted
+                        ? "bg-green-500/[0.03] border-green-500/20"
+                        : isRecommended
+                          ? "bg-primary/[0.03] border-primary/20 hover:border-primary/40"
+                          : "bg-card border-border hover:border-primary/20"
+                    }`}
+                  >
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                      isCompleted ? "bg-green-500/10" : isRecommended ? "bg-primary/10" : "bg-secondary"
+                    }`}>
+                      <Icon className={`w-5 h-5 ${
+                        isCompleted ? "text-green-600" : isRecommended ? "text-primary" : "text-muted-foreground"
+                      }`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-sm font-medium text-foreground">{pathway.title}</h3>
+                        {isRecommended && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">Recommended</span>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5 truncate">{pathway.subtitle}</p>
+                    </div>
+                    <div className="flex-shrink-0">
+                      {isCompleted ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <span>{pathway.estimatedMinutes} min</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
         )}
 
-        {/* Pathway Grid */}
-        <div>
-          <h2 className="text-xl font-medium text-foreground mb-2">Deeper Pathways</h2>
-          <p className="text-muted-foreground text-sm mb-6">
-            {hasCompletedSnapshot
-              ? "Explore any pathway — retake them anytime as your patterns shift. Your previous answers are replaced with fresh ones."
-              : "Each pathway explores a specific dimension of your experience. Start with the check-in to see which ones are most relevant for you — or explore any that resonate."
-            }
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {PATHWAYS.map((pathway) => {
-              const Icon = iconMap[pathway.icon] || Brain
-              const isRecommended = patternMap?.recommendedPathways.some(
-                (r) => r.pathwayId === pathway.id
-              )
-              const isCompleted = completedSlugs.has(pathway.slug)
-
-              return (
-                <div
-                  key={pathway.id}
-                  className={`bg-card rounded-2xl overflow-hidden border transition-all ${
-                    pathway.available
-                      ? "border-border hover:border-primary/30 hover:shadow-sm"
-                      : "border-border/50 opacity-60"
-                  } ${isRecommended && !isCompleted ? "ring-2 ring-primary/20" : ""} ${isCompleted ? "border-green-500/20 bg-green-500/[0.02]" : ""}`}
-                >
-                  <div className="aspect-[2/1] relative bg-secondary/20">
-                    <Image
-                      src={pathwayImages[pathway.slug] || "/images/flowing.png"}
-                      alt={pathway.title}
-                      fill
-                      className="object-cover"
-                    />
-                    {isCompleted && (
-                      <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                        <CheckCircle2 className="w-4 h-4 text-white" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-medium text-foreground">{pathway.title}</h3>
-                      {isCompleted && (
-                        <span className="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-600 font-medium">
-                          Done
-                        </span>
-                      )}
-                      {isRecommended && !isCompleted && (
-                        <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary" />
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-3">{pathway.subtitle}</p>
-                    {isCompleted && <PathwayInsightBadge pathwaySlug={pathway.slug} />}
-                    <div className="flex items-center gap-2 mt-3">
-                      {pathway.available ? (
-                        <div className="flex items-center gap-3">
-                          <Link
-                            href={`/assess/pathway/${pathway.slug}`}
-                            className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                          >
-                            {isCompleted ? "Retake" : "Begin reflection"}
-                            <ArrowRight className="w-3 h-3" />
-                          </Link>
-                        </div>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                          <Lock className="w-3 h-3" />
-                          Coming soon
-                        </span>
-                      )}
-                      <span className="text-xs text-muted-foreground ml-auto">
-                        {pathway.estimatedMinutes} min
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
+        {/* How it works — for new users */}
+        {!hasCompletedSnapshot && (
+          <div className="bg-secondary/30 rounded-2xl p-6 border border-border/50">
+            <h3 className="text-sm font-medium text-foreground mb-3">How this works</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p><strong className="text-foreground">1. Start with the Check-In.</strong> 5 minutes to map where your energy is going.</p>
+              <p><strong className="text-foreground">2. Explore reflections.</strong> Go deeper into specific dimensions at your own pace.</p>
+              <p><strong className="text-foreground">3. Unlock insights as you go.</strong> At 3, 6, and 12 reflections — new understanding unlocks.</p>
+              <p><strong className="text-foreground">4. Come back as life changes.</strong> Your patterns shift. Retake anytime.</p>
+            </div>
           </div>
-        </div>
-
-        {/* How this works */}
-        <div className="bg-secondary/30 rounded-2xl p-6 border border-border/50">
-          <h3 className="text-sm font-medium text-foreground mb-3">How this works</h3>
-          <div className="space-y-2 text-sm text-muted-foreground">
-            <p>
-              <strong className="text-foreground">1. Start with the Snapshot.</strong> It takes 5 minutes and maps where your energy is leaking.
-            </p>
-            <p>
-              <strong className="text-foreground">2. Explore your recommended pathways.</strong> Based on your pattern map, we&apos;ll suggest which deeper reflections will be most useful.
-            </p>
-            <p>
-              <strong className="text-foreground">3. Get matched strategies.</strong> Each pathway gives you concrete, low-friction strategies tailored to your specific patterns.
-            </p>
-            <p>
-              <strong className="text-foreground">4. Come back as life changes.</strong> Your patterns shift with seasons, hormones, and life stages. Retake anytime.
-            </p>
-          </div>
-        </div>
+        )}
 
         {/* Disclaimer */}
         <p className="text-xs text-muted-foreground/70 text-center leading-relaxed max-w-xl mx-auto">
-          These tools are for self-reflection and educational purposes only. They are not diagnostic instruments or substitutes for professional care. If you&apos;re struggling, please reach out to a qualified healthcare provider.
+          These tools are for self-reflection and educational purposes only. They are not diagnostic instruments or substitutes for professional care. If you are in crisis, contact 988 (Suicide &amp; Crisis Lifeline) or your local emergency services.
         </p>
       </div>
+
+      {/* Dimension Explainer Modal */}
+      {selectedDimension && (
+        <DimensionExplainerModal
+          dimension={selectedDimension}
+          onClose={() => setSelectedDimension(null)}
+        />
+      )}
     </main>
   )
 }
