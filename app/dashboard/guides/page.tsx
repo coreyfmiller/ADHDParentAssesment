@@ -69,6 +69,66 @@ const deepDives = [
     title: "Burnout & Recovery",
     description: "When depletion becomes burnout. What recovery actually requires — because it's not a weekend off.",
   },
+  {
+    slug: "back-to-work",
+    image: "/images/buildingblocks.png",
+    title: "The First Year Back at Work",
+    description: "The guilt, the identity split, the impossible logistics — and how to survive re-entry.",
+  },
+  {
+    slug: "solo-parenting",
+    image: "/images/silhouette2.png",
+    title: "Solo Parenting",
+    description: "Systems without a safety net. For when there's no one to tag in — and no one's coming.",
+  },
+  {
+    slug: "co-parenting",
+    image: "/images/hearthshape.png",
+    title: "Co-Parenting After Separation",
+    description: "Navigating two households, handover grief, different rules, and keeping your children stable.",
+  },
+  {
+    slug: "child-struggling",
+    image: "/images/hands2.png",
+    title: "When Your Child Is Struggling",
+    description: "The pain of watching, the grief of not fixing it, and supporting them without losing yourself.",
+  },
+  {
+    slug: "breaking-the-cycle",
+    image: "/images/circle2.png",
+    title: "Breaking the Cycle",
+    description: "Intergenerational patterns, your parents' voice, and the brave work of parenting differently.",
+  },
+  {
+    slug: "money-and-scarcity",
+    image: "/images/buildingblocks.png",
+    title: "Money, Scarcity & Decision-Making",
+    description: "Financial anxiety as cognitive overload. Practical systems for overloaded brains.",
+  },
+  {
+    slug: "grief-and-motherhood",
+    image: "/images/moon2.png",
+    title: "Grief & Motherhood",
+    description: "Miscarriage, loss, ambiguous grief — mourning when no one gives you space to fall apart.",
+  },
+  {
+    slug: "sensory-life",
+    image: "/images/circle2.png",
+    title: "Sensory Life",
+    description: "Why noise, touch, and light feel unbearable — and building a life that doesn't assault your nervous system.",
+  },
+  {
+    slug: "friendship-after-kids",
+    image: "/images/hearthshape.png",
+    title: "Friendship After Kids",
+    description: "Why friendships faded, why loneliness hurts, and how to build connection with zero capacity.",
+  },
+  {
+    slug: "what-comes-next",
+    image: "/images/silhouette2.png",
+    title: "What Comes Next",
+    description: "Emerging from the hardest season. When the fog lifts, and the permission to want more.",
+  },
 ]
 
 export default function GuidesPage() {
