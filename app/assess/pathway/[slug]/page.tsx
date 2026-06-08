@@ -578,15 +578,15 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/assess/profile" className="flex-1">
-                <Button variant="outline" className="w-full rounded-xl">
-                  View My Profile
+              <Link href="/assess" className="flex-1">
+                <Button className="w-full rounded-xl">
+                  Back to Reflections
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
               <Link href="/dashboard/coach" className="flex-1">
-                <Button className="w-full rounded-xl">
+                <Button variant="outline" className="w-full rounded-xl">
                   Talk to Coach
-                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </div>
@@ -598,9 +598,6 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
               >
                 Retake this reflection
               </button>
-              <Link href="/assess" className="flex-1 text-sm text-muted-foreground hover:text-foreground py-2 transition-colors text-center">
-                Back to Reflections
-              </Link>
             </div>
 
             {/* Retake confirmation */}
