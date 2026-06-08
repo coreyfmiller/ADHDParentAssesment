@@ -1,10 +1,13 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpen, ArrowRight } from "lucide-react"
+import { BookOpen, ArrowRight, Clock, ChevronDown } from "lucide-react"
+import { MICRO_GUIDES, type MicroGuide, CATEGORY_LABELS, type MicroGuideCategory } from "@/lib/micro-guides"
+import { getUserContentTags, type ContentTag } from "@/lib/user-basics"
 
-const guides = [
+const deepDives = [
   {
     slug: "relationship-maintenance",
     image: "/images/hearthshape.png",
@@ -15,7 +18,7 @@ const guides = [
     slug: "sleep-and-the-brain",
     image: "/images/moon2.png",
     title: "Sleep & The Overwhelmed Brain",
-    description: "Why your brain resists bedtime, the racing-mind toolkit, revenge bedtime procrastination, and realistic sleep strategies that account for night wakings.",
+    description: "Why your brain resists bedtime, the racing-mind toolkit, revenge bedtime procrastination, and realistic sleep strategies.",
   },
   {
     slug: "hormonal-connection",
@@ -27,7 +30,7 @@ const guides = [
     slug: "reclaiming-identity",
     image: "/images/silhouette2.png",
     title: "Reclaiming Your Identity",
-    description: "Who you were before kids, the guilt of wanting time alone, the difference between self-care and identity, and rebuilding a sense of self.",
+    description: "Who you were before kids, the guilt of wanting time alone, and rebuilding a sense of self.",
   },
   {
     slug: "back-to-school",
@@ -44,8 +47,32 @@ const guides = [
 ]
 
 export default function GuidesPage() {
+  const [activeTab, setActiveTab] = useState<"deep-dives" | "quick-reads">("deep-dives")
+  const [categoryFilter, setCategoryFilter] = useState<MicroGuideCategory | "all">("all")
+  const [expandedGuide, setExpandedGuide] = useState<string | null>(null)
+  const [filteredGuides, setFilteredGuides] = useState<MicroGuide[]>([])
+
+  useEffect(() => {
+    // Filter guides by user's content tags
+    const userTags = getUserContentTags()
+    const relevant = MICRO_GUIDES.filter(g => {
+      if (!g.tags || g.tags.length === 0) return true
+      return g.tags.some(tag => userTags.includes(tag as ContentTag))
+    })
+
+    // Apply category filter
+    if (categoryFilter === "all") {
+      setFilteredGuides(relevant)
+    } else {
+      setFilteredGuides(relevant.filter(g => g.category === categoryFilter))
+    }
+  }, [categoryFilter])
+
+  const categories = Object.keys(CATEGORY_LABELS) as MicroGuideCategory[]
+
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-2">
           <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
@@ -54,36 +81,170 @@ export default function GuidesPage() {
           <h1 className="text-2xl md:text-3xl font-medium text-foreground">Guides</h1>
         </div>
         <p className="text-muted-foreground">
-          Deeper dives into specific challenges. Read when you have capacity — not when you&apos;re in crisis.
+          Learn at your own pace. Deep dives for when you have capacity, quick reads for everyday insight.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {guides.map((guide) => (
-          <Link
-            key={guide.slug}
-            href={`/dashboard/guides/${guide.slug}`}
-            className="bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
-          >
-            <div className="aspect-[2/1] relative bg-secondary/30">
-              <Image
-                src={guide.image}
-                alt={guide.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-5">
-              <h2 className="text-base font-medium text-foreground mb-1 group-hover:text-primary transition-colors">{guide.title}</h2>
-              <p className="text-sm text-muted-foreground mb-3">{guide.description}</p>
-              <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-                Read guide <ArrowRight className="w-3 h-3" />
-              </span>
-            </div>
-          </Link>
-        ))}
+      {/* Tabs */}
+      <div className="flex gap-1 bg-secondary/50 rounded-xl p-1">
+        <button
+          onClick={() => setActiveTab("deep-dives")}
+          className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+            activeTab === "deep-dives"
+              ? "bg-card text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Deep Dives
+        </button>
+        <button
+          onClick={() => setActiveTab("quick-reads")}
+          className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+            activeTab === "quick-reads"
+              ? "bg-card text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Quick Reads
+          <span className="ml-1.5 text-xs text-muted-foreground">({filteredGuides.length})</span>
+        </button>
       </div>
 
+      {/* Deep Dives Tab */}
+      {activeTab === "deep-dives" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {deepDives.map((guide) => (
+            <Link
+              key={guide.slug}
+              href={`/dashboard/guides/${guide.slug}`}
+              className="bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-sm transition-all group"
+            >
+              <div className="aspect-[2/1] relative bg-secondary/30">
+                <Image
+                  src={guide.image}
+                  alt={guide.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-5">
+                <h2 className="text-base font-medium text-foreground mb-1 group-hover:text-primary transition-colors">{guide.title}</h2>
+                <p className="text-sm text-muted-foreground mb-3">{guide.description}</p>
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+                  Read guide <ArrowRight className="w-3 h-3" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Quick Reads Tab */}
+      {activeTab === "quick-reads" && (
+        <div className="space-y-4">
+          {/* Category Filter */}
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            <button
+              onClick={() => setCategoryFilter("all")}
+              className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                categoryFilter === "all"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              All
+            </button>
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setCategoryFilter(cat)}
+                className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                  categoryFilter === cat
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {CATEGORY_LABELS[cat]}
+              </button>
+            ))}
+          </div>
+
+          {/* Guide List */}
+          <div className="space-y-3">
+            {filteredGuides.map((guide) => (
+              <div
+                key={guide.id}
+                className="bg-card rounded-xl border border-border overflow-hidden"
+              >
+                {/* Header - always visible */}
+                <button
+                  onClick={() => setExpandedGuide(expandedGuide === guide.id ? null : guide.id)}
+                  className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-secondary/30 transition-colors"
+                >
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-medium text-foreground leading-tight">{guide.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">{guide.subtitle}</p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {guide.readTime}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${
+                      expandedGuide === guide.id ? "rotate-180" : ""
+                    }`} />
+                  </div>
+                </button>
+
+                {/* Expanded content */}
+                {expandedGuide === guide.id && (
+                  <div className="px-4 pb-4 border-t border-border/50 pt-3 space-y-3">
+                    {guide.body.map((paragraph, i) => (
+                      <p key={i} className="text-sm text-muted-foreground leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+
+                    {/* Try This */}
+                    <div className="bg-primary/5 rounded-lg p-3 mt-3">
+                      <p className="text-xs font-medium text-primary mb-1">Try this</p>
+                      <p className="text-sm text-foreground">{guide.tryThis}</p>
+                    </div>
+
+                    {/* Remember */}
+                    <div className="bg-secondary/50 rounded-lg p-3">
+                      <p className="text-xs font-medium text-muted-foreground mb-1">Remember</p>
+                      <p className="text-sm text-foreground italic">{guide.remember}</p>
+                    </div>
+
+                    {/* Caveat if present */}
+                    {guide.caveat && (
+                      <p className="text-xs text-muted-foreground italic border-l-2 border-border pl-3">
+                        {guide.caveat}
+                      </p>
+                    )}
+
+                    {/* Grounding note if present */}
+                    {guide.groundingNote && (
+                      <p className="text-xs text-muted-foreground italic border-l-2 border-amber-300 pl-3">
+                        {guide.groundingNote}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {filteredGuides.length === 0 && (
+            <div className="text-center py-8">
+              <p className="text-sm text-muted-foreground">No guides in this category yet.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Footer */}
       <div className="text-center pt-4">
         <p className="text-sm text-muted-foreground">
           All content is for educational and self-reflection purposes only.
