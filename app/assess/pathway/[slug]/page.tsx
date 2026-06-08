@@ -578,12 +578,29 @@ export default function PathwayPage({ params }: { params: Promise<{ slug: string
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/assess" className="flex-1">
-                <Button className="w-full rounded-xl">
-                  Back to Reflections
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
+              {(() => {
+                const allSlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+                let count = 0
+                try { count = allSlugs.filter(s => localStorage.getItem(`mindful-mama-pathway-result-${s}`) !== null).length } catch {}
+                if (count >= 12) {
+                  return (
+                    <Link href="/dashboard/me" className="flex-1">
+                      <Button className="w-full rounded-xl">
+                        View Your Portrait + Archetype
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </Link>
+                  )
+                }
+                return (
+                  <Link href="/assess" className="flex-1">
+                    <Button className="w-full rounded-xl">
+                      Back to Reflections
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                )
+              })()}
               <Link href="/dashboard/coach" className="flex-1">
                 <Button variant="outline" className="w-full rounded-xl">
                   Talk to Coach

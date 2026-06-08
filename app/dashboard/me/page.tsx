@@ -69,7 +69,7 @@ export default function MePage() {
     } catch {}
 
     arch = getCurrentArchetype()
-    // Don't calculate from snapshot alone — requires all 12 reflections
+    // If all 12 reflections complete but no archetype yet, we'll trigger AI determination
     setArchetype(arch)
     setHistory(getArchetypeHistory())
 
@@ -201,6 +201,8 @@ export default function MePage() {
       {/* Archetype — only shows when all 12 reflections complete */}
       {reflectionsCompleted >= 12 && archetype ? (
         <ArchetypeCard archetype={archetype} showFull />
+      ) : reflectionsCompleted >= 12 && !archetype && patternMap ? (
+        <GenerateArchetypeSection patternMap={patternMap} onGenerated={(a) => setArchetype(a)} />
       ) : (
         <div className="bg-card rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-3 mb-4">
@@ -518,6 +520,71 @@ export default function MePage() {
       </p>
     </div>
   )
+}
+
+function GenerateArchetypeSection({ patternMap, onGenerated }: { patternMap: PatternMap; onGenerated: (a: Archetype) => void }) {
+  const [loading, setLoading] = useState(false)
+  const [reasoning, setReasoning] = useState<string | null>(null)
+
+  const generate = async () => {
+    setLoading(true)
+    try {
+      const allSlugs = ["executive-function", "depletion-burnout", "sensory-overwhelm", "hormonal-patterns", "sleep-recovery", "trauma-nervous-system", "systemic-load", "attachment-relationships", "self-worth-inner-critic", "rage-emotional-dysregulation", "matrescence-identity", "social-connection-isolation"]
+      const pathwayAnswers: Record<string, any> = {}
+      for (const slug of allSlugs) {
+        try {
+          const answers = localStorage.getItem(`mindful-mama-pathway-answers-${slug}`)
+          if (answers) pathwayAnswers[slug] = JSON.parse(answers)
+        } catch {}
+      }
+
+      const coachMemory = getCoachMemory()
+      const allWins = getAllWins()
+      const recentWins = allWins.slice(-7).flatMap(d => d.wins.map(w => w.text)).slice(-10)
+      const allHeavy = getAllHeavy()
+      const recentHeavy = allHeavy.slice(-5).map((e: { text: string }) => e.text)
+
+      const response = await fetch("/api/coach/archetype", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dimensions: patternMap.dimensions.map(d => ({ label: d.label, intensity: d.intensity, score: d.score, maxScore: d.maxScore })),
+          pathwayAnswers,
+          coachMemory,
+          recentWins,
+          recentHeavy,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.archetypeId && ARCHETYPES[data.archetypeId]) {
+          const arch = ARCHETYPES[data.archetypeId]
+          saveArchetype(arch)
+          onGenerated(arch)
+          if (data.reasoning) setReasoning(data.reasoning)
+        }
+      }
+    } catch {}
+    setLoading(false)
+  }
+
+  // Auto-generate on mount
+  useEffect(() => {
+    generate()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="bg-gradient-to-br from-primary/5 to-indigo-500/5 rounded-2xl p-8 border border-primary/15 text-center">
+        <Loader2 className="w-6 h-6 text-primary mx-auto mb-3 animate-spin" />
+        <p className="text-sm font-medium text-foreground mb-1">Determining your archetype...</p>
+        <p className="text-xs text-muted-foreground">Analysing all 12 reflections, your patterns, and your daily data.</p>
+      </div>
+    )
+  }
+
+  return null
 }
 
 function ProgressiveInsight({ reflectionsCompleted, patternMap }: { reflectionsCompleted: number; patternMap: PatternMap | null }) {
