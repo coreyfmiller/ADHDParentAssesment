@@ -53,7 +53,7 @@ const deepDives = [
   },
   {
     slug: "your-body-after-kids",
-    image: "/images/silhouette2.png",
+    image: "/images/body.png",
     title: "Your Body After Kids",
     description: "The disconnect, the pain, being touched out — and the slow work of coming home to a body that's been through a war.",
   },
