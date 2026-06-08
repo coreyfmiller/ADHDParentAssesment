@@ -45,6 +45,30 @@ const deepDives = [
     title: "Holiday Season Without Burnout",
     description: "Gift buying, event scheduling, family gatherings, and the emotional labor of making magic for everyone else.",
   },
+  {
+    slug: "navigating-rage",
+    image: "/images/hands2.png",
+    title: "Navigating Rage",
+    description: "The fury that terrifies you. Where it comes from, what it means, and what to do when you feel like you're going to explode.",
+  },
+  {
+    slug: "your-body-after-kids",
+    image: "/images/circle2.png",
+    title: "Your Body After Kids",
+    description: "The disconnect, the pain, being touched out — and the slow work of coming home to a body that's been through a war.",
+  },
+  {
+    slug: "overwhelm-spiral",
+    image: "/images/moon2.png",
+    title: "The Overwhelm Spiral",
+    description: "What's happening in your brain when everything stacks, why you can't 'just prioritise,' and how to find the floor.",
+  },
+  {
+    slug: "burnout-recovery",
+    image: "/images/silhouette2.png",
+    title: "Burnout & Recovery",
+    description: "When depletion becomes burnout. What recovery actually requires — because it's not a weekend off.",
+  },
 ]
 
 export default function GuidesPage() {
