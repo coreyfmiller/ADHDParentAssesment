@@ -17,7 +17,7 @@ export default function HolidayGuide() {
           <h1 className="text-2xl md:text-3xl font-medium text-foreground">Holiday Season Without Burnout</h1>
         </div>
         <p className="text-muted-foreground">
-          The emotional labor of making magic for everyone else — and how to survive December with your sanity intact.
+          The emotional labour of making magic for everyone else — and how to arrive at January with something left.
         </p>
       </div>
 
@@ -48,7 +48,34 @@ export default function HolidayGuide() {
               <li>&bull; 😐 = obligation that no one would miss if it disappeared</li>
               <li>&bull; 😰 = actively drains me or causes stress</li>
             </ul>
-            <p><strong className="text-foreground">Drop everything marked 😐 or 😰.</strong> Not &quot;do them with less effort.&quot; Drop them entirely. The world will not end. Your children will not be traumatized. You will arrive at January with something left.</p>
+            <p><strong className="text-foreground">Drop everything marked 😐 or 😰.</strong> Not &quot;do them with less effort.&quot; Drop them entirely. The world will not end. Your children will not be traumatised. You will arrive at January with something left.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-card rounded-2xl p-6 md:p-8 border border-border">
+        <h2 className="text-xl font-medium text-foreground mb-4">The Financial Pressure Nobody Names</h2>
+        <div className="space-y-4 text-foreground/80 leading-relaxed">
+          <p>
+            Holidays are expensive. And the financial pressure compounds every other stressor — because money anxiety uses the same cognitive resources as decision-making, planning, and emotional regulation. You&apos;re not just spending money. You&apos;re spending executive function you don&apos;t have.
+          </p>
+          <p>
+            The shame is layered: you can&apos;t afford the gifts they &quot;should&quot; get. You can&apos;t match what other families do. You feel guilty about the credit card bill. And the cultural message — &quot;it&apos;s the most wonderful time of the year&quot; — makes financial stress feel like personal failure rather than systemic reality.
+          </p>
+          <h3 className="text-lg font-medium text-foreground mt-4 mb-3">What helps:</h3>
+          <div className="space-y-3">
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Set the number BEFORE the feelings hit</p>
+              <p className="text-sm">Decide your total holiday budget when you&apos;re calm, not when you&apos;re in a shop feeling guilty. Write it down. Divide it by recipients. That number is the ceiling. Not a target — a ceiling.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Presence over presents (not a platitude — research)</p>
+              <p className="text-sm">Studies on children&apos;s holiday memories consistently show they remember experiences (baking together, watching a film, staying up late) more than objects. One meaningful experience costs less and lasts longer than ten gifts they&apos;ll forget by February.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Name it to your partner</p>
+              <p className="text-sm">If financial stress is amplifying your overwhelm: say it out loud. &quot;The money pressure of December is making everything harder for me. I need us to agree on a realistic plan together.&quot; Shame thrives in silence. Naming it breaks the cycle.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -58,16 +85,16 @@ export default function HolidayGuide() {
         <div className="space-y-4 text-foreground/80 leading-relaxed">
           <div className="space-y-3">
             <div className="bg-secondary/20 rounded-xl p-4">
-              <p className="font-medium text-foreground mb-1">The One-Day Rule</p>
-              <p className="text-sm">All gift buying happens in ONE session. Online. With a list made in advance. Not spread across 6 weeks of &quot;I should probably start thinking about...&quot; One focused session. Done. Wrapped (or gift-bagged — wrapping is optional).</p>
+              <p className="font-medium text-foreground mb-1">The One-Session Rule</p>
+              <p className="text-sm">All gift buying happens in ONE session. Online. With a list made in advance. Not spread across 6 weeks of &quot;I should probably start thinking about...&quot; One focused session. Done. Gift-bagged (wrapping is optional).</p>
             </div>
             <div className="bg-secondary/20 rounded-xl p-4">
               <p className="font-medium text-foreground mb-1">The Category System</p>
-              <p className="text-sm">Everyone gets the same categories: something to wear, something to read, something to do, something they need. Four gifts per person. No agonizing over the &quot;perfect&quot; thing. Categories remove the decision paralysis.</p>
+              <p className="text-sm">Everyone gets the same categories: something to wear, something to read, something to do, something they need. Four gifts per person. No agonising over the &quot;perfect&quot; thing. Categories remove the decision paralysis.</p>
             </div>
             <div className="bg-secondary/20 rounded-xl p-4">
               <p className="font-medium text-foreground mb-1">The &quot;Good Enough Gift&quot; Permission</p>
-              <p className="text-sm">A gift card is a gift. A donation in someone&apos;s name is a gift. A consumable (nice soap, fancy chocolate, a candle) is a gift. You do not need to find meaningful, personalized, Instagram-worthy presents for 15 people. That expectation was invented by people with more time and fewer children.</p>
+              <p className="text-sm">A gift card is a gift. A donation in someone&apos;s name is a gift. A consumable (nice soap, chocolate, a candle) is a gift. You do not need meaningful, personalised, Instagram-worthy presents for 15 people.</p>
             </div>
           </div>
         </div>
@@ -76,19 +103,19 @@ export default function HolidayGuide() {
       <section className="bg-card rounded-2xl p-6 md:p-8 border border-border">
         <h2 className="text-xl font-medium text-foreground mb-4">Surviving Family Gatherings</h2>
         <div className="space-y-4 text-foreground/80 leading-relaxed">
-          <p>Family events combine every trigger: sensory overload, social performance, old family dynamics, disrupted routines for kids, and the pressure to appear happy and grateful.</p>
+          <p>Family events combine every trigger: sensory overload, social performance, old family dynamics, disrupted routines for children, and the pressure to appear happy and grateful.</p>
           <div className="space-y-3">
             <div className="bg-secondary/20 rounded-xl p-4">
               <p className="font-medium text-foreground mb-1">Set a departure time BEFORE you arrive</p>
-              <p className="text-sm">Agree with your partner: &quot;We&apos;re leaving at 3pm regardless.&quot; Having an exit plan reduces the anxiety of being trapped. You can always stay longer if you&apos;re enjoying it — but the boundary exists.</p>
+              <p className="text-sm">Agree with your partner (or decide for yourself): &quot;We&apos;re leaving at 3pm regardless.&quot; Having an exit plan reduces the anxiety of being trapped. You can always stay longer — but the boundary exists.</p>
             </div>
             <div className="bg-secondary/20 rounded-xl p-4">
               <p className="font-medium text-foreground mb-1">Build in escape valves</p>
-              <p className="text-sm">Every 45-60 minutes, take a break: bathroom, step outside, check on the kids in another room. Brief sensory resets prevent the cumulative crash. You don&apos;t need to announce it. Just disappear for 3 minutes.</p>
+              <p className="text-sm">Every 45-60 minutes, take a break: bathroom, step outside, check on children in another room. Brief sensory resets prevent the cumulative crash. You don&apos;t need to announce it.</p>
             </div>
             <div className="bg-secondary/20 rounded-xl p-4">
               <p className="font-medium text-foreground mb-1">Prepare for the comments</p>
-              <p className="text-sm">If family members comment on your parenting, your house, your weight, your career, or your children&apos;s behavior — have a response ready: &quot;We&apos;re doing what works for our family.&quot; Repeat as needed. You don&apos;t owe explanations.</p>
+              <p className="text-sm">If family members comment on your parenting, your house, your weight, your career, or your children&apos;s behaviour — have a response ready: &quot;We&apos;re doing what works for our family.&quot; Repeat as needed. You don&apos;t owe explanations.</p>
             </div>
             <div className="bg-secondary/20 rounded-xl p-4">
               <p className="font-medium text-foreground mb-1">The recovery day</p>
@@ -99,10 +126,37 @@ export default function HolidayGuide() {
       </section>
 
       <section className="bg-card rounded-2xl p-6 md:p-8 border border-border">
+        <h2 className="text-xl font-medium text-foreground mb-4">When Holidays Carry Grief</h2>
+        <div className="space-y-4 text-foreground/80 leading-relaxed">
+          <p>
+            Not everyone dreads holidays because of overwhelm. Some dread them because of loss. A parent who died. A relationship that ended. A baby you lost. A family that rejected you. A childhood where holidays weren&apos;t safe.
+          </p>
+          <p>
+            The cultural demand that everyone be happy and grateful during the holidays is especially cruel when you&apos;re carrying grief. You&apos;re expected to perform joy while managing pain — and the gap between those two things is exhausting in a way that nobody around you sees.
+          </p>
+          <h3 className="text-lg font-medium text-foreground mt-4 mb-3">What helps when holidays = grief:</h3>
+          <div className="space-y-3">
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Name it to yourself</p>
+              <p className="text-sm">&quot;This time of year is hard because ___. I&apos;m allowed to feel that. I don&apos;t have to pretend it&apos;s fine.&quot; Just acknowledging the grief internally — without needing anyone else to validate it — can reduce its weight.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Create one small ritual of acknowledgment</p>
+              <p className="text-sm">Light a candle for who&apos;s missing. Write them a letter you don&apos;t send. Set a place at the table. Or simply say their name. Grief needs a container. Even a tiny one.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Give yourself permission to opt out</p>
+              <p className="text-sm">You don&apos;t have to attend the gathering that triggers your grief. You don&apos;t have to explain why. &quot;We&apos;re doing something different this year&quot; is a complete sentence.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-card rounded-2xl p-6 md:p-8 border border-border">
         <h2 className="text-xl font-medium text-foreground mb-4">The &quot;Magic&quot; Myth</h2>
         <div className="space-y-4 text-foreground/80 leading-relaxed">
           <p>
-            Somewhere along the way, mothers became responsible for manufacturing holiday magic. The elf, the advent calendar, the matching pajamas, the cookie decorating, the handmade ornaments, the perfectly styled tree, the photo card, the teacher gifts, the class party contribution.
+            Somewhere along the way, mothers became responsible for manufacturing holiday magic. The elf, the advent calendar, the matching pyjamas, the cookie decorating, the handmade ornaments, the perfectly styled tree, the photo card, the teacher gifts, the class party contribution.
           </p>
           <p>
             Here&apos;s what your children will actually remember: whether you were present or stressed. Whether the season felt warm or frantic. Whether you were enjoying it or performing it.
@@ -118,8 +172,54 @@ export default function HolidayGuide() {
         </div>
       </section>
 
+      <section className="bg-card rounded-2xl p-6 md:p-8 border border-border">
+        <h2 className="text-xl font-medium text-foreground mb-4">The January Crash</h2>
+        <div className="space-y-4 text-foreground/80 leading-relaxed">
+          <p>
+            Nobody warns you about January. The decorations come down. The routine doesn&apos;t exist yet. The credit card bill arrives. The darkness and cold continue. And the adrenaline that carried you through December — the urgency, the performance energy, the &quot;just get through it&quot; fuel — suddenly withdraws. What&apos;s left is emptiness.
+          </p>
+          <p>
+            Post-holiday low mood is common, documented, and not a personal failing. It&apos;s what happens when your nervous system drops from chronic activation to nothing. The crash is the bill for running on emergency fuel for a month.
+          </p>
+          <h3 className="text-lg font-medium text-foreground mt-4 mb-3">Preparing for January (while it&apos;s still December):</h3>
+          <div className="space-y-3">
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Keep one thing to look forward to</p>
+              <p className="text-sm">Plan one small thing for January that has nothing to do with recovery or productivity. A film you want to see. A book saved for that month. A single outing. Your brain needs a future anchor.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Don&apos;t rebuild everything at once</p>
+              <p className="text-sm">January doesn&apos;t need a &quot;fresh start.&quot; It needs gentle re-entry. Routine rebuilds one piece at a time. Not a New Year overhaul. Just: what&apos;s the one thing that helps most? Start there.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Expect the low</p>
+              <p className="text-sm">If you know January will be hard, you can plan for it instead of being ambushed by it. Lower your expectations for the first two weeks. Tell your partner: &quot;I always crash in January. I&apos;ll need extra support.&quot; Naming it reduces its power.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-card rounded-2xl p-6 md:p-8 border border-border">
+        <h2 className="text-xl font-medium text-foreground mb-4">If You&apos;re Navigating This Across Two Homes</h2>
+        <div className="space-y-4 text-foreground/80 leading-relaxed">
+          <p>
+            Co-parenting through the holidays adds a unique layer: scheduling negotiations, the guilt of not being with your children on &quot;the day,&quot; managing different traditions in different households, and the emotional weight of watching them leave.
+          </p>
+          <div className="space-y-3">
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">The day doesn&apos;t have to be THE day</p>
+              <p className="text-sm">Christmas magic doesn&apos;t expire on December 26th. Your celebration can be December 23rd or December 27th and it&apos;s still real. Children adapt to &quot;our Christmas is on Saturday&quot; faster than adults think. Give yourself permission to redefine when.</p>
+            </div>
+            <div className="bg-secondary/20 rounded-xl p-4">
+              <p className="font-medium text-foreground mb-1">Have a plan for the empty house</p>
+              <p className="text-sm">If your children are with the other parent on a holiday: have a plan. Not a busy plan — a comforting one. A friend to call. A film. A meal you love. Don&apos;t leave empty time unplanned when grief might fill it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <p className="text-sm text-muted-foreground/70 text-center leading-relaxed">
-        This guide is for educational and self-reflection purposes only.
+        This guide is for educational and self-reflection purposes only. It is not a substitute for professional mental health care. If you are in crisis, contact 988 (Suicide &amp; Crisis Lifeline) or your local emergency services.
       </p>
     </div>
   )
